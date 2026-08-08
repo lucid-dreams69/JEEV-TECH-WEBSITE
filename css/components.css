@@ -736,9 +736,12 @@ button.prominent-link {
   opacity: 0;
 }
 
-.js .signature.arrived .signature__label,
-.js .signature.arrived .signature__line {
+.js .signature.arrived .signature__label {
   animation: sigFade 700ms var(--ease-out) 1150ms forwards;
+}
+
+.js .signature.arrived .signature__line {
+  animation: sigFade 700ms var(--ease-out) 1550ms forwards;
 }
 
 @keyframes sigFade {
