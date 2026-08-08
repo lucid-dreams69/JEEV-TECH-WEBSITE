@@ -1,0 +1,20 @@
+# Files that live in the repo but must never be served.
+# Anything in the project root is public by default on a static host — the
+# brand constitution and the build brief would both have been downloadable
+# at the domain without this.
+
+JEEV_TECH_Brand_Constitution_v5.docx
+JEEV_TECH_Website_Build_Brief.md
+.claude/
+_backup/
+
+# Raw generation originals kept for reference, not for serving.
+img/flow/
+
+# Unreferenced since the Servizo hero became an SVG diagram. Kept locally in
+# case it is wanted again; not worth 125KB on the deploy.
+img/servizo-doors.jpg
+
+# The full TTFs are the source for regenerating img/og-image.png. The site
+# itself only loads the subset woff2 files.
+fonts/*.ttf

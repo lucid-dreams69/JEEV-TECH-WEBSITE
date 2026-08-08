@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engineering — JEEV TECH</title>
+  <meta name="description" content="How JEEV TECH builds: first principles, systems thinking, long-term design, reliability, simplicity, documentation, and human-centred decisions.">
+  <!-- Canonical host is www.jeevtech.in. The apex must 301-redirect to it or these become split URLs. -->
+  <link rel="canonical" href="https://www.jeevtech.in/engineering.html">
+  <meta name="theme-color" content="#F7F7F5">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="JEEV TECH">
+  <meta property="og:title" content="Engineering — JEEV TECH">
+  <meta property="og:description" content="How JEEV TECH builds: first principles, systems thinking, long-term design, reliability, simplicity, documentation, and human-centred decisions.">
+  <meta property="og:url" content="https://www.jeevtech.in/engineering.html">
+  <meta property="og:image" content="https://www.jeevtech.in/img/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="JEEV TECH — Engineering human-centric technologies that advance civilization.">
+  <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[{"@type":"WebPage","name":"Engineering","description":"The engineering practices JEEV TECH builds by."},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.jeevtech.in/"},{"@type":"ListItem","position":2,"name":"Engineering","item":"https://www.jeevtech.in/engineering.html"}]}]}
+  </script>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/newsreader-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/sourceserif4-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/diagram.css">
+  <link rel="stylesheet" href="css/signature.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="site-header__inner">
+      <a href="index.html" class="wordmark" aria-label="JEEV TECH home">JEEV TECH</a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav" id="menu-toggle">
+        <span class="menu-toggle__icon" aria-hidden="true"></span>
+      </button>
+      <nav class="site-nav" id="site-nav" role="navigation" aria-label="Main navigation">
+        <a href="principles.html" class="site-nav__link">Principles</a>
+        <a href="servizo.html" class="site-nav__link">Servizo</a>
+        <a href="research.html" class="site-nav__link">Research</a>
+        <a href="engineering.html" class="site-nav__link site-nav__link--active" aria-current="page">Engineering</a>
+        <a href="notes.html" class="site-nav__link">Notes</a>
+        <a href="about.html" class="site-nav__link">About</a>
+        <a href="contact.html" class="site-nav__link">Contact</a>
+      </nav>
+      <div class="nav-overlay" id="nav-overlay" aria-hidden="true"></div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="page">
+
+      <div class="page-header">
+        <div class="page-header__aside">
+          <div class="page-header__mark"><svg class="page-mark" viewBox="0 0 26 26" role="img" aria-label="A branching gate"><path d="M8 3 V23" /><path d="M8 12 H19 V19" /></svg></div>
+          <p class="eyebrow">How we build</p>
+        </div>
+        <div class="page-header__body">
+          <h1>Engineering</h1>
+          <p class="page-lede">The process work moves through, and what has to be true before it starts.</p>
+        </div>
+      </div>
+
+      <div class="page-content">
+
+        <section class="section" aria-labelledby="eng-process">
+          <p class="section__label">Process</p>
+          <div class="section__body section__body--wide">
+            <h2 id="eng-process" class="section__heading">How work moves</h2>
+            <p>
+              Every piece of work follows the same path. The order matters more than any single step: most engineering
+              failures come from designing before the root cause is understood, or building before the design has been
+              reviewed.
+            </p>
+            <p>
+              Each stage names the practice that governs it, and links to it. The practices are written as rules that
+              can be applied or broken on a given day, not as values.
+            </p>
+
+            <figure class="diagram">
+              <div class="diagram__frame">
+                <svg class="dg-wide" viewBox="0 0 640 502" role="img" aria-labelledby="dg-flow-t dg-flow-d">
+                  <title id="dg-flow-t">The engineering workflow</title>
+                  <desc id="dg-flow-d">Nine stages in sequence: problem, understand the system, find the root cause,
+                    design, review, build, validate, document, improve. Each stage names the practice that governs it.</desc>
+
+                  <path class="dg-line dg-draw" d="M120 46 L120 462" />
+
+                  <g class="dg-step" style="--i:0">
+                    <circle class="dg-dot" cx="120" cy="46" r="4.5" />
+                    <text class="dg-stage__name" x="148" y="51">Problem</text>
+                    <text class="dg-note" x="612" y="51" text-anchor="end">A real constraint, not a feature request</text>
+                  </g>
+                  <a href="#p-systems" class="dg-stage dg-step" style="--i:1">
+                    <circle class="dg-dot" cx="120" cy="98" r="4.5" />
+                    <text class="dg-stage__name" x="148" y="103">Understand the system</text>
+                    <text class="dg-note" x="612" y="103" text-anchor="end">Systems thinking</text>
+                  </a>
+                  <a href="#p-first" class="dg-stage dg-step" style="--i:2">
+                    <circle class="dg-dot" cx="120" cy="150" r="4.5" />
+                    <text class="dg-stage__name" x="148" y="155">Find the root cause</text>
+                    <text class="dg-note" x="612" y="155" text-anchor="end">First principles</text>
+                  </a>
+                  <a href="#p-longterm" class="dg-stage dg-step" style="--i:3">
+                    <circle class="dg-dot" cx="120" cy="202" r="4.5" />
+                    <text class="dg-stage__name" x="148" y="207">Design</text>
+                    <text class="dg-note" x="612" y="207" text-anchor="end">Long-term design, simplicity</text>
+                  </a>
+                  <a href="#eng-gate" class="dg-stage dg-step" style="--i:4">
+                    <circle class="dg-dot" cx="120" cy="254" r="4.5" />
+                    <text class="dg-stage__name" x="148" y="259">Review</text>
+                    <text class="dg-note" x="612" y="259" text-anchor="end">Three questions</text>
+                  </a>
+                  <a href="#p-reliability" class="dg-stage dg-step" style="--i:5">
+                    <circle class="dg-dot" cx="120" cy="306" r="4.5" />
+                    <text class="dg-stage__name" x="148" y="311">Build</text>
+                    <text class="dg-note" x="612" y="311" text-anchor="end">Reliability</text>
+                  </a>
+                  <a href="#p-human" class="dg-stage dg-step" style="--i:6">
+                    <circle class="dg-dot" cx="120" cy="358" r="4.5" />
+                    <text class="dg-stage__name" x="148" y="363">Validate</text>
+                    <text class="dg-note" x="612" y="363" text-anchor="end">Human-centred decisions</text>
+                  </a>
+                  <a href="#p-docs" class="dg-stage dg-step" style="--i:7">
+                    <circle class="dg-dot" cx="120" cy="410" r="4.5" />
+                    <text class="dg-stage__name" x="148" y="415">Document</text>
+                    <text class="dg-note" x="612" y="415" text-anchor="end">Documentation</text>
+                  </a>
+                  <a href="#eng-process" class="dg-stage dg-step" style="--i:8">
+                    <circle class="dg-dot" cx="120" cy="462" r="4.5" />
+                    <text class="dg-stage__name" x="148" y="467">Improve</text>
+                    <text class="dg-note" x="612" y="467" text-anchor="end">Carrying back what the last pass proved wrong</text>
+                  </a>
+                </svg>
+<svg class="dg-narrow" viewBox="0 0 320 590" role="img" aria-labelledby="dg-flow-mt dg-flow-md">
+                  <title id="dg-flow-mt">The engineering workflow</title>
+                  <desc id="dg-flow-md">Nine stages in sequence: problem, understand the system, find the root
+                    cause, design, review, build, validate, document, improve. Each stage names the practice that
+                    governs it.</desc>
+                  <path class="dg-line dg-draw" d="M28 28 L28 556" />
+                  <g class="dg-step" style="--i:0">
+                    <circle class="dg-dot" cx="28" cy="28" r="4.5" />
+                    <text class="dg-stage__name" x="48" y="34">Problem</text>
+                    <text class="dg-note" x="48" y="54">A real constraint, not a request</text>
+                  </g>
+                  <a href="#p-systems" class="dg-stage dg-step" style="--i:1">
+                    <circle class="dg-dot" cx="28" cy="94" r="4.5" />
+                    <text class="dg-stage__name" x="48" y="100">Understand the system</text>
+                    <text class="dg-note" x="48" y="120">Systems thinking</text>
+                  </a>
+                  <a href="#p-first" class="dg-stage dg-step" style="--i:2">
+                    <circle class="dg-dot" cx="28" cy="160" r="4.5" />
+                    <text class="dg-stage__name" x="48" y="166">Find the root cause</text>
+                    <text class="dg-note" x="48" y="186">First principles</text>
+                  </a>
+                  <a href="#p-longterm" class="dg-stage dg-step" style="--i:3">
+                    <circle class="dg-dot" cx="28" cy="226" r="4.5" />
+                    <text class="dg-stage__name" x="48" y="232">Design</text>
+                    <text class="dg-note" x="48" y="252">Long-term design, simplicity</text>
+                  </a>
+                  <a href="#eng-gate" class="dg-stage dg-step" style="--i:4">
+                    <circle class="dg-dot" cx="28" cy="292" r="4.5" />
+                    <text class="dg-stage__name" x="48" y="298">Review</text>
+                    <text class="dg-note" x="48" y="318">Three questions</text>
+                  </a>
+                  <a href="#p-reliability" class="dg-stage dg-step" style="--i:5">
+                    <circle class="dg-dot" cx="28" cy="358" r="4.5" />
+                    <text class="dg-stage__name" x="48" y="364">Build</text>
+                    <text class="dg-note" x="48" y="384">Reliability</text>
+                  </a>
+                  <a href="#p-human" class="dg-stage dg-step" style="--i:6">
+                    <circle class="dg-dot" cx="28" cy="424" r="4.5" />
+                    <text class="dg-stage__name" x="48" y="430">Validate</text>
+                    <text class="dg-note" x="48" y="450">Human-centred decisions</text>
+                  </a>
+                  <a href="#p-docs" class="dg-stage dg-step" style="--i:7">
+                    <circle class="dg-dot" cx="28" cy="490" r="4.5" />
+                    <text class="dg-stage__name" x="48" y="496">Document</text>
+                    <text class="dg-note" x="48" y="516">Documentation</text>
+                  </a>
+                  <a href="#eng-process" class="dg-stage dg-step" style="--i:8">
+                    <circle class="dg-dot" cx="28" cy="556" r="4.5" />
+                    <text class="dg-stage__name" x="48" y="562">Improve</text>
+                    <text class="dg-note" x="48" y="582">Carrying back what was proved wrong</text>
+                  </a>
+                </svg>
+              </div>
+              <figcaption>
+                The loop is the point. Each pass starts from what the last one proved, not from where it stopped.
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="eng-gate">
+          <p class="section__label">Review</p>
+          <div class="section__body section__body--wide">
+            <h2 id="eng-gate" class="section__heading">What Review means</h2>
+            <p>
+              Review is not a sign-off meeting. Before anything gets built, three questions get asked, in order.
+              Nothing more.
+            </p>
+
+            <figure class="diagram">
+              <div class="diagram__frame">
+                <svg class="dg-wide" viewBox="0 0 640 345" role="img" aria-labelledby="dg-gate-t dg-gate-d">
+                  <title id="dg-gate-t">The three questions asked at review</title>
+                  <desc id="dg-gate-d">Three questions in sequence before building, each with what it means in
+                    practice. One: are we solving a real problem — a constraint someone actually hit, not a feature
+                    someone asked for. Two: do we understand it well enough to act — the cause, not the symptom it
+                    produced. Three: will this leave people more capable without taking away their control — they can
+                    see what it does, and they can still change course. Work that answers yes to all three is
+                    built.</desc>
+
+                  <path class="dg-line dg-line--heavy dg-draw" d="M128 44 L128 314" />
+
+                  <g class="dg-step" style="--i:0">
+                    <circle class="dg-dot" cx="128" cy="44" r="5" />
+                    <text class="dg-label" x="106" y="50" text-anchor="end">1</text>
+                    <text class="dg-title" x="152" y="50">Are we solving a real problem?</text>
+                    <text class="dg-note" x="152" y="74">A constraint someone actually hit, not a feature someone asked for</text>
+                  </g>
+
+                  <g class="dg-step" style="--i:1">
+                    <circle class="dg-dot" cx="128" cy="124" r="5" />
+                    <text class="dg-label" x="106" y="130" text-anchor="end">2</text>
+                    <text class="dg-title" x="152" y="130">Do we understand it well enough to act?</text>
+                    <text class="dg-note" x="152" y="154">The cause, not the symptom it produced</text>
+                  </g>
+
+                  <g class="dg-step" style="--i:2">
+                    <circle class="dg-dot" cx="128" cy="204" r="5" />
+                    <text class="dg-label" x="106" y="210" text-anchor="end">3</text>
+                    <text class="dg-title" x="152" y="210">Will this leave people more capable,</text>
+                    <text class="dg-title" x="152" y="236">without taking away their control?</text>
+                    <text class="dg-note" x="152" y="260">They can see what it does, and they can still change course</text>
+                  </g>
+
+                  <g class="dg-step" style="--i:3">
+                    <circle class="dg-dot dg-dot--accent" cx="128" cy="314" r="6" />
+                    <text class="dg-title" x="152" y="320">Build</text>
+                  </g>
+                </svg>
+<svg class="dg-narrow" viewBox="0 0 320 360" role="img" aria-labelledby="dg-egate-mt dg-egate-md">
+                  <title id="dg-egate-mt">The three questions asked at review</title>
+                  <desc id="dg-egate-md">Three questions in sequence before building, each with what it means in
+                    practice. Work that answers yes to all three is built.</desc>
+                  <g class="dg-step" style="--i:0">
+                    <text class="dg-label dg-label--ink" x="16" y="22">1</text>
+                    <text class="dg-title" x="16" y="48">Are we solving a real problem?</text>
+                    <text class="dg-note" x="16" y="70">A constraint someone actually hit,</text>
+                    <text class="dg-note" x="16" y="88">not a feature someone asked for</text>
+                  </g>
+                  <g class="dg-step" style="--i:1">
+                    <text class="dg-label dg-label--ink" x="16" y="136">2</text>
+                    <text class="dg-title" x="16" y="162">Do we understand it well</text>
+                    <text class="dg-title" x="16" y="186">enough to act?</text>
+                    <text class="dg-note" x="16" y="208">The cause, not the symptom</text>
+                  </g>
+                  <g class="dg-step" style="--i:2">
+                    <text class="dg-label dg-label--ink" x="16" y="256">3</text>
+                    <text class="dg-title" x="16" y="282">Will this leave people more</text>
+                    <text class="dg-title" x="16" y="306">capable, and in control?</text>
+                    <text class="dg-note" x="16" y="328">They can see what it does, and</text>
+                    <text class="dg-note" x="16" y="346">they can still change course</text>
+                  </g>
+                </svg>
+              </div>
+              <figcaption>
+                A no to the first ends the work. A no to the second or third sends it back to design.
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="eng-practices">
+          <p class="section__label">Practice</p>
+          <div class="section__body">
+            <h2 id="eng-practices" class="section__heading">Seven practices, in five phases</h2>
+            <p>
+              Each practice governs a stage of the process above. Each is written as a test — something that can be
+              checked against a specific decision, and that can be failed.
+            </p>
+
+            <p class="phase-label">Understand</p>
+            <ul class="areas">
+              <li class="areas__item" id="p-systems">
+                <p class="areas__name">Systems thinking<span class="areas__tag">Governs: understand the system</span></p>
+                <p class="areas__note">
+                  The unit of work is the system a change lands in, not the change itself. Before altering anything we
+                  establish what depends on it and what it depends on. The test: if a change requires a diagram to
+                  explain its consequences, the diagram gets drawn before the change gets made.
+              </p>
+              </li>
+              <li class="areas__item" id="p-first">
+                <p class="areas__name">First principles<span class="areas__tag">Governs: find the root cause</span></p>
+                <p class="areas__note">
+                  Before deciding whether to keep a system, establish why it exists and how it actually works — not how
+                  it is described. Inherited designs carry assumptions that were true once. The test: state the
+                  original constraint that produced the design, and check whether it still holds.
+              </p>
+              </li>
+            </ul>
+
+            <p class="phase-label">Design</p>
+            <ul class="areas">
+              <li class="areas__item" id="p-longterm">
+                <p class="areas__name">Long-term design<span class="areas__tag">Governs: design</span></p>
+                <p class="areas__note">
+                  Some decisions are cheap to change later and some are not, and the two deserve different amounts of
+                  argument. A feature can be withdrawn next quarter. A data model, a public interface, or anything
+                  holding a person&#8217;s records will still be there in ten years, and every later decision gets built
+                  on top of it. The test: before committing, ask what it would take to undo this &mdash; and let the
+                  answer set how much evidence you need first.
+              </p>
+              </li>
+              <li class="areas__item" id="p-simplicity">
+                <p class="areas__name">Simplicity<span class="areas__tag">Governs: design</span></p>
+                <p class="areas__note">
+                  The smallest system that solves the problem is the one most likely to still be understood in five
+                  years, so complexity has to be argued for rather than assumed. The test: if a new component cannot be
+                  justified by a requirement that already exists, it does not get built yet.
+              </p>
+              </li>
+            </ul>
+
+            <p class="phase-label">Deliver</p>
+            <ul class="areas">
+              <li class="areas__item" id="p-reliability">
+                <p class="areas__name">Reliability<span class="areas__tag">Governs: build</span></p>
+                <p class="areas__note">
+                  People use this software to earn a living, so a failure costs them more than it costs us.
+                  Correctness comes before new features when the two compete for the same week. The test: severity is
+                  ranked by what a failure costs the person using the system, not by how loudly it is reported or how
+                  awkward it is for us to reach.
+              </p>
+              </li>
+            </ul>
+
+            <p class="phase-label">Preserve</p>
+            <ul class="areas">
+              <li class="areas__item" id="p-docs">
+                <p class="areas__name">Documentation<span class="areas__tag">Governs: document</span></p>
+                <p class="areas__note">
+                  Good engineering leaves a record. We write down what changed, why it changed, the alternatives
+                  considered, the evidence used, and what would make us reverse the decision. That last part is what
+                  makes a document useful two years later. The test: if we cannot explain our reasoning clearly, we
+                  probably have not understood it well enough ourselves. The <a href="notes.html">notes</a> are the
+                  public subset of this.
+              </p>
+              </li>
+            </ul>
+
+            <p class="phase-label">Evaluate</p>
+            <ul class="areas">
+              <li class="areas__item" id="p-human">
+                <p class="areas__name">Human-centred decisions<span class="areas__tag">Governs: validate</span></p>
+                <p class="areas__note">
+                  What gets measured determines what gets built, so the choice of number is a design decision and gets
+                  argued like one. The number we optimise is whether the person finished what they came to do &mdash;
+                  not how long they stayed or how often they returned. Time spent is a diagnostic here, never a target.
+                  The test: if a change improves our numbers by making someone need us more, say so out loud in review
+                  and justify it on its own merits.
+              </p>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="eng-site">
+          <p class="section__label">Evidence</p>
+          <div class="section__body">
+            <h2 id="eng-site" class="section__heading">This website, as an example</h2>
+            <p>
+              A company that argues against surveillance should not surveil the people reading the argument. This site
+              sets no non-essential cookies, carries no third-party trackers, no advertising pixels, and no analytics
+              that profile individuals. Fonts are self-hosted and subset rather than fetched from a third party, so no
+              outside service is told who visited.
+            </p>
+            <p>
+              It is also plain HTML and CSS with a few kilobytes of JavaScript, and no build step. Roughly one hundred
+              kilobytes a page. That is a small thing, but it is checkable, which is the point.
+            </p>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__brand">
+        <span class="site-footer__wordmark">JEEV TECH</span>
+        <span class="site-footer__tagline">Technology is the medium.<br>Human progress is the objective.</span>
+      </div>
+
+      <nav class="site-footer__nav" aria-label="Footer navigation">
+        <a href="principles.html">Principles</a>
+        <a href="servizo.html">Servizo</a>
+        <a href="research.html">Research directions</a>
+        <a href="engineering.html">Engineering</a>
+        <a href="notes.html">Notes</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
+
+      <div class="site-footer__contact">
+        <a href="mailto:contact@jeevtech.in">contact@jeevtech.in</a>
+        <a href="https://www.instagram.com/jeev.tech/" target="_blank" rel="noopener noreferrer">Instagram</a>
+      </div>
+
+      <p class="site-footer__meta">
+        &copy; 2025 JEEV TECH &middot; Incorporated in India
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>

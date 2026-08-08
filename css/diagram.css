@@ -1,0 +1,401 @@
+/* ==========================================================================
+   JEEV TECH — Diagram System
+
+   An institutional drawing language, not illustration. Every diagram on
+   this site must explain something the prose beside it asserts; if it
+   only decorates, it does not ship.
+
+   Rules of the system
+   - One weight for structure (1.5), one for emphasis (2), one for
+     secondary/inferred lines (1.5 dashed, --rule colour).
+   - Ink and rule only. The accent appears at most once per diagram, and
+     only to mark the thing the diagram is actually about.
+   - Labels are the utility face, uppercase, tracked. Titles are display.
+   - Geometry sits on a 20px grid. Nothing is placed by eye.
+   - Drawing animation only: lines draw, labels fade. Nothing moves,
+     rotates, bounces, or scales.
+   ========================================================================== */
+
+.diagram {
+  margin: var(--space-xl) 0;
+  max-width: var(--measure);
+}
+
+/* A diagram stays inside the text measure. A full-section breakout was tried
+   and reverted — at 1056px the drawings dominated the page they were meant to
+   explain. */
+
+/* A diagram used as a standalone page element, outside a .section grid, still
+   has to line up with the body column. .offset supplies that indent, but the
+   margin shorthand above loads later and would zero it. */
+.diagram.offset {
+  margin-left: var(--rail-offset);
+}
+
+/* Technical drawings are wide by nature; they scroll inside their own
+   box rather than forcing the page to. */
+.diagram__frame {
+  overflow-x: auto;
+  border-top: var(--border-rule);
+  border-bottom: var(--border-rule);
+  padding: var(--space-lg) 0;
+}
+
+.diagram svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Set by main.js only when the drawing actually overflows its frame, so the
+   hint never appears on a diagram that already fits. */
+.diagram.is-scrollable .diagram__frame::after {
+  content: "Scroll sideways for the rest of the drawing";
+  display: block;
+  position: sticky;
+  left: 0;
+  margin-top: var(--space-sm);
+  font-family: var(--font-utility);
+  font-size: var(--text-eyebrow);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.diagram figcaption {
+  margin-top: var(--space-sm);
+  font-family: var(--font-utility);
+  font-size: var(--text-eyebrow);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---- Primitives ---------------------------------------------------- */
+
+.dg-line {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.dg-line--heavy   { stroke-width: 2; }
+.dg-line--faint   { stroke: var(--rule); }
+.dg-line--dashed  { stroke: var(--rule); stroke-dasharray: 3 5; }
+.dg-line--accent  { stroke: var(--accent); }
+
+.dg-node {
+  fill: var(--ground);
+  stroke: var(--ink);
+  stroke-width: 1.5;
+}
+
+/* The one box a diagram is actually about carries the accent outline.
+   At most one per drawing. */
+.dg-node--accent { stroke: var(--accent); }
+
+.dg-dot        { fill: var(--ink); }
+.dg-dot--accent { fill: var(--accent); }
+
+/* Type inside a diagram is set in viewBox units, so its on-screen size is
+   (font-size x rendered width / viewBox width). Every diagram is 640 units
+   wide precisely so one declaration produces one size everywhere; a diagram
+   authored at a different viewBox width will silently render its labels at a
+   different size from its neighbours. */
+.dg-label {
+  font-family: var(--font-utility);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  fill: var(--muted);
+}
+
+.dg-label--ink { fill: var(--ink); }
+
+/* Ring labels sit inside narrow bands, so they drop the wide tracking.
+   12px was the smallest type in the system and rendered at 11.3px once the
+   tablet rail widened and left the drawing narrower — under the legibility
+   floor. The rings have margin to spare since they were enlarged, so the
+   label grows rather than the ring shrinking. */
+.dg-label--ring {
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+
+
+.dg-title {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 500;
+  fill: var(--ink);
+}
+
+.dg-note {
+  font-family: var(--font-utility);
+  font-size: 13px;
+  fill: var(--muted);
+}
+
+.dg-note--accent { fill: var(--accent); }
+
+/* ---- Workflow stages (clickable) ---- */
+
+.dg-stage__name {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 500;
+  fill: var(--ink);
+}
+
+.dg-stage {
+  cursor: pointer;
+}
+
+.dg-stage:hover .dg-stage__name,
+.dg-stage:focus-visible .dg-stage__name {
+  fill: var(--accent);
+}
+
+.dg-stage:hover .dg-dot,
+.dg-stage:focus-visible .dg-dot {
+  fill: var(--accent);
+}
+
+.dg-stage:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ---- Phase labels above grouped practices ---- */
+
+.phase-label {
+  font-family: var(--font-utility);
+  font-size: var(--text-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-sm);
+  padding-bottom: var(--space-xs);
+  border-bottom: var(--border-rule);
+}
+
+/* The linked practice briefly marks itself when jumped to */
+.areas__item:target .areas__name {
+  color: var(--accent);
+}
+
+/* ---- Page marks ----
+   Each page carries a small mark in its margin that is a miniature of that
+   page's own diagram — the open frame, the layers, the span, the gate.
+   It is an index, not an icon: nothing generic, nothing borrowed. */
+
+.page-mark {
+  display: block;
+  width: 24px;
+  height: 24px;
+  overflow: visible;
+}
+
+.page-mark path,
+.page-mark rect {
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.page-mark circle {
+  fill: var(--muted);
+}
+
+.page-header__mark,
+.rail__mark {
+  margin-bottom: var(--space-sm);
+}
+
+/* The hero mark sits in the margin column the label used to occupy */
+.rail__mark {
+  padding-top: 0.5rem;
+}
+
+/* ---- Note metadata ---- */
+
+.note-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+  font-family: var(--font-utility);
+  font-size: var(--text-eyebrow);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+}
+
+.note-meta__tag {
+  color: var(--ink);
+}
+
+.note-meta__time {
+  color: var(--muted);
+}
+
+/* ---- Drawing animation ----------------------------------------------
+   Hooked to the figure's OWN .arrived state — note every selector below is
+   .diagram.arrived, not a bare .arrived. A descendant selector matched the
+   surrounding section's arrival class instead, and sections deliberately
+   arrive early so prose is ready when you reach it. The result was every
+   drawing animating well before the reader got to it. Without JS or with reduced motion it is simply
+   already drawn.
+
+   Every line is dashed by its own measured length, never by a shared
+   constant: a shared constant leaves a gap on anything longer than it,
+   and finishes anything shorter almost instantly — which is how an
+   arrowhead ends up drawn before the line that reaches it. main.js
+   measures each element and writes --dg-len, --dg-dur and --dg-delay,
+   so a diagram builds itself in order at one constant speed. */
+
+.js .diagram.will-arrive .dg-draw {
+  stroke-dasharray: var(--dg-len, 1200);
+  stroke-dashoffset: var(--dg-len, 1200);
+}
+
+.js .diagram.arrived .dg-draw {
+  animation: dgDraw var(--dg-dur, 1400ms) linear var(--dg-delay, 0ms) forwards;
+}
+
+/* Dashed lines must use .dg-fade, never .dg-draw. The draw animation needs
+   stroke-dasharray to hide the line, and a dash pattern needs the same
+   property to be a dash pattern — so a dashed line marked .dg-draw silently
+   renders solid, which destroys the one distinction it exists to make.
+   Fading is also the truer motion: the line that stands for something not
+   yet built does not get drawn. */
+.js .diagram.will-arrive .dg-fade {
+  opacity: 0;
+}
+
+/* Labels land once the structure they annotate has been drawn.
+   --dg-after is written per figure by main.js. */
+.js .diagram.arrived .dg-fade {
+  animation: dgFade 700ms var(--ease-out) var(--dg-after, 600ms) forwards;
+}
+
+/* A diagram never fades in as a block — it draws. The figure carries the
+   arrival classes only so its own lines and labels can be gated on them. */
+.js figure.diagram.will-arrive {
+  opacity: 1;
+  transform: none;
+}
+
+/* Progressive reveal: stages arrive one after another, in order.
+   --i is set per element in the markup. */
+.js .diagram.will-arrive .dg-step {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.js .diagram.arrived .dg-step {
+  animation: dgStep 500ms var(--ease-out) forwards;
+  animation-delay: calc(var(--dg-after, 260ms) + var(--i, 0) * 120ms);
+}
+
+@keyframes dgStep {
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes dgDraw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes dgFade {
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .diagram.will-arrive .dg-draw,
+  .js .diagram.arrived .dg-draw {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+  .js .diagram.will-arrive .dg-fade,
+  .js .diagram.arrived .dg-fade,
+  .js .diagram.will-arrive .dg-step,
+  .js .diagram.arrived .dg-step {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Below this width the drawings stop being legible when scaled,
+     so they keep their size and scroll instead. 640 matches the viewBox,
+     so labels render 1:1 at the size they were drawn.
+
+     Fitting them to the screen was tried and measured: growing the type
+     inside the viewBox to compensate still only reaches ~10px rendered, and
+     12 of 15 diagrams collide because every label becomes 1.5x wider than the
+     geometry was drawn for. Fitting these to 375px legibly needs a different
+     drawing, not a different scale. */
+  .diagram svg {
+    min-width: 640px;
+  }
+
+  /* A drawing that scrolls should own the full screen width. Held inside the
+     24px page gutter it reads as clipped — a layout fault rather than a
+     scrollable object — and loses 48px it badly needs. Only the frame breaks
+     out; the caption and the scroll hint stay on the text grid. */
+  .diagram__frame {
+    margin-inline: -1.5rem;
+    padding-inline: 1.5rem;
+  }
+
+  .diagram.is-scrollable .diagram__frame::after {
+    padding-left: 0;
+  }
+}
+
+
+/* ---- Narrow drawings for small screens ----------------------------------
+   Some drawings cannot be made to fit a phone by scaling. Measured: growing
+   the type inside a 640-unit viewBox to compensate still reaches only ~10px,
+   and 12 of 15 diagrams collide, because every label ends up ~2x wider than
+   the geometry was drawn around. So the phone gets a different drawing of the
+   same content — laid out vertically at 320 units wide — and the desktop
+   drawing is untouched.
+
+   Content is drawn between x=16 and x=304 so the SVG can run edge to edge
+   and still breathe. Capped at 440px so it does not balloon at the top of
+   the range: at 320px wide the labels render 1:1, at 440px about 1.4x. */
+
+/* Specificity matters here: ".diagram svg { display: block }" above would
+   beat a bare .dg-narrow, so both drawings would render. */
+.diagram svg.dg-narrow { display: none; }
+
+@media (max-width: 768px) {
+  .diagram svg.dg-wide   { display: none; }
+  .diagram svg.dg-narrow { display: block; }
+
+  /* The narrow drawing needs the whole screen width to render its labels at
+     full size — inside the 24px gutter a 320-unit viewBox scales to 0.85 and
+     the type falls to 10.4px. Content is drawn between x=16 and x=304, so it
+     still has margin of its own. No sideways scrolling either way. */
+  .diagram__frame {
+    margin-inline: -1.5rem;
+    padding-inline: 0;
+    overflow-x: visible;
+  }
+
+  .diagram svg.dg-narrow {
+    min-width: 0;
+    max-width: 440px;
+    margin-inline: auto;
+  }
+}

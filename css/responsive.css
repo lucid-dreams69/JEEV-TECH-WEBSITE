@@ -1,0 +1,245 @@
+/* ==========================================================================
+   JEEV TECH — Responsive
+   Mobile-first breakpoint overrides. Mobile is deliberately designed,
+   not a squeezed desktop.
+   ========================================================================== */
+
+/* ---- Mobile (up to 768px) ---- */
+
+@media (max-width: 768px) {
+
+  /* -- Typography scale tuned for mobile -- */
+  :root {
+    --text-hero:      2.125rem;  /* 34px */
+    --text-statement: 1.5rem;    /* 24px */
+    --text-h2:        1.5rem;    /* 24px */
+    --text-h3:        1.25rem;   /* 20px */
+    --text-body:      1.0625rem; /* 17px */
+    --text-body-sm:   0.9375rem; /* 15px */
+    --text-nav:       0.8125rem; /* 13px */
+  }
+
+  /* -- Structural spacing scales with the type --
+     The type scale above roughly halves on mobile, but the whitespace was
+     left at desktop values — so the ratio of space to content doubled and
+     the page read as mostly empty. 96px between two blocks is a quiet pause
+     beside 68px display type; beside 34px type on a 375px screen it is a
+     dead band a quarter of the viewport tall.
+
+     Only the large structural steps are reduced. The small ones set the
+     rhythm between lines and paragraphs, and shrinking those would tighten
+     the text itself, which is not the problem. */
+  :root {
+    --space-xl:  2rem;      /* 48px -> 32px */
+    --space-2xl: 2.5rem;    /* 64px -> 40px */
+    --space-3xl: 3.5rem;    /* 96px -> 56px */
+    --space-4xl: 4.5rem;    /* 128px -> 72px */
+    --space-5xl: 5.5rem;    /* 160px -> 88px */
+  }
+
+  /* -- The rail collapses: label sits above its content -- */
+  :root {
+    --rail-offset: 0rem;
+  }
+
+  .rail,
+  .page-header,
+  .section {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-md);
+  }
+
+  /* Stacked, the label's own bottom margin adds to the grid gap and opens a
+     40px hole under a 13px label. Beside the content on desktop that margin
+     does nothing; above it, the grid gap alone is the whole relationship. */
+  .rail__label,
+  .section__label {
+    padding-top: var(--space-xs);
+    margin-bottom: 0;
+  }
+
+  .register__row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-xs);
+  }
+
+  /* Touch targets: standalone links get at least 44px of height on
+     touch-sized viewports. Links inside running prose are excluded —
+     padding there would break the line rhythm. */
+  .site-footer__nav a,
+  .site-footer__contact a,
+  .founder__link,
+  .contact-social__link,
+  .band__link,
+  .wordmark {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .site-footer__nav {
+    gap: 0;
+  }
+
+  .register__term {
+    padding-top: 0;
+  }
+
+  /* Portrait above the name on narrow screens */
+  .person {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-md);
+  }
+
+  .person__portrait {
+    width: 96px;
+    height: 96px;
+  }
+
+  .person__link {
+    display: inline-flex;
+    min-height: 44px;
+  }
+
+  .band {
+    padding: var(--space-3xl) 0;
+  }
+
+  /* -- Hero: the open frame stays, the bars are too narrow to read -- */
+  .hero {
+    padding: var(--space-lg) var(--page-gutter) var(--space-3xl);
+  }
+
+  /* Single column on mobile, so the statement returns to column 1 */
+  .hero .rail__body {
+    grid-column: 1;
+  }
+
+  .uncaging__bars {
+    display: none;
+  }
+
+  /* -- Spacing adjustments -- */
+  main {
+    padding-top: var(--space-3xl);
+    padding-bottom: var(--space-3xl);
+  }
+
+  .section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  /* -- Navigation: show mobile menu toggle -- */
+  .menu-toggle {
+    display: flex;
+  }
+
+  .site-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(75vw, 300px);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    padding: var(--space-4xl) var(--space-lg) var(--space-lg);
+    background-color: var(--ground);
+    border-left: var(--border-rule);
+    transform: translateX(100%);
+    transition: transform var(--duration-md) var(--ease-out);
+    z-index: 99;
+  }
+
+  .site-nav[data-open="true"] {
+    transform: translateX(0);
+  }
+
+  .site-nav__link {
+    display: block;
+    width: 100%;
+    padding: var(--space-sm) 0;
+    font-size: var(--text-body);
+    border-bottom: var(--border-rule);
+  }
+
+  .site-nav__link::after {
+    display: none;
+  }
+
+  /* -- Mobile overlay behind nav -- */
+  .nav-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(26, 29, 31, 0.3);
+    z-index: 98;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--duration-md) var(--ease-out);
+  }
+
+  .nav-overlay[data-open="true"] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* -- Footer stacks on mobile -- */
+  .site-footer__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-lg);
+  }
+
+  /* -- Entry links smaller on mobile -- */
+  .entry-link__text {
+    font-size: var(--text-body);
+  }
+
+  /* -- Uncaging: vertical padding only, so the statement aligns to its frame -- */
+  .uncaging {
+    padding: var(--space-md) 0 var(--space-lg);
+  }
+
+  /* -- Contact email smaller -- */
+  .contact-email {
+    font-size: var(--text-h3);
+  }
+
+  /* -- Prominent link smaller -- */
+  .prominent-link {
+    font-size: var(--text-body);
+  }
+}
+
+/* ---- Tablet (769px - 1024px) ---- */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  :root {
+    --text-hero:      3rem;     /* 48px */
+    --text-statement: 2rem;     /* 32px */
+    --text-h2:        1.75rem;  /* 28px */
+  }
+
+  /* The rail has to hold the longest label on one line. The widest in the
+     site's vocabulary is "Current product" at 142px, so 7rem (112px) wrapped
+     it — and a two-line label in the margin reads as a mistake. 9.5rem is
+     152px, with the offset kept in sync at rail + gap. */
+  :root {
+    --rail-offset: 11.5rem;
+  }
+
+  .rail,
+  .page-header,
+  .section {
+    grid-template-columns: 9.5rem minmax(0, 1fr);
+    gap: var(--space-lg);
+  }
+}
+
+/* ---- Wide desktop (1440px+) ---- */
+
+@media (min-width: 1440px) {
+  :root {
+    --page-gutter: var(--space-xl);
+  }
+}

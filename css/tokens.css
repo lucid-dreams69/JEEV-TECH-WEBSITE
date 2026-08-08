@@ -1,0 +1,72 @@
+/* ==========================================================================
+   JEEV TECH — Design Tokens
+   A restrained, institutional palette with one muted green accent.
+   ========================================================================== */
+
+:root {
+  /* ---- Color ---- */
+  --ink:     #1A1D1F;   /* Primary text — near-black, cold undertone */
+  --ground:  #F7F7F5;   /* Page background — warm enough to avoid clinical, cool enough to avoid AI-tell cream */
+  --muted:   #6B7280;   /* Secondary text, captions, metadata */
+  --accent:  #3B5F4A;   /* Pine — deep, desaturated forest green. jeev = life. */
+  --rule:    #D4D6D8;   /* Dividers, borders, structural lines */
+
+  /* Inverted set — used by the one dark band. Deep neutral, no accent:
+     the weight comes from value contrast, not from color. */
+  --ink-invert:   #14171A;  /* Dark band ground */
+  --on-invert:    #F2F2F0;  /* Text on dark — 15.8:1 */
+  --muted-invert: #A8ADB4;  /* Secondary text on dark — 7.3:1 */
+  --rule-invert:  #34383C;  /* Rules on dark */
+
+  /* ---- Typography — Families ---- */
+  --font-display: 'Newsreader', 'Georgia', serif;
+  --font-body:    'Source Serif 4', 'Georgia', serif;
+  --font-utility: 'Inter', 'Helvetica Neue', 'Arial', sans-serif;
+
+  /* ---- Typography — Scale (desktop) ---- */
+  --text-hero:     4.25rem;   /* 68px — hero statement */
+  --text-statement: 2.5rem;   /* 40px — the dark band statement */
+  --text-h2:       2rem;      /* 32px — section headings */
+  --text-h3:       1.375rem;  /* 22px — sub-headings */
+  --text-body:     1.125rem;  /* 18px — body copy */
+  --text-body-sm:  1rem;      /* 16px — small body */
+  --text-eyebrow:  0.75rem;   /* 12px — eyebrows, labels */
+  --text-nav:      0.875rem;  /* 14px — navigation, captions */
+
+  /* ---- Typography — Line Heights ---- */
+  --lh-tight:    1.25;
+  --lh-heading:  1.35;
+  --lh-body:     1.7;
+
+  /* ---- Typography — Letter Spacing ---- */
+  --ls-eyebrow:  0.12em;
+  --ls-wordmark: 0.16em;
+  --ls-tight:   -0.01em;
+
+  /* ---- Spacing Scale (8px base) ---- */
+  --space-xs:   0.5rem;   /*  8px */
+  --space-sm:   1rem;     /* 16px */
+  --space-md:   1.5rem;   /* 24px */
+  --space-lg:   2rem;     /* 32px */
+  --space-xl:   3rem;     /* 48px */
+  --space-2xl:  4rem;     /* 64px */
+  --space-3xl:  6rem;     /* 96px */
+  --space-4xl:  8rem;     /* 128px */
+  --space-5xl: 10rem;     /* 160px */
+
+  /* ---- Layout ---- */
+  --measure:     38em;    /* ~65 characters at 18px Source Serif 4 */
+  --rail-col:    10rem;   /* Margin column for labels */
+  --rail-offset: 14rem;   /* rail-col + --space-2xl gap — must stay in sync */
+  --page-max:    72rem;   /* 1152px — maximum page width */
+  --page-gutter: var(--space-md);
+
+  /* ---- Transitions ---- */
+  --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-sm: 200ms;
+  --duration-md: 400ms;
+  --duration-lg: 1500ms;  /* For the uncaging animation */
+
+  /* ---- Borders ---- */
+  --border-rule: 1px solid var(--rule);
+}

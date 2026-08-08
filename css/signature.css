@@ -1,0 +1,220 @@
+/* ==========================================================================
+   JEEV TECH — The Uncaging Line (Signature Element)
+
+   On page load, the hero purpose statement is enclosed within thin rules
+   that form a cage (top, bottom, and a right-side vertical close).
+   Over 1.5s the right-side verticals dissolve and the rules "open" —
+   a cage becomes an open frame.
+
+   On prefers-reduced-motion, the element renders in its final (open)
+   state immediately — the visual meaning remains without animation.
+   ========================================================================== */
+
+.uncaging {
+  position: relative;
+  padding: var(--space-lg) 0 var(--space-xl);
+}
+
+/* Top rule — the frame closes here */
+.uncaging::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--ink);
+}
+
+/* Bottom rule — deliberately stops short. The frame never closes.
+   This is the whole idea, stated so it reads without animation. */
+.uncaging::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 58%;
+  height: 1px;
+  background-color: var(--ink);
+}
+
+/* The bars: hairlines standing in the statement's space, which
+   retract on load. Static readers still get the open frame above. */
+.uncaging__bars {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 12%;
+  pointer-events: none;
+}
+
+.uncaging__bars span {
+  display: block;
+  width: 1px;
+  background-color: var(--rule);
+  transform-origin: bottom;
+  animation: uncage var(--duration-lg) var(--ease-out) forwards;
+}
+
+.uncaging__bars span:nth-child(1) { animation-delay: 300ms; }
+.uncaging__bars span:nth-child(2) { animation-delay: 420ms; }
+.uncaging__bars span:nth-child(3) { animation-delay: 540ms; }
+.uncaging__bars span:nth-child(4) { animation-delay: 660ms; }
+.uncaging__bars span:nth-child(5) { animation-delay: 780ms; }
+
+@keyframes uncage {
+  0%   { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(0); opacity: 0; }
+}
+
+/* Reduced motion: the bars are simply never drawn — the open frame
+   carries the meaning on its own. */
+@media (prefers-reduced-motion: reduce) {
+  .uncaging__bars {
+    display: none;
+  }
+}
+
+/* ---- The open line: page-header echo of the signature ----
+   Every interior page carries a quiet echo of the hero frame:
+   a rule that stops short of closing — the cage stays open. */
+
+/* ---- Section arrival ----
+   Sections settle in as they are reached. Small movement, one direction,
+   no stagger inside a section — the page should feel composed, not eager.
+   Applied by JS only, so nothing is ever hidden without it. */
+
+.js .will-arrive {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.js .will-arrive.arrived {
+  opacity: 1;
+  transform: none;
+  transition: opacity 700ms var(--ease-out),
+              transform 700ms var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .will-arrive,
+  .js .will-arrive.arrived {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---- Header ----
+   The rule under the header appears only once the page has moved,
+   so the top of the site is uninterrupted. */
+
+.site-header {
+  background-color: transparent;
+  border-bottom-color: transparent;
+  transition: background-color var(--duration-md) var(--ease-out),
+              border-bottom-color var(--duration-md) var(--ease-out);
+}
+
+.site-header--scrolled {
+  background-color: var(--ground);
+  border-bottom-color: var(--rule);
+}
+
+/* ---- The one scroll moment: "The line we will not cross" ----
+   The accent bar beside the blockquote draws itself downward when
+   the section enters view. Without JS, or with reduced motion,
+   the bar simply renders complete. */
+
+.reveal blockquote {
+  position: relative;
+  border-left-color: transparent;
+}
+
+.reveal blockquote::before {
+  content: '';
+  position: absolute;
+  left: -3px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background-color: var(--accent);
+  transform-origin: top;
+}
+
+/* Hidden start state only when JS is running (html.js) */
+.js .reveal:not(.revealed) blockquote::before {
+  transform: scaleY(0);
+}
+
+.reveal.revealed blockquote::before {
+  transition: transform 1200ms var(--ease-out);
+  transform: scaleY(1);
+}
+
+/* On the dark band the accent green has too little contrast — the
+   drawn line uses the inverted text colour instead. */
+.band.reveal blockquote::before {
+  background-color: var(--on-invert);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal:not(.revealed) blockquote::before {
+    transform: none;
+  }
+  .reveal.revealed blockquote::before {
+    transition: none;
+  }
+}
+
+/* ---- Subtle fade-in for hero text ---- */
+
+.hero__statement {
+  opacity: 0;
+  animation: fadeIn 1s var(--ease-out) 0.2s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__statement {
+    opacity: 1;
+    animation: none;
+  }
+}
+
+/* ---- Home page-load sequence ----
+   One orchestrated arrival: statement, then what we are, then the doors in.
+   Each step uses the same quiet fade; only the timing differs. */
+
+/* Scoped to siblings of the hero, so only the home page runs the sequence */
+.hero ~ .intro,
+.hero ~ .band,
+.hero ~ .entry-points {
+  opacity: 0;
+  animation: fadeIn 600ms var(--ease-out) forwards;
+}
+
+.hero ~ .intro        { animation-delay: 400ms; }
+.hero ~ .intro--evidence { animation-delay: 550ms; }
+.hero ~ .band         { animation-delay: 700ms; }
+.hero ~ .entry-points { animation-delay: 850ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero ~ .intro,
+  .hero ~ .band,
+  .hero ~ .entry-points {
+    opacity: 1;
+    animation: none;
+  }
+}

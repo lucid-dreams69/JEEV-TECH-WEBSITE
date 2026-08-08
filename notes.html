@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notes — JEEV TECH</title>
+  <meta name="description" content="Working notes from JEEV TECH: engineering decisions, product reasoning, research notes, and the things we got wrong.">
+  <!-- Canonical host is www.jeevtech.in. The apex must 301-redirect to it or these become split URLs. -->
+  <link rel="canonical" href="https://www.jeevtech.in/notes.html">
+  <meta name="theme-color" content="#F7F7F5">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="JEEV TECH">
+  <meta property="og:title" content="Notes — JEEV TECH">
+  <meta property="og:description" content="Working notes from JEEV TECH: engineering decisions, product reasoning, research notes, and the things we got wrong.">
+  <meta property="og:url" content="https://www.jeevtech.in/notes.html">
+  <meta property="og:image" content="https://www.jeevtech.in/img/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="JEEV TECH — Engineering human-centric technologies that advance civilization.">
+  <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"Blog","name":"JEEV TECH Notes","description":"Engineering decisions, product reasoning, and research notes from JEEV TECH.","url":"https://www.jeevtech.in/notes.html","publisher":{"@type":"Organization","name":"JEEV TECH"}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.jeevtech.in/"},{"@type":"ListItem","position":2,"name":"Notes","item":"https://www.jeevtech.in/notes.html"}]}]}
+  </script>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/newsreader-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/sourceserif4-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/diagram.css">
+  <link rel="stylesheet" href="css/signature.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="site-header__inner">
+      <a href="index.html" class="wordmark" aria-label="JEEV TECH home">JEEV TECH</a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav" id="menu-toggle">
+        <span class="menu-toggle__icon" aria-hidden="true"></span>
+      </button>
+      <nav class="site-nav" id="site-nav" role="navigation" aria-label="Main navigation">
+        <a href="principles.html" class="site-nav__link">Principles</a>
+        <a href="servizo.html" class="site-nav__link">Servizo</a>
+        <a href="research.html" class="site-nav__link">Research</a>
+        <a href="engineering.html" class="site-nav__link">Engineering</a>
+        <a href="notes.html" class="site-nav__link site-nav__link--active" aria-current="page">Notes</a>
+        <a href="about.html" class="site-nav__link">About</a>
+        <a href="contact.html" class="site-nav__link">Contact</a>
+      </nav>
+      <div class="nav-overlay" id="nav-overlay" aria-hidden="true"></div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="page">
+
+      <div class="page-header">
+        <div class="page-header__aside">
+          <div class="page-header__mark"><svg class="page-mark" viewBox="0 0 26 26" role="img" aria-label="Dated entries"><circle cx="4" cy="7" r="1.6" /><path d="M9 7 H23" /><circle cx="4" cy="13" r="1.6" /><path d="M9 13 H19" /><circle cx="4" cy="19" r="1.6" /><path d="M9 19 H22" /></svg></div>
+          <p class="eyebrow">Working notes</p>
+        </div>
+        <div class="page-header__body">
+          <h1>Notes</h1>
+          <p class="page-lede">Engineering decisions, product reasoning, and the things we got wrong.</p>
+        </div>
+      </div>
+
+      <div class="page-content">
+
+        <section class="section" aria-labelledby="notes-what">
+          <p class="section__label">About</p>
+          <div class="section__body">
+            <h2 id="notes-what" class="section__heading">What this is</h2>
+            <p>
+              A company is easier to judge by the decisions it records than by the beliefs it states. These are working
+              notes: why a particular decision was made, what it cost, and what we would do differently.
+            </p>
+            <p>
+              They are published as decisions get made rather than on a schedule, and they include the ones we
+              reversed. Those are usually the useful ones.
+            </p>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             ENTRIES — newest first.
+             To add one, copy the block below, change the date, the id,
+             the heading, and the body. Nothing else needs updating.
+             ============================================================ -->
+
+        <section class="section" aria-labelledby="note-no-analytics">
+          <p class="section__label"><time datetime="2026-08-07">7 August 2026</time></p>
+          <div class="section__body">
+            <h2 id="note-no-analytics" class="section__heading">Building this site with no analytics at all</h2>
+            <p class="note-meta"><span class="note-meta__tag">Engineering</span><span class="note-meta__tag">Privacy</span><span class="note-meta__time">1 min read</span></p>
+            <details class="note">
+              <summary class="note__summary">Read the note</summary>
+              <div class="note__body">
+                <p>
+              We argue against systems that quietly extract from the people using them. That argument is worth nothing
+              if the page making it is measuring its readers, so this site collects nothing: no third-party trackers,
+              no advertising pixels, no analytics that profile individuals, and no non-essential cookies.
+            </p>
+            <p>
+              The cost is real. We do not know how many people read a page, which pages hold attention, or where
+              readers stop. Every instinct built by modern web practice says to install something and find out.
+            </p>
+            <p>
+              We decided the information was not worth what it would cost us to be consistent. Fonts are self-hosted
+              and subsetted for the same reason — a font pulled from someone else's server tells that server who
+              visited. If we later need to know whether the site works, the answer is a privacy-preserving,
+              self-hosted count of page views, never a profile of a person.
+            </p>
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="note-no-commission">
+          <p class="section__label"><time datetime="2026-08-07">7 August 2026</time></p>
+          <div class="section__body">
+            <h2 id="note-no-commission" class="section__heading">Why Servizo takes no commission</h2>
+            <p class="note-meta"><span class="note-meta__tag">Decision</span><span class="note-meta__tag">Business model</span><span class="note-meta__time">1 min read</span></p>
+            <details class="note">
+              <summary class="note__summary">Read the note</summary>
+              <div class="note__body">
+                <p>
+              The default model for a service platform is a percentage of every transaction. It is simple to explain,
+              it scales with usage, and it is what investors expect to see.
+            </p>
+            <p>
+              We asked a narrower question: what is the platform actually being paid for? The answer is the software —
+              verification, scheduling, documentation, the record a professional builds. It is not the work itself,
+              which the professional does. Charging a share of that work would be charging for something we did not do,
+              and it would make our revenue rise as the professional's margin falls.
+            </p>
+            <p>
+              So Servizo charges a subscription for the tools and takes nothing from the job. Customers pay no platform
+              fee today; if one becomes necessary to run the infrastructure, it will be introduced for that reason and
+              stated plainly. We are paid for the software rather than a share of the work: what we earn tracks how
+              useful the tools are, not how much the professional was paid for the job.
+            </p>
+              </div>
+            </details>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__brand">
+        <span class="site-footer__wordmark">JEEV TECH</span>
+        <span class="site-footer__tagline">Technology is the medium.<br>Human progress is the objective.</span>
+      </div>
+
+      <nav class="site-footer__nav" aria-label="Footer navigation">
+        <a href="principles.html">Principles</a>
+        <a href="servizo.html">Servizo</a>
+        <a href="research.html">Research directions</a>
+        <a href="engineering.html">Engineering</a>
+        <a href="notes.html">Notes</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
+
+      <div class="site-footer__contact">
+        <a href="mailto:contact@jeevtech.in">contact@jeevtech.in</a>
+        <a href="https://www.instagram.com/jeev.tech/" target="_blank" rel="noopener noreferrer">Instagram</a>
+      </div>
+
+      <p class="site-footer__meta">
+        &copy; 2025 JEEV TECH &middot; Incorporated in India
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>

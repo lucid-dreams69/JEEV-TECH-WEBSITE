@@ -1,0 +1,777 @@
+/* ==========================================================================
+   JEEV TECH — Components
+   Navigation, footer, entry-point links, and reusable elements.
+   ========================================================================== */
+
+/* ---- Site Header / Navigation ---- */
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: var(--ground);
+  border-bottom: var(--border-rule);
+  transition: background-color var(--duration-sm) var(--ease-out);
+}
+
+.site-header__inner {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: var(--space-sm) var(--page-gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ---- Wordmark ---- */
+
+.wordmark {
+  font-family: var(--font-utility);
+  font-size: var(--text-nav);
+  font-weight: 600;
+  letter-spacing: var(--ls-wordmark);
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  line-height: 1;
+}
+
+.wordmark:hover {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+/* ---- Desktop Navigation ---- */
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.site-nav__link {
+  font-family: var(--font-utility);
+  font-size: var(--text-nav);
+  font-weight: 400;
+  color: var(--muted);
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 2px;
+  transition: color var(--duration-sm) var(--ease-out);
+}
+
+.site-nav__link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent);
+  transition: width var(--duration-sm) var(--ease-out);
+}
+
+.site-nav__link:hover,
+.site-nav__link--active {
+  color: var(--ink);
+}
+
+.site-nav__link:hover::after,
+.site-nav__link--active::after {
+  width: 100%;
+}
+
+.site-nav__link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* ---- Mobile Menu Toggle ---- */
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ink);
+  /* 44px touch target; the drawn icon inside stays small */
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  align-items: center;
+  justify-content: flex-end;
+  /* Stay above the mobile nav drawer (z-index 99) so the X remains clickable */
+  position: relative;
+  z-index: 101;
+}
+
+.menu-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.menu-toggle__icon {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background-color: var(--ink);
+  position: relative;
+  transition: background-color var(--duration-sm) var(--ease-out);
+}
+
+.menu-toggle__icon::before,
+.menu-toggle__icon::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 20px;
+  height: 2px;
+  background-color: var(--ink);
+  transition: transform var(--duration-sm) var(--ease-out);
+}
+
+.menu-toggle__icon::before {
+  top: -6px;
+}
+
+.menu-toggle__icon::after {
+  top: 6px;
+}
+
+/* Active state for menu toggle (X shape) */
+.menu-toggle[aria-expanded="true"] .menu-toggle__icon {
+  background-color: transparent;
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle__icon::before {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle__icon::after {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* ---- Entry Point Links ---- */
+
+.entry-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md) 0;
+  border-bottom: var(--border-rule);
+  text-decoration: none;
+}
+
+.entry-link:first-child {
+  border-top: var(--border-rule);
+}
+
+.entry-link__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.entry-link__text {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 500;
+  color: var(--ink);
+  transition: color var(--duration-sm) var(--ease-out);
+}
+
+.entry-link__desc {
+  font-size: var(--text-body-sm);
+  line-height: var(--lh-body);
+  color: var(--muted);
+}
+
+.entry-link__arrow {
+  font-family: var(--font-utility);
+  font-size: var(--text-body);
+  color: var(--muted);
+  transition: color var(--duration-sm) var(--ease-out),
+              transform var(--duration-sm) var(--ease-out);
+}
+
+.entry-link:hover .entry-link__text {
+  color: var(--accent);
+}
+
+.entry-link:hover .entry-link__arrow {
+  color: var(--accent);
+  transform: translateX(4px);
+}
+
+.entry-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ---- Prominent Link (e.g., Servizo external link) ---- */
+
+.prominent-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  padding: var(--space-sm) 0;
+  border-bottom: 2px solid var(--accent);
+  transition: gap var(--duration-sm) var(--ease-out);
+  margin-top: var(--space-xl);
+}
+
+/* The prominent link is a <button> until the Servizo site is live */
+button.prominent-link {
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-display);
+  line-height: inherit;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.soon-note {
+  margin-top: var(--space-md);
+  font-family: var(--font-utility);
+  font-size: var(--text-nav);
+  color: var(--muted);
+}
+
+.prominent-link:hover {
+  gap: var(--space-sm);
+  color: var(--accent);
+}
+
+.prominent-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* ---- Status Badge ---- */
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-utility);
+  font-size: var(--text-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--space-lg);
+}
+
+.status-badge::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--accent);
+}
+
+/* ---- Page Figure (Servizo) ---- */
+
+.page-figure {
+  max-width: var(--measure);
+  margin-bottom: var(--space-2xl);   /* margin-left comes from .offset */
+}
+
+/* Photographs sit on a plate: hairline frame, a radius small enough to
+   read as machined rather than soft, and a shadow that lifts the image
+   just off the ground. No hover motion — the image is not interactive,
+   and motion here would be decoration. */
+/* ---- Notes: an entry opens on click ----
+   Built on <details>, so the notes are readable with JavaScript disabled and
+   the disclosure is keyboard-operable without any code from us. */
+
+.note {
+  max-width: var(--measure);
+  border-top: var(--border-rule);
+  margin-top: var(--space-md);
+}
+
+.note__summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) 0;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-utility);
+  font-size: var(--text-eyebrow);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color var(--duration-sm) var(--ease-out);
+}
+
+/* Safari draws its own triangle without this */
+.note__summary::-webkit-details-marker { display: none; }
+
+/* Our own marker: a rule that becomes a cross when open. Rotating a plus
+   would be decoration; this reads as "there is more below". */
+.note__summary::after {
+  content: "+";
+  margin-left: auto;
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--muted);
+}
+
+.note[open] > .note__summary::after {
+  content: "\2212";
+}
+
+.note__summary:hover,
+.note[open] > .note__summary {
+  color: var(--ink);
+}
+
+.note__summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.note__body {
+  padding-bottom: var(--space-md);
+}
+
+.note__body > p:last-child {
+  margin-bottom: 0;
+}
+
+/* The three review questions, stated plainly. Deliberately a numbered list
+   and not a component: the point is that it needs no apparatus. */
+.decide {
+  list-style: none;
+  counter-reset: decide;
+  max-width: var(--measure);
+  margin: var(--space-lg) 0;
+}
+
+.decide li {
+  counter-increment: decide;
+  position: relative;
+  padding-left: 2.25rem;
+  margin-bottom: var(--space-md);
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  line-height: 1.4;
+}
+
+.decide li::before {
+  content: counter(decide);
+  position: absolute;
+  left: 0;
+  top: 0.15em;
+  font-family: var(--font-utility);
+  font-size: var(--text-eyebrow);
+  letter-spacing: var(--ls-eyebrow);
+  color: var(--muted);
+}
+
+.page-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: var(--border-rule);
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(26, 29, 31, 0.05),
+              0 10px 28px -14px rgba(26, 29, 31, 0.22);
+}
+
+/* ---- App Rows (Servizo) ---- */
+
+.app-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-lg);
+  max-width: var(--measure);
+  margin-bottom: var(--space-2xl);
+}
+
+/* Breathing room between the heading and the first app */
+.app-row:first-of-type {
+  margin-top: var(--space-2xl);
+}
+
+/* The icon is a circle: its bounding box sits higher than its visual edge,
+   so the text block is nudged down to align optically rather than
+   geometrically. */
+.app-row__body {
+  padding-top: 0.35rem;
+}
+
+.app-row:last-child {
+  margin-bottom: 0;
+}
+
+/* The mark artwork is already circular, so the radius clips exactly at
+   its edge and the shadow follows the circle rather than a box. */
+.app-row__icon {
+  flex-shrink: 0;
+  width: 64px;
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(26, 29, 31, 0.06),
+              0 6px 16px -8px rgba(26, 29, 31, 0.20);
+}
+
+.app-row__name {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 500;
+  margin-bottom: var(--space-xs);
+}
+
+/* ---- Site Footer ---- */
+
+.site-footer {
+  border-top: var(--border-rule);
+  padding: var(--space-2xl) 0 var(--space-xl);
+  margin-top: var(--space-3xl);
+}
+
+/* Three columns on the same rail geometry as the rest of the site */
+.site-footer__inner {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--page-gutter);
+  display: grid;
+  grid-template-columns: var(--rail-col) minmax(0, 1fr) auto;
+  gap: var(--space-2xl);
+  align-items: start;
+}
+
+.site-footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.site-footer__wordmark {
+  font-family: var(--font-utility);
+  font-size: var(--text-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--ls-wordmark);
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.site-footer__tagline {
+  font-family: var(--font-utility);
+  font-size: var(--text-eyebrow);
+  color: var(--muted);
+}
+
+.site-footer__nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.site-footer__nav a {
+  font-family: var(--font-utility);
+  font-size: var(--text-nav);
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.site-footer__nav a:hover {
+  color: var(--accent);
+}
+
+.site-footer__contact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.site-footer__contact a {
+  font-family: var(--font-utility);
+  font-size: var(--text-nav);
+  color: var(--muted);
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 0.2em;
+}
+
+.site-footer__contact a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+.site-footer__meta {
+  grid-column: 1 / -1;
+  font-family: var(--font-utility);
+  font-size: var(--text-eyebrow);
+  color: var(--muted);
+  margin: 0;
+  max-width: none;
+  padding-top: var(--space-md);
+  border-top: var(--border-rule);
+}
+
+.site-footer__meta a {
+  color: var(--muted);
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 0.15em;
+}
+
+.site-footer__meta a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+/* ---- Contact Page ---- */
+
+.contact-email-wrap {
+  margin-top: var(--space-xl);
+}
+
+.contact-email {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 4px;
+  transition: border-color var(--duration-sm) var(--ease-out);
+}
+
+.contact-email:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.contact-social {
+  margin-top: var(--space-lg);
+}
+
+.contact-social__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-utility);
+  font-size: var(--text-nav);
+  color: var(--muted);
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 0.2em;
+}
+
+.contact-social__link:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+/* ---- Skip Link (Accessibility) ---- */
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-sm);
+  z-index: 200;
+  padding: var(--space-xs) var(--space-sm);
+  background-color: var(--accent);
+  color: var(--ground);
+  font-family: var(--font-utility);
+  font-size: var(--text-nav);
+  text-decoration: none;
+  border-radius: 2px;
+  transition: top var(--duration-sm) var(--ease-out);
+}
+
+.skip-link:focus {
+  top: var(--space-sm);
+}
+
+/* ---- The sign-off wordmark ----
+   The name at a scale that reads as an institutional mark rather than a
+   heading, so it is set in the identity face (Inter), never the display
+   serif — the serif stays reserved for editorial content.
+
+   It aligns to the page grid, not the viewport. Centring it would be the one
+   element on the site that ignores the grammar every rule, label and column
+   follows, and it reads as a poster instead of a signature.
+
+   Two things large type needs that small type does not:
+   - Tighter tracking. The header's 0.16em is correct at 13px and tears the
+     word apart at 200px, so this runs negative.
+   - A display optical size. The Inter file carries an opsz axis to 32;
+     using it gives tighter apertures and joins drawn for size.
+
+   Weight is 600 — the maximum in our subset, whose wght axis is 400-600.
+   A declared 700 would be synthesised by the browser and smears at this
+   scale. Re-cutting the font is the only way to get true bold. */
+
+.signature {
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--page-gutter);
+  padding-block: var(--space-5xl) var(--space-4xl);
+}
+
+.signature__label {
+  font-family: var(--font-utility);
+  font-size: var(--text-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+  /* Sits close to the mark it introduces: 24px read as two unrelated
+     elements stacked, not one signature. */
+  margin-bottom: var(--space-xs);
+}
+
+/* The closing line under the mark. */
+.signature__line {
+  max-width: var(--measure);
+  margin-top: var(--space-lg);
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  line-height: 1.35;
+  color: var(--muted);
+}
+
+/* About announces the end with a plain hairline. */
+.signature--ruled {
+  border-top: var(--border-rule);
+}
+
+/* Home reuses the hero's open frame instead: a full rule above, and a short
+   one that deliberately stops. The page opens and closes on the same mark. */
+.signature--framed {
+  position: relative;
+}
+
+.signature--framed::before,
+.signature--framed::after {
+  content: '';
+  position: absolute;
+  left: var(--page-gutter);
+  height: 1px;
+  background-color: var(--rule);
+}
+
+.signature--framed::before {
+  top: 0;
+  right: var(--page-gutter);
+}
+
+.signature--framed::after {
+  bottom: 0;
+  width: 58%;
+}
+
+.signature__mark {
+  display: block;
+  font-family: var(--font-utility);
+  font-weight: 600;
+  font-variation-settings: "opsz" 32;
+  /* Sized to span the grid exactly, from the left rule to the right one.
+     The glyph run is about 5.02em wide, so dividing the available width by
+     that fills it. Measured, the run is 5.30em at small sizes, so 5.4 is the
+     safe divisor — it leaves ~2% of slack, which absorbs both subpixel
+     rounding and the desktop scrollbar that 100vw does not account for.
+     5.15 was derived from the desktop measurement alone and overflowed
+     narrow screens by up to 8px. */
+  font-size: min(13rem, calc((100vw - 2 * var(--page-gutter)) / 5.4));
+  letter-spacing: -0.035em;
+  line-height: 0.9;
+  text-transform: uppercase;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+/* The mark is written on, left to right — the same drawing language the
+   diagrams use, applied to type. A clip never changes layout width, so
+   unlike animating letter-spacing it cannot overflow the grid mid-flight. */
+.js .signature.will-arrive .signature__mark {
+  clip-path: inset(0 100% 0 0);
+}
+
+.js .signature.arrived .signature__mark {
+  animation: signWrite 1100ms var(--ease-out) 120ms forwards;
+}
+
+@keyframes signWrite {
+  to { clip-path: inset(0 0 0 0); }
+}
+
+/* The block itself does not fade or rise — that generic arrival would run
+   underneath the wipe and hide it. The mark's own motion is the arrival. */
+.js .signature.will-arrive {
+  opacity: 1;
+  transform: none;
+}
+
+/* The words around the mark land after it, not with it: the mark is the
+   event, the label and the line are what it is signing. */
+.js .signature.will-arrive .signature__label,
+.js .signature.will-arrive .signature__line {
+  opacity: 0;
+}
+
+.js .signature.arrived .signature__label,
+.js .signature.arrived .signature__line {
+  animation: sigFade 700ms var(--ease-out) 1150ms forwards;
+}
+
+@keyframes sigFade {
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .signature.will-arrive .signature__mark,
+  .js .signature.arrived .signature__mark,
+  .js .signature.will-arrive .signature__label,
+  .js .signature.arrived .signature__label,
+  .js .signature.will-arrive .signature__line,
+  .js .signature.arrived .signature__line {
+    clip-path: none;
+    animation: none;
+    opacity: 1;
+  }
+}
+
+
+/* ---- Pull quote ----
+   One sentence lifted out of running prose. Not for emphasis — for rhythm:
+   five paragraphs of the same measure read as a wall. No rule, no mark; the
+   size and the space around it are the whole device. */
+
+.pull {
+  max-width: var(--measure);
+  margin-block: var(--space-2xl);
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: var(--ls-tight);
+  color: var(--ink);
+}
+
+/* Only where the sign-off states the tagline itself does the footer stop
+   repeating it a hundred pixels below. The homepage closes on a different
+   line, so its footer tagline stays. */
+body:has(.signature__line--tagline) .site-footer__tagline {
+  display: none;
+}

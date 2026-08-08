@@ -1,0 +1,514 @@
+/* ==========================================================================
+   JEEV TECH — Layout
+   Container, section spacing, and vertical rhythm.
+   ========================================================================== */
+
+/* ---- Page Container ---- */
+
+.page {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--page-gutter);
+}
+
+/* ---- Main Content ---- */
+
+main {
+  padding-top: var(--space-4xl);
+  padding-bottom: var(--space-4xl);
+}
+
+/* ---- Section ----
+   Every section is a rail row: a full-width hairline, a classifying label
+   in the margin, the content beside it. This is the site's core structure. */
+
+.section {
+  display: grid;
+  grid-template-columns: var(--rail-col) minmax(0, 1fr);
+  gap: var(--space-2xl);
+  border-top: var(--border-rule);
+  padding-top: var(--space-lg);
+  margin-bottom: var(--space-3xl);
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+.section__label {
+  font-family: var(--font-utility);
+  font-size: var(--text-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 0.35rem;   /* optical alignment to the heading's cap height */
+}
+
+.section__body {
+  max-width: var(--measure);
+}
+
+/* ---- Register ----
+   Term-and-description rows. Turns a run of prose into something
+   scannable, without becoming a table of marketing bullets. */
+
+.register {
+  margin-top: var(--space-lg);
+  max-width: var(--measure);
+}
+
+.register__row {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  gap: var(--space-md);
+  border-top: var(--border-rule);
+  padding: var(--space-sm) 0;
+}
+
+.register__row:last-child {
+  border-bottom: var(--border-rule);
+}
+
+.register__term {
+  font-family: var(--font-utility);
+  font-size: var(--text-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 0.42rem;   /* optical alignment to the description's first line */
+}
+
+.register__desc {
+  margin: 0;
+  max-width: none;
+}
+
+/* ---- Areas ----
+   Named research directions: the name carries the weight, the note
+   explains the interest. Used on the Research page. */
+
+.areas {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--space-lg);
+}
+
+.areas__item {
+  border-top: var(--border-rule);
+  padding: var(--space-md) 0;
+}
+
+.areas__item:last-child {
+  border-bottom: var(--border-rule);
+}
+
+.areas__name {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 500;
+  line-height: var(--lh-heading);
+  color: var(--ink);
+  margin-bottom: var(--space-xs);
+  max-width: none;
+}
+
+/* The field name, demoted beneath the problem it belongs to */
+.areas__tag {
+  display: block;
+  margin-top: var(--space-xs);
+  font-family: var(--font-utility);
+  font-size: var(--text-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.areas__note {
+  color: var(--muted);
+  margin-bottom: 0;
+}
+
+/* ---- Hero Section ----
+   Left-aligned and composed, not centred in a void. The statement is
+   the largest thing on the site; everything else defers to it. */
+
+.hero {
+  padding-top: var(--space-lg);
+  padding-bottom: var(--space-4xl);
+}
+
+/* The hero carries no margin label; the statement keeps the body column
+   so it stays on the same left edge as every other page. */
+.hero .rail__body {
+  grid-column: 2;
+}
+
+/* ---- The Rail ----
+   An engineered-document structure: label in the margin, content beside
+   it. Asymmetry is what keeps the page from reading as a flat column. */
+
+.rail {
+  display: grid;
+  grid-template-columns: 10rem minmax(0, 1fr);
+  gap: var(--space-2xl);
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--page-gutter);
+}
+
+.rail__label {
+  font-family: var(--font-utility);
+  font-size: var(--text-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 0.45rem;   /* optical alignment to the first line of body text */
+  border-top: var(--border-rule);
+}
+
+/* Ruled variant — the hairline spans both columns, matching .section.
+   This is what makes the home page and the interior pages one system. */
+.rail--ruled {
+  border-top: var(--border-rule);
+  padding-top: var(--space-lg);
+}
+
+.rail--ruled .rail__label {
+  border-top: none;
+  padding-top: 0.35rem;
+}
+
+.rail__body > *:last-child {
+  margin-bottom: 0;
+}
+
+/* ---- Intro Section (below hero) ---- */
+
+/* padding-block only — the horizontal gutters belong to .rail */
+.intro {
+  padding-block: var(--space-3xl);
+}
+
+/* ---- The Band ----
+   The site's single dark zone. Value contrast, no accent colour —
+   the weight is the point, not the decoration. */
+
+.band {
+  background-color: var(--ink-invert);
+  color: var(--on-invert);
+  padding: var(--space-4xl) 0;
+  margin: var(--space-3xl) 0;
+}
+
+.band .rail__label {
+  color: var(--muted-invert);
+  border-top-color: var(--rule-invert);
+}
+
+.band__statement {
+  font-family: var(--font-display);
+  font-size: var(--text-statement);
+  font-weight: 400;
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-tight);
+  color: var(--on-invert);
+  max-width: 30em;
+  margin-bottom: var(--space-lg);
+}
+
+/* Body copy inside the band */
+.band p {
+  color: var(--muted-invert);
+}
+
+.band blockquote {
+  color: var(--on-invert);
+  border-left-color: var(--on-invert);
+}
+
+.band blockquote p {
+  color: var(--on-invert);
+}
+
+.band__note {
+  color: var(--muted-invert);
+  max-width: var(--measure);
+  margin-bottom: var(--space-lg);
+}
+
+.band__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-utility);
+  font-size: var(--text-nav);
+  color: var(--on-invert);
+  text-decoration: underline;
+  text-decoration-color: var(--rule-invert);
+  text-underline-offset: 0.25em;
+}
+
+/* The base hover is for the dark band. It must stay above the --light
+   modifier: both selectors carry the same specificity, so whichever is
+   written last wins, and the near-white hover colour on the light ground
+   makes the link disappear. */
+.band__link:hover {
+  color: var(--on-invert);
+  text-decoration-color: var(--on-invert);
+}
+
+.band__link:focus-visible {
+  outline: 2px solid var(--on-invert);
+  outline-offset: 3px;
+}
+
+/* Same link on the light ground (home evidence block) */
+.band__link--light {
+  color: var(--ink);
+  text-decoration-color: var(--rule);
+  margin-top: var(--space-sm);
+}
+
+.band__link--light:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+.band__link--light:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.evidence__name {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 500;
+  margin-bottom: var(--space-xs);
+}
+
+/* ---- Entry Points ---- */
+
+.entry-points {
+  padding-block: var(--space-xl) var(--space-3xl);
+}
+
+.entry-points__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* ---- Interior page body ----
+   Full width of the page; each section supplies its own rail. */
+
+.philosophy-body,
+.page-content {
+  max-width: none;
+}
+
+/* Elements that sit outside a section still align to the body column */
+.offset {
+  margin-left: var(--rail-offset);
+  max-width: var(--measure);
+}
+
+/* Interior page headers use the same rail: eyebrow in the margin, title beside it */
+.page-header {
+  display: grid;
+  grid-template-columns: 10rem minmax(0, 1fr);
+  gap: var(--space-2xl);
+  margin: 0 0 var(--space-3xl);
+}
+
+.page-header .eyebrow {
+  border-top: var(--border-rule);
+  padding-top: 0.45rem;
+  margin-bottom: 0;
+}
+
+.page-header__body {
+  max-width: var(--measure);
+}
+
+/* Standfirst under the page title — gives the header something to stand on */
+.page-lede {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 400;
+  line-height: var(--lh-heading);
+  color: var(--muted);
+  margin-top: var(--space-sm);
+  margin-bottom: 0;
+}
+
+.page-header h1 {
+  font-size: var(--text-h2);
+  line-height: var(--lh-heading);
+}
+
+/* ---- Founder Section ---- */
+
+.founder {
+  max-width: var(--measure);
+}
+
+/* ---- Person ----
+   One leader. Portrait beside the text, not above it: a circle only
+   touches its bounding box at the midpoint, so stacking it over
+   left-aligned text reads as misaligned however carefully it is placed.
+   Repeats for each person. */
+
+.person {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-lg);
+  max-width: var(--measure);
+  margin-top: var(--space-xl);
+  padding-top: var(--space-xl);
+  border-top: var(--border-rule);
+}
+
+.person:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.person__body {
+  min-width: 0;
+}
+
+.person__name {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 500;
+  margin-bottom: 0;
+}
+
+.person__role {
+  font-family: var(--font-utility);
+  font-size: var(--text-eyebrow);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: var(--space-sm);
+}
+
+.person__note {
+  margin-bottom: var(--space-sm);
+}
+
+.person__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.person__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-utility);
+  font-size: var(--text-nav);
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 0.2em;
+}
+
+.person__link:hover {
+  color: var(--ink);
+  text-decoration-color: var(--ink);
+}
+
+/* Same plate treatment as every other image */
+.person__portrait {
+  width: 112px;
+  height: 112px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 50%;
+  border: var(--border-rule);
+  box-shadow: 0 1px 2px rgba(26, 29, 31, 0.06),
+              0 8px 20px -10px rgba(26, 29, 31, 0.22);
+}
+
+.person__portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* The founder's note is signed, which is what licenses its first person */
+.founder__sign {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--muted);
+  margin-top: var(--space-lg);
+}
+
+/* Same plate treatment as every other image on the site: hairline frame
+   and a shadow that lifts it just off the ground. Circular here, so the
+   shadow follows the circle. */
+.founder__portrait {
+  width: 128px;
+  height: 128px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 50%;
+  border: var(--border-rule);
+  box-shadow: 0 1px 2px rgba(26, 29, 31, 0.06),
+              0 8px 20px -10px rgba(26, 29, 31, 0.22);
+}
+
+.founder__portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.founder__name {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 500;
+  margin-bottom: var(--space-xs);
+}
+
+.founder__title {
+  font-family: var(--font-utility);
+  font-size: var(--text-nav);
+  color: var(--muted);
+  margin-bottom: 0;
+}
+
+.founder__bio p {
+  margin-bottom: var(--space-md);
+}
+
+.founder__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.founder__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-utility);
+  font-size: var(--text-nav);
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 0.2em;
+  margin-top: var(--space-md);
+}
+
+.founder__link:hover {
+  color: var(--ink);
+  text-decoration-color: var(--ink);
+}
