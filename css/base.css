@@ -49,7 +49,9 @@
    lands the reader mid-section. Every linkable target keeps clear space
    above it so the section label and heading arrive together. */
 
-h1[id], h2[id], h3[id],
+h1[id],
+h2[id],
+h3[id],
 .section[id],
 .areas__item[id],
 [id^="note-"] {
@@ -67,25 +69,12 @@ body {
   background-color: var(--ground);
 }
 
-/* ---- Viewport bezel ----
-   Rounds the viewport corners. A fixed pseudo-element covers the entire
-   viewport; its clip-path punches a rounded-rectangle hole so only four
-   tiny corner fills remain, painted in --ink. The body itself is not
-   clipped, so scrolling, fixed elements, and stacking contexts are
-   unaffected. pointer-events: none keeps every element clickable. */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  border: 6px solid var(--ink);
-  border-radius: 16px;
-  pointer-events: none;
-  z-index: 9999;
-}
-
 /* ---- Headings ---- */
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   font-family: var(--font-display);
   font-weight: 500;
   line-height: var(--lh-heading);
@@ -124,7 +113,7 @@ a {
   text-decoration-color: var(--rule);
   text-underline-offset: 0.2em;
   transition: color var(--duration-sm) var(--ease-out),
-              text-decoration-color var(--duration-sm) var(--ease-out);
+    text-decoration-color var(--duration-sm) var(--ease-out);
 }
 
 a:hover {
@@ -194,7 +183,8 @@ blockquote p {
 
 /* ---- Small / Caption ---- */
 
-small, .caption {
+small,
+.caption {
   font-family: var(--font-utility);
   font-size: var(--text-nav);
   color: var(--muted);
