@@ -40,8 +40,14 @@
 
   /* ---- Typography — Letter Spacing ---- */
   --ls-eyebrow:  0.12em;
-  --ls-wordmark: 0.16em;
+  --ls-wordmark: 0.10em;
   --ls-tight:   -0.01em;
+
+  /* ---- Wordmark Weights ----
+     JEEV is always the heavier word (the identity).
+     The second word (Tech, Research, Labs…) defers. */
+  --wt-wordmark:   600;
+  --wt-descriptor: 400;
 
   /* ---- Spacing Scale (8px base) ---- */
   --space-xs:   0.5rem;   /*  8px */

@@ -30,12 +30,18 @@
 .wordmark {
   font-family: var(--font-utility);
   font-size: var(--text-nav);
-  font-weight: 600;
+  font-weight: var(--wt-wordmark);
   letter-spacing: var(--ls-wordmark);
   text-transform: uppercase;
   color: var(--ink);
   text-decoration: none;
   line-height: 1;
+}
+
+/* The division name (Tech, Research, Labs…) defers to the master
+   identifier through weight alone — no separator, no size change. */
+.wordmark__descriptor {
+  font-weight: var(--wt-descriptor);
 }
 
 .wordmark:hover {
@@ -467,7 +473,7 @@ button.prominent-link {
 .site-footer__wordmark {
   font-family: var(--font-utility);
   font-size: var(--text-eyebrow);
-  font-weight: 600;
+  font-weight: var(--wt-wordmark);
   letter-spacing: var(--ls-wordmark);
   text-transform: uppercase;
   color: var(--ink);
@@ -684,7 +690,7 @@ button.prominent-link {
 .signature__mark {
   display: block;
   font-family: var(--font-utility);
-  font-weight: 600;
+  font-weight: var(--wt-wordmark);
   font-variation-settings: "opsz" 32;
   /* Sized to span the grid exactly, from the left rule to the right one.
      The glyph run is about 5.02em wide, so dividing the available width by

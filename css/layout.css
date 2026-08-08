@@ -49,6 +49,14 @@ main {
   max-width: var(--measure);
 }
 
+/* Editorial breathing room between the section heading and the first
+   paragraph. Without this the reset's margin: 0 collapses them into a
+   single visual block. 32px (--space-lg) sits in the 28–36px range
+   that reads as premium editorial spacing. */
+.section__heading {
+  margin-bottom: var(--space-lg);
+}
+
 /* ---- Register ----
    Term-and-description rows. Turns a run of prose into something
    scannable, without becoming a table of marketing bullets. */
