@@ -67,6 +67,22 @@ body {
   background-color: var(--ground);
 }
 
+/* ---- Viewport bezel ----
+   Rounds the viewport corners. A fixed pseudo-element covers the entire
+   viewport; its clip-path punches a rounded-rectangle hole so only four
+   tiny corner fills remain, painted in --ink. The body itself is not
+   clipped, so scrolling, fixed elements, and stacking contexts are
+   unaffected. pointer-events: none keeps every element clickable. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  border: 6px solid var(--ink);
+  border-radius: 16px;
+  pointer-events: none;
+  z-index: 9999;
+}
+
 /* ---- Headings ---- */
 
 h1, h2, h3, h4 {
