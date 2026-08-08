@@ -39,9 +39,11 @@
 }
 
 /* The division name (Tech, Research, Labs…) defers to the master
-   identifier through weight alone — no separator, no size change. */
+   identifier through weight and tracking contrast. */
 .wordmark__descriptor {
   font-weight: var(--wt-descriptor);
+  letter-spacing: var(--ls-descriptor);
+  margin-left: 0.35em;
 }
 
 .wordmark:hover {
@@ -693,18 +695,17 @@ button.prominent-link {
   font-weight: var(--wt-wordmark);
   font-variation-settings: "opsz" 32;
   /* Sized to span the grid exactly, from the left rule to the right one.
-     The glyph run is about 5.02em wide, so dividing the available width by
-     that fills it. Measured, the run is 5.30em at small sizes, so 5.4 is the
-     safe divisor — it leaves ~2% of slack, which absorbs both subpixel
-     rounding and the desktop scrollbar that 100vw does not account for.
-     5.15 was derived from the desktop measurement alone and overflowed
-     narrow screens by up to 8px. */
-  font-size: min(13rem, calc((100vw - 2 * var(--page-gutter)) / 5.4));
+     Capped at 11rem to fit the max-width container, and divided by 6.6 to prevent overflow on smaller screens. */
+  font-size: min(11rem, calc((100vw - 2 * var(--page-gutter)) / 6.6));
   letter-spacing: -0.035em;
   line-height: 0.9;
   text-transform: uppercase;
   color: var(--ink);
   white-space: nowrap;
+}
+
+.signature__mark .wordmark__descriptor {
+  letter-spacing: 0.10em;
 }
 
 /* The mark is written on, left to right — the same drawing language the
