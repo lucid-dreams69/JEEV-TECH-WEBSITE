@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+
 /* ==========================================================================
    JEEV TECH — Design Tokens
    A restrained, institutional palette with one muted green accent.
@@ -22,6 +24,7 @@
   --font-display: 'Newsreader', 'Georgia', serif;
   --font-body:    'Source Serif 4', 'Georgia', serif;
   --font-utility: 'Inter', 'Helvetica Neue', 'Arial', sans-serif;
+  --font-brand:   'Geist', var(--font-utility);
 
   /* ---- Typography — Scale (desktop) ---- */
   --text-hero:     4.25rem;   /* 68px — hero statement */
@@ -40,15 +43,15 @@
 
   /* ---- Typography — Letter Spacing ---- */
   --ls-eyebrow:  0.12em;
-  --ls-wordmark: 0.12em;
-  --ls-descriptor: 0.24em;
+  --ls-wordmark: 0.10em;
+  --ls-descriptor: 0.35em;
   --ls-tight:   -0.01em;
 
   /* ---- Wordmark Weights ----
      JEEV is always the heavier word (the identity).
      The second word (Tech, Research, Labs…) defers. */
-  --wt-wordmark:   750;
-  --wt-descriptor: 300;
+  --wt-wordmark:   700;
+  --wt-descriptor: 400;
 
   /* ---- Spacing Scale (8px base) ---- */
   --space-xs:   0.5rem;   /*  8px */

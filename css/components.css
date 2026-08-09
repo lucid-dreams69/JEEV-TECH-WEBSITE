@@ -28,7 +28,7 @@
 /* ---- Wordmark ---- */
 
 .wordmark {
-  font-family: var(--font-utility);
+  font-family: var(--font-brand);
   font-size: var(--text-nav);
   font-weight: var(--wt-wordmark);
   letter-spacing: var(--ls-wordmark);
@@ -473,7 +473,7 @@ button.prominent-link {
 }
 
 .site-footer__wordmark {
-  font-family: var(--font-utility);
+  font-family: var(--font-brand);
   font-size: var(--text-eyebrow);
   font-weight: var(--wt-wordmark);
   letter-spacing: var(--ls-wordmark);
@@ -691,7 +691,7 @@ button.prominent-link {
 
 .signature__mark {
   display: block;
-  font-family: var(--font-utility);
+  font-family: var(--font-brand);
   font-weight: var(--wt-wordmark);
   font-variation-settings: "opsz" 32;
   /* Sized to span the grid exactly, from the left rule to the right one.
@@ -716,7 +716,7 @@ button.prominent-link {
 }
 
 .js .signature.arrived .signature__mark {
-  animation: signWrite 1100ms var(--ease-out) 120ms forwards;
+  animation: signWrite 1100ms var(--ease-out) 600ms forwards;
 }
 
 @keyframes signWrite {
@@ -738,11 +738,11 @@ button.prominent-link {
 }
 
 .js .signature.arrived .signature__label {
-  animation: sigFade 700ms var(--ease-out) 1150ms forwards;
+  animation: sigFade 700ms var(--ease-out) 100ms forwards;
 }
 
 .js .signature.arrived .signature__line {
-  animation: sigFade 700ms var(--ease-out) 1550ms forwards;
+  animation: sigFade 700ms var(--ease-out) 1750ms forwards;
 }
 
 @keyframes sigFade {
