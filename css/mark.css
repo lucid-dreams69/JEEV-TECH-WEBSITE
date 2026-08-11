@@ -23,6 +23,7 @@
   --x-muted: var(--muted);
   --x-rule: var(--rule);
   --x-ground: var(--ground);
+  --x-accent: var(--accent);
   --x-t: 0;
 
   /* The theatre. Deliberately --ink-invert and not a deeper black: the
@@ -61,6 +62,19 @@
 .mark-page .site-nav__link:hover,
 .mark-page .site-nav__link--active {
   color: var(--x-ink);
+}
+
+/* The header underline is ink sitewide, and ink is the one thing this page
+   spends a third of its length inverting — left alone it would be a black
+   line on a black bar for the whole dark act. Both cuts follow the lighting,
+   including Servizo's accent: --accent is a deep pine chosen against paper,
+   and against the theatre it is barely a colour at all. */
+.mark-page .site-nav__link::after {
+  background-color: var(--x-ink);
+}
+
+.mark-page .site-nav__link[href="/servizo"]::after {
+  background-color: var(--x-accent);
 }
 
 /* The emblem crossfades to its inverted cut rather than being filtered:
@@ -296,9 +310,18 @@
   stroke-linecap: round;
 }
 
-/* Stroke widths are in the render's 2000-unit space, which lands on screen
-   at roughly a quarter of their value — a 4-unit line is a hairline nobody
-   sees. These are sized so the drawing reads at the size it is shown. */
+/* Stroke widths are in the render's 2000-unit space, which lands on screen at
+   roughly a quarter of their value — a 4-unit line is a hairline nobody sees.
+   These are sized so the drawing reads at the size it is shown.
+
+   Both annotations are ink, not the accent. The accent is spent on the
+   product now, and green here was reading as brand colour rather than as a
+   drawing. Ink is a value though, not a hex: this line is drawn on a
+   near-black room *and* across a dimmed object, so literal black is the one
+   colour it cannot be. On the theatre, ink is the paper cut — the same
+   inversion the page already applies to every other mark it carries. The
+   strands get the real thing; they are the one annotation that never leaves
+   the lit object. */
 .exhibit__trace .trace-halo {
   stroke: var(--theatre);
   stroke-width: 32;
@@ -306,7 +329,7 @@
 }
 
 .exhibit__trace .trace-line {
-  stroke: #C3E2CF;
+  stroke: var(--on-invert);
   stroke-width: 12;
 }
 
@@ -322,18 +345,21 @@
 
 /* Weight is judged at the zoom the chapter is actually seen at, not in the
    viewBox. This one is magnified 2.2x, so a unit here draws about 2.5 times
-   what the same unit draws in the continuity chapter — the first attempt used
-   the trace's weights and produced black bars laid across the object. What
-   separates the drawing from the surface at this size is colour, not mass:
-   the accent says annotation where a heavier grey would only have said
-   deeper groove. */
+   what the same unit draws in the continuity chapter — given the trace's
+   weights it produced black bars laid across the object. What separates the
+   drawing from the surface at this size is the halo, not mass. */
 .exhibit__strands .strand-halo use {
   stroke: rgba(247, 247, 245, 0.5);
   stroke-width: 17;
 }
 
+/* Real ink, and it can be, because this is the one annotation drawn entirely
+   on the lit object rather than across the room. What separates it from the
+   grooves underneath is the halo, not the hue — which is why the first
+   attempt at a dark line failed: it had no halo and simply became another
+   groove. */
 .exhibit__strands .strand-line use {
-  stroke: var(--accent);
+  stroke: var(--ink);
   stroke-width: 6;
 }
 

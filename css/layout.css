@@ -248,6 +248,30 @@ main {
   margin-bottom: var(--space-lg);
 }
 
+/* An inline link inside band prose, as opposed to .band__link, which is a
+   standalone one. Without this it takes the sitewide link colour — the accent,
+   a deep pine cut for paper — and on the inverted ground that is a hole in the
+   sentence: the words disappear and the underline is the only thing left. The
+   band is always the dark band (.band__link--light is used outside one), so
+   the inverted palette is unconditional here. */
+.band p a:not([class]),
+.band li a:not([class]) {
+  color: var(--on-invert);
+  text-decoration-color: var(--rule-invert);
+  text-underline-offset: 0.2em;
+}
+
+.band p a:not([class]):hover,
+.band li a:not([class]):hover {
+  text-decoration-color: var(--on-invert);
+}
+
+.band p a:not([class]):focus-visible,
+.band li a:not([class]):focus-visible {
+  outline: 2px solid var(--on-invert);
+  outline-offset: 3px;
+}
+
 .band__link {
   display: inline-flex;
   align-items: center;

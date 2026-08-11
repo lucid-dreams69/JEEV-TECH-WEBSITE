@@ -43,7 +43,13 @@ is no rectangle to see, and the /mark share card.
 The division lockups — `wordmark-energy.svg` and the rest — are generated the
 same way, and **JEEV in them is never re-set**: those pixels are lifted out of
 the source render, and only the division word is typeset beside it, at the cap
-height, baseline, gap and tracking measured off the real `TECH`. The build
+height, baseline, gap and tracking measured off the real `TECH`. The
+`DIVISIONS` list in the build script is **in the order the list appears on
+/mark**, which is the company's own sequence — mind (TECH, RESEARCH), body
+(BIO TECH), world (ENERGY, ECO, INFRA) — not an alphabet. Renaming or adding
+one means: edit `DIVISIONS`, re-run the build, then update `--wm` in
+`mark.html` to the new file's viewBox width, because that number is what
+drives the lockup's aspect ratio and nothing recomputes it. The build
 re-sets `TECH` too and prints how closely it reproduces the artwork. That number
 is currently **0.84**, and it is the honest state of the thing: the font in
 `fonts/` is a close relative of the wordmark's face, not the face itself (its E
@@ -123,6 +129,24 @@ the per-chapter layers from a single scroll position. Things to know:
   and left-aligned inside it, so it needs `max-width: none`; and tracking is
   added after the last letter too, so a centred tracked line needs
   `padding-left` equal to its own tracking.
+
+## The accent
+
+`--accent` is a deep pine, and it is spent, never sprinkled. In a drawing it
+marks the one thing the drawing is about; in the header it marks **Servizo and
+nothing else** — every other nav underline is ink. Painting all eight links
+green made it a colour the navigation merely *was*, on every page at once,
+which is the same as it meaning nothing.
+
+Two consequences worth knowing:
+
+- **It is cut for paper.** On the inverted ground — the dark band, the /mark
+  theatre — `--accent` is barely a colour: it reads as a hole. Anything that
+  crosses the two lightings needs the light pine instead, which on /mark is
+  `--x-accent`, interpolated per frame beside `--x-ink` and the rest.
+- **An inline link in band prose takes the accent by default**, and therefore
+  disappears. `layout.css` handles `.band p a:not([class])` for exactly this;
+  the standalone `.band__link` was already covered, the inline case was not.
 
 ## Things that are easy to break
 

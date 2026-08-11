@@ -83,7 +83,7 @@
   flex-shrink: 0;
 }
 
-/* The division name (Tech, Research, Labs…) defers to the master
+/* The division name (Tech, Research, Energy…) defers to the master
    identifier through weight and tracking contrast. */
 .wordmark__descriptor {
   font-weight: var(--wt-descriptor);
@@ -112,6 +112,13 @@
   transition: color var(--duration-sm) var(--ease-out);
 }
 
+/* The underline is ink, and the accent is spent on one link only.
+   Painting all eight in the accent made the green a decoration — a colour the
+   navigation happens to be, carrying no information, on every page at once.
+   The site's own rule for the accent is that it marks the one thing a drawing
+   is about; the header's version of that is the product. So the underline is
+   ink for every link and green for Servizo, where the colour is doing the
+   work of saying which of these is the thing being built. */
 .site-nav__link::after {
   content: '';
   position: absolute;
@@ -119,8 +126,12 @@
   left: 0;
   width: 0;
   height: 2px;
-  background-color: var(--accent);
+  background-color: var(--ink);
   transition: width var(--duration-sm) var(--ease-out);
+}
+
+.site-nav__link[href="/servizo"]::after {
+  background-color: var(--accent);
 }
 
 .site-nav__link:hover,

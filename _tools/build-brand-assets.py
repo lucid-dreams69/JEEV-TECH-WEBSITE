@@ -154,7 +154,7 @@ def build_wordmark(word):
 
 
 def build_division_wordmarks(word):
-    """img/wordmark-<division>.svg — JEEV ENERGY, LABS, RESEARCH, HEALTH.
+    """img/wordmark-<division>.svg — JEEV RESEARCH, BIO TECH, ENERGY, ECO, INFRA.
 
     Only JEEV TECH exists as artwork, but the brand architecture needs the
     same lockup for every division. Rather than set them in a substitute face
@@ -173,8 +173,15 @@ def build_division_wordmarks(word):
         width exactly.
 
     The font is a build input only, like the two source renders. What ships
-    is the traced outline — see .vercelignore."""
-    DIVISIONS = ["TECH", "ENERGY", "LABS", "RESEARCH", "HEALTH"]
+    is the traced outline — see .vercelignore.
+
+    The order here is the order the divisions are listed on /mark, and it is
+    the company's own sequence rather than an alphabet: the mind first
+    (TECH, RESEARCH), then the body (BIO TECH), then the world (ENERGY, ECO,
+    INFRA). See principles.html#order-of-freedom. A division name may carry a
+    space — the tracking loop advances by the space's own width like any other
+    glyph — and the filename takes a hyphen where the name takes the space."""
+    DIVISIONS = ["TECH", "RESEARCH", "BIO TECH", "ENERGY", "ECO", "INFRA"]
 
     m = np.array(word.getchannel("A")) > 127
     H, W = m.shape
@@ -260,7 +267,7 @@ def build_division_wordmarks(word):
                'role="img" aria-label="%s"><title>%s</title>'
                '<path fill="currentColor" fill-rule="evenodd" d="%s"/></svg>'
                % (out.shape[1], H, label, label, path_d(curves, pad)))
-        dest = "img/wordmark-%s.svg" % name.lower()
+        dest = "img/wordmark-%s.svg" % name.lower().replace(" ", "-")
         open(dest, "w", encoding="utf-8").write(svg)
         note = "%d contours, viewBox %dx%d" % (len(curves), out.shape[1], H)
 

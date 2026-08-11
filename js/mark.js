@@ -88,9 +88,13 @@
     }
   };
 
-  /* ---- The two lighting states ---- */
-  var LIGHT = { ground: '#F7F7F5', ink: '#1A1D1F', muted: '#6B7280', rule: '#D4D6D8' };
-  var DARK  = { ground: '#14171A', ink: '#F2F2F0', muted: '#A8ADB4', rule: '#34383C' };
+  /* ---- The two lighting states ----
+     The accent is in here for the same reason the ink is: --accent is a deep
+     pine cut for paper, and on the theatre ground it is nearly black. The
+     dark cut is the light pine, which is the same value relationship the
+     other way up. */
+  var LIGHT = { ground: '#F7F7F5', ink: '#1A1D1F', muted: '#6B7280', rule: '#D4D6D8', accent: '#3B5F4A' };
+  var DARK  = { ground: '#14171A', ink: '#F2F2F0', muted: '#A8ADB4', rule: '#34383C', accent: '#A9D0BA' };
 
   var names = [];
   Array.prototype.forEach.call(chapterEls, function (el) {
@@ -281,6 +285,7 @@
     root.style.setProperty('--x-ink', mixHex(LIGHT.ink, DARK.ink, t));
     root.style.setProperty('--x-muted', mixHex(LIGHT.muted, DARK.muted, t));
     root.style.setProperty('--x-rule', mixHex(LIGHT.rule, DARK.rule, t));
+    root.style.setProperty('--x-accent', mixHex(LIGHT.accent, DARK.accent, t));
 
     /* Draw progress for a traced layer: complete by the time its chapter's
        plateau opens, held from there on. Finishing at the centre instead
