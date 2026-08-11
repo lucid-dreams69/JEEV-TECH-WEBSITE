@@ -154,12 +154,18 @@
    That edge has to land on the rule, and the rule is on the page grid, not
    on the viewport: past --page-max the grid stops widening and the stage
    does not. The first term is the margin between the two. */
+   The + 1px is the rule's own width. Without it the clip ends on the far
+   side of the hairline instead of the near side, so wherever the object
+   reached the edge it painted over the line — the split simply vanished for
+   the top two thirds of the stage and reappeared below the object, which
+   reads as a rule that has been drawn badly rather than one the object
+   stops at. */
 .exhibit__viewport {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
-  right: calc(max(0px, (100% - var(--page-max)) / 2) + var(--mark-split));
+  right: calc(max(0px, (100% - var(--page-max)) / 2) + var(--mark-split) + 1px);
   overflow: hidden;
 }
 
@@ -295,21 +301,40 @@
    sees. These are sized so the drawing reads at the size it is shown. */
 .exhibit__trace .trace-halo {
   stroke: var(--theatre);
-  stroke-width: 26;
-  opacity: 0.75;
+  stroke-width: 32;
+  opacity: 0.85;
 }
 
 .exhibit__trace .trace-line {
-  stroke: #A9D0BA;
-  stroke-width: 9;
+  stroke: #C3E2CF;
+  stroke-width: 12;
 }
 
-/* The strand annotations sit on bright silver, so they run dark. */
-.exhibit__strands path {
+/* The strand annotations, drawn twice — a light halo under a dark line. They
+   land on the brightest region of the lit object, on top of the render's own
+   grooves, so a single dark line at half opacity was read as more shading
+   rather than as a drawing. The halo is the inverse of the trace's: light,
+   because what it has to survive here is light. */
+.exhibit__strands use {
   fill: none;
-  stroke: rgba(20, 23, 26, 0.5);
-  stroke-width: 7;
   stroke-linecap: round;
+}
+
+/* Weight is judged at the zoom the chapter is actually seen at, not in the
+   viewBox. This one is magnified 2.2x, so a unit here draws about 2.5 times
+   what the same unit draws in the continuity chapter — the first attempt used
+   the trace's weights and produced black bars laid across the object. What
+   separates the drawing from the surface at this size is colour, not mass:
+   the accent says annotation where a heavier grey would only have said
+   deeper groove. */
+.exhibit__strands .strand-halo use {
+  stroke: rgba(247, 247, 245, 0.5);
+  stroke-width: 17;
+}
+
+.exhibit__strands .strand-line use {
+  stroke: var(--accent);
+  stroke-width: 6;
 }
 
 .exhibit__trace,
@@ -318,6 +343,44 @@
 }
 
 /* ---- The chapters ---- */
+
+/* Every chapter rests at one place: its own centre on the centre of the
+   viewport. That is not a nicety, it is the same position js/mark.js builds
+   each camera keyframe around — `sc` is the viewport centre in page
+   coordinates, and a chapter is fully composed when `sc` equals its centre.
+   Left to free scrolling the reader almost never stops there, so the object
+   was permanently between two compositions and the annotations, which peak at
+   the centre, were permanently half-faded. Snapping makes the resting state
+   the composed state.
+
+   Proximity, not mandatory: the chapters are 125vh, the page continues into
+   four more sections that are not chapters, and mandatory would fight a
+   reader who wants to move through rather than stop. Proximity settles a
+   scroll that was already going to end nearby and leaves the rest alone.
+
+   The snap target is a marker at the chapter's centre, not the chapter box
+   and not the text. The box is taller than the viewport, which relaxes
+   snapping to the point of doing nothing, and the text is offset from the
+   centre by a quarter viewport on phones — so neither describes the position
+   the camera is built around. A zero-height marker does, on every device. */
+html:has(body.mark-page) {
+  scroll-snap-type: y proximity;
+}
+
+.exhibit__opening,
+.chapter {
+  position: relative;
+}
+
+.exhibit__snap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(50% - 0.5px);
+  height: 1px;
+  pointer-events: none;
+  scroll-snap-align: center;
+}
 
 .exhibit__flow {
   position: relative;
@@ -366,7 +429,6 @@
   letter-spacing: var(--ls-eyebrow);
   text-transform: uppercase;
   color: var(--x-muted);
-  border-top: 1px solid var(--x-rule);
   padding-top: 0.6rem;
   margin-bottom: var(--space-md);
 }
@@ -428,9 +490,50 @@
   letter-spacing: var(--ls-eyebrow);
   text-transform: uppercase;
   color: var(--x-muted);
-  border-top: 1px solid var(--x-rule);
   padding-top: 0.6rem;
   margin-bottom: var(--space-md);
+}
+
+/* ---- The chapter rule ----
+   The hairline over the index used to be `border-top: 1px solid --x-rule`,
+   and in the theatre that is #34383C on #14171A: a line you can find if you
+   go looking for it and not otherwise. It was also the same line whether you
+   were reading that chapter or a screen away from it, which wasted the one
+   piece of structure on the page that could say which chapter you are in.
+
+   It is now drawn, in the site's own drafting language, from the chapter's
+   activation: --ch is written by js/mark.js every frame and is 1 while the
+   chapter is composed. The line draws from the left as the chapter arrives
+   and retracts as it leaves. It is ink rather than rule, so at full it is
+   visible rather than merely present.
+
+   var(--ch, 1) throughout: without JS every chapter is simply at full. */
+.chapter__index,
+.exhibit__eyebrow {
+  position: relative;
+}
+
+.chapter__index::before,
+.exhibit__eyebrow::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background-color: var(--x-ink);
+  opacity: calc(0.14 + 0.54 * var(--ch, 1));
+  transform: scaleX(var(--ch, 1));
+  transform-origin: left center;
+}
+
+/* The chapter that is not the one being read recedes rather than competing
+   with it. The floor is high on purpose — this is a reading column, and the
+   two neighbours are a full screen apart, so the only moment anything sits
+   below full is the crossing between them. */
+.chapter__body,
+.exhibit__titlebox {
+  opacity: calc(0.6 + 0.4 * var(--ch, 1));
 }
 
 .chapter__title {
@@ -780,12 +883,23 @@
     height: 1.6rem;
   }
 
-  .expression__lockup {
-    height: 18px;
+  /* The row stacks. A lockup is sized by height everywhere else on the site,
+     which is right when height is the constraint — beside a status it is not.
+     JEEV RESEARCH is 12.58 units wide per unit tall, so at 18px it draws
+     226px, and 226 + a 24px gap + a 139px status is 389px of unshrinkable
+     row inside a 272px column: the lockup cannot shrink (aspect-ratio) and
+     the status cannot wrap (nowrap), so the page itself grew instead. Every
+     phone width scrolled sideways. Stacked, and with the lockup sized by
+     width so it can give way below 280px, nothing has to overflow. */
+  .expression {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
   }
 
-  .expression {
-    gap: var(--space-md);
+  .expression__lockup {
+    height: auto;
+    width: min(100%, calc(var(--wm) * 18 / 639 * 1px));
   }
 
   /* The plate carries its own margin, so on a phone it runs to the edges —
@@ -823,6 +937,26 @@
   .exhibit__float,
   .exhibit__sheen {
     animation: none;
+  }
+
+  /* Snapping is a scroll animation; a reader who has asked for less motion
+     is not asking for the page to move on its own after they stop. */
+  html:has(body.mark-page) {
+    scroll-snap-type: none;
+  }
+
+  /* Nothing scrubs here, so nothing may depend on a scrubbed value: the
+     chapters are all simply present, and the rule is drawn at a fixed
+     weight rather than scaling in from the left. */
+  .chapter__index::before,
+  .exhibit__eyebrow::before {
+    transform: none;
+    opacity: 0.45;
+  }
+
+  .chapter__body,
+  .exhibit__titlebox {
+    opacity: 1;
   }
 
   .js .alone.will-arrive .alone__eyebrow,

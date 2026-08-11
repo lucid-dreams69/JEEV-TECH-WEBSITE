@@ -121,12 +121,17 @@
         p.style.strokeDasharray = String(len);
         p.style.strokeDashoffset = String(len);
       }
-      out.push({ el: p, len: len });
+      /* The stagger runs on data-i, not on position in the list. The strands
+         are drawn twice — a halo pass and a line pass — and a halo that is
+         one beat behind its own line is a line with a shadow that has not
+         caught up yet. Paired by index, the two are one stroke. */
+      var i = p.getAttribute('data-i');
+      out.push({ el: p, len: len, i: i === null ? out.length : parseInt(i, 10) });
     });
     return out;
   }
   var tracePaths = dashable(traceSvg, 'use');
-  var strandPaths = dashable(strandsSvg, 'path');
+  var strandPaths = dashable(strandsSvg, 'use');
 
   /* ---- Geometry, measured on resize ---- */
   var centers = [];
@@ -174,11 +179,12 @@
     return 'rgb(' + r + ',' + g + ',' + l + ')';
   }
 
-  function setDraw(paths, progress, stagger) {
+  function setDraw(paths, progress, stagger, lanes) {
+    var n = lanes || paths.length;
     for (var i = 0; i < paths.length; i++) {
       if (!paths[i].len) continue;
       var local = stagger
-        ? clamp01(progress * (1 + stagger * paths.length) - stagger * i)
+        ? clamp01(progress * (1 + stagger * n) - stagger * paths[i].i)
         : progress;
       paths[i].el.style.strokeDashoffset = String(paths[i].len * (1 - local));
     }
@@ -187,7 +193,15 @@
   function update() {
     var keys = KEYS[mqMobile.matches ? 'mobile' : 'desktop'];
     var y = window.pageYOffset;
-    var sc = y + stageH * 0.5;
+    /* The centre of the layout viewport, in page coordinates. This is the
+       one number the whole page is a function of, and it is deliberately the
+       same quantity scroll-snap centres a marker on — measured off
+       clientHeight rather than the stage, because on a phone the stage is
+       100svh while the snapport is the layout viewport, and the two differ
+       by the browser's toolbar. Snapping to a position the camera does not
+       consider composed is worse than not snapping at all. */
+    var vh = document.documentElement.clientHeight || stageH;
+    var sc = y + vh * 0.5;
 
     /* Read before anything is written, so the frame costs one layout and not
        two. This one is read every frame rather than cached with the rest of
@@ -201,9 +215,34 @@
     var k = 0;
     while (k < centers.length - 2 && sc > centers[k + 1]) k++;
     var span = centers[k + 1] - centers[k] || 1;
-    var e = ease(clamp01((sc - centers[k]) / span));
 
-    /* Chapter activations: 1 at a chapter's own centre, 0 at its neighbours'. */
+    /* The transition is compressed into the middle of the segment, leaving a
+       plateau of HOLD on either side of every chapter's centre.
+
+       Interpolating straight across meant a chapter was fully itself for
+       exactly one scroll position and in transit everywhere else: the camera
+       never settled, the spotlight never reached full, and the drawn
+       annotations — whose whole visibility is this value — were only ever
+       properly on screen at a single pixel of scroll. In practice you never
+       saw the trace at strength. Holding it means arriving somewhere and
+       staying, which is also what makes the snap worth having. 0.30 gives
+       each chapter 60% of its span composed and still.
+
+       The value has a floor, and it is not a matter of taste. Snapping is
+       proximity, so the browser only settles a scroll that was already going
+       to end near a chapter — Chromium's range is about 0.3 of the viewport.
+       The plateau has to be at least that wide, or there is a band where
+       snapping declines to help and the composition is half-made: the exact
+       state this page was in everywhere. Both quantities scale with the
+       viewport (a chapter is 125vh, 115svh on a phone), so the margin holds
+       at every size — 0.375vh against 0.3vh on desktop, 0.345vh on a phone.
+       Lower HOLD, or shorten a chapter, and that margin is what closes. */
+    var HOLD = 0.30;
+    var raw = clamp01((sc - centers[k]) / span);
+    var e = ease(clamp01((raw - HOLD) / (1 - 2 * HOLD)));
+
+    /* Chapter activations: 1 across a chapter's own plateau, 0 across its
+       neighbours'. */
     var a = [];
     for (var i = 0; i < centers.length; i++) a.push(0);
     a[k] = 1 - e;
@@ -214,13 +253,28 @@
       a[centers.length - 2] = 0;
     }
 
+    /* Each chapter carries its own activation, so the column can say which
+       one is being read: the rule over the index draws in, and the text
+       beside it comes to full. CSS falls back to 1 when this is absent. */
+    for (var ci = 0; ci < chapterEls.length; ci++) {
+      chapterEls[ci].style.setProperty('--ch', a[ci].toFixed(3));
+    }
+
     /* Lighting. Down between the opening and the first chapter; back up as
        the dark band's bottom edge reaches the header, so the fixed header is
-       never light-on-dark or dark-on-light for even a frame. */
-    var down = clamp01((sc - centers[idxOpening]) /
+       never light-on-dark or dark-on-light for even a frame.
+
+       The change of act takes the same plateau as everything else, or the two
+       disagree: the room would still be dimming through the first third of a
+       chapter that is already composed and still. The opening now holds on
+       the site's own ground while its title is read, the lights go down
+       across the move, and they are fully down the moment the first chapter
+       settles. */
+    var dr = clamp01((sc - centers[idxOpening]) /
       ((centers[idxForm] - centers[idxOpening]) || 1));
+    var down = ease(clamp01((dr - HOLD) / (1 - 2 * HOLD)));
     var up = band ? clamp01((darkBottom - 90) / 260) : 1;
-    var t = Math.min(ease(down), up);
+    var t = Math.min(down, up);
 
     root.style.setProperty('--x-t', t.toFixed(3));
     root.style.setProperty('--x-ground', mixHex(LIGHT.ground, DARK.ground, t));
@@ -228,13 +282,18 @@
     root.style.setProperty('--x-muted', mixHex(LIGHT.muted, DARK.muted, t));
     root.style.setProperty('--x-rule', mixHex(LIGHT.rule, DARK.rule, t));
 
-    /* Draw progress for a traced layer: complete by its chapter's centre,
-       held once past it. */
+    /* Draw progress for a traced layer: complete by the time its chapter's
+       plateau opens, held from there on. Finishing at the centre instead
+       meant the last stroke landed at the same moment the reader arrived, so
+       the drawing was still assembling itself for the whole approach and
+       finished exactly as they got there. It should be waiting for them. */
     function approach(idx) {
       if (idx < 1) return 1;
-      if (sc >= centers[idx]) return 1;
-      if (sc <= centers[idx - 1]) return 0;
-      return ease((sc - centers[idx - 1]) / ((centers[idx] - centers[idx - 1]) || 1));
+      var prev = centers[idx - 1];
+      var done = centers[idx] - HOLD * ((centers[idx] - prev) || 1);
+      if (sc >= done) return 1;
+      if (sc <= prev) return 0;
+      return ease((sc - prev) / ((done - prev) || 1));
     }
 
     if (!mqReduce.matches) {
@@ -255,11 +314,14 @@
       object.style.transform = 'rotate(' + r.toFixed(2) + 'deg)';
 
       if (traceSvg) setDraw(tracePaths, approach(idxContinuity), 0);
-      if (strandsSvg) setDraw(strandPaths, approach(idxLife), 0.18);
+      if (strandsSvg) setDraw(strandPaths, approach(idxLife), 0.18, 4);
       if (veilContinuity) veilContinuity.style.opacity = a[idxContinuity].toFixed(3);
       if (veilEmergence) veilEmergence.style.opacity = a[idxEmergence].toFixed(3);
       if (veilLife) veilLife.style.opacity = a[idxLife].toFixed(3);
-      if (sheen) sheen.style.opacity = (a[idxOpening] * 0.9).toFixed(3);
+      /* The sheen carries the opening and the first chapter — both are the
+         whole object seen plainly, and the object should not be inert for a
+         screen and a half while the reader is looking straight at it. */
+      if (sheen) sheen.style.opacity = ((a[idxOpening] + a[idxForm]) * 0.9).toFixed(3);
     } else {
       /* Reduced motion: the object is composed once and stays there. The
          lighting still changes — that is a change of state, not movement —
@@ -280,7 +342,13 @@
       if (sheen) sheen.style.opacity = '0';
     }
 
-    if (traceSvg) traceSvg.style.opacity = (a[idxContinuity] * 0.92).toFixed(3);
+    /* No 0.92 cap on the trace any more. It was there to keep the drawing
+       from shouting, but combined with an activation that only touched 1 for
+       an instant it meant the line never once reached the weight it was
+       drawn at. The restraint belongs in the stroke, which is a fixed
+       quantity that can be judged, not in a ceiling on a value that was
+       already never arriving. */
+    if (traceSvg) traceSvg.style.opacity = a[idxContinuity].toFixed(3);
     if (strandsSvg) strandsSvg.style.opacity = a[idxLife].toFixed(3);
   }
 

@@ -72,7 +72,13 @@ the per-chapter layers from a single scroll position. Things to know:
   and strands: lighting acts on the object, annotations are drawn on the glass
   in front of it. Put a veil last and it dims the drawing into invisibility.
 - **Stroke widths are in the render's 2000-unit space**, which lands on screen
-  at roughly a quarter. A 4-unit line is a hairline nobody sees.
+  at roughly a quarter — and *per chapter*, because the camera's zoom is part
+  of that quarter. Continuity is seen at 1.06 and Life at 2.20, so the same
+  stroke draws about two and a half times heavier in the strand chapter than
+  in the trace chapter. Judge a weight at the zoom its chapter is seen at; the
+  strands were given the trace's weights once and became black bars laid
+  across the object. What separates a drawing from the surface under it at
+  close range is colour and a halo, not mass.
 - **The trace and the strand paths are measured, not drawn.** The trace is
   potrace's contour of the render's own alpha — that is why it is a single
   closed line with no beginning and no end, which is the whole claim of the
@@ -89,6 +95,20 @@ the per-chapter layers from a single scroll position. Things to know:
   chapters through the rule and they are cut off, which reads as the mark
   sliding behind the notes. Change a keyframe's `s` or `f` and that ceiling
   moves — the binding one is Continuity. The detail zooms are meant to overrun.
+- **Every chapter has a plateau, and the page snaps to it.** `HOLD` in
+  `mark.js` compresses each transition into the middle of the segment between
+  two chapter centres, so a chapter is fully composed — camera, spotlight,
+  lighting, annotations — for 56% of its span rather than for one scroll
+  position. Before that, nothing ever reached full: the continuity trace was
+  drawn at a weight no reader ever saw. `scroll-snap` then makes the resting
+  position the composed one. The snap target is `.exhibit__snap`, a
+  zero-height marker at each chapter's centre — **not** the chapter box (taller
+  than the viewport, which relaxes snapping to nothing) and **not** the text
+  (a quarter viewport off centre on phones). If a keyframe, `HOLD` or the
+  marker's position changes, the other two have to be checked: they are three
+  statements of the same number. `sc` is measured off
+  `documentElement.clientHeight`, which is the snapport, not off the stage,
+  which is `100svh`.
 - **The house lights come up on `[data-dark-end]`**, the last dark section, and
   its bottom edge is read live rather than cached: it sits below two lazily
   loaded images, so a measured value is stale by the time it matters and the
@@ -135,6 +155,20 @@ the per-chapter layers from a single scroll position. Things to know:
   and is cut in ink. Do not put a tile behind either — the transparency is the
   point. The home-screen icons (`apple-touch-icon`, `icon-192`, `icon-512`)
   keep their ink tile, because iOS composites transparency onto black.
+- **Never write the `transform` property into a rule that can match anything
+  inside an SVG — not even `transform: none`.** The SVG `transform`
+  *attribute* is the CSS `transform` property, so a CSS rule does not add to
+  it, it replaces it, and a rotated label lies back down flat. This shipped:
+  the reduced-motion block in `diagram.css` reset `.dg-fade` with
+  `transform: none`, and on any machine reporting
+  `prefers-reduced-motion: reduce` — which is what Windows' *animation
+  effects: off* does to Chrome — "Problem selection" on /principles rendered
+  horizontally, straight through the word "Second". Every device with
+  animations on was correct, so it read as random. Use the independent
+  `translate` / `rotate` / `scale` properties, which compose with the
+  attribute instead of replacing it. The same trap bites verification
+  harnesses: to reach a diagram's finished state, clear `opacity` and
+  `animation` and remove `.will-arrive` — never set a transform.
 - **Diagram animation selectors must be `.diagram.arrived`, never a bare
   `.arrived` descendant.** Sections deliberately arrive early so prose is ready
   when you reach it; a descendant selector makes every drawing animate before

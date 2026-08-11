@@ -307,10 +307,17 @@
 }
 
 /* Progressive reveal: stages arrive one after another, in order.
-   --i is set per element in the markup. */
+   --i is set per element in the markup.
+
+   The offset is written with the independent `translate` property, never
+   with `transform`. Inside an SVG the `transform` *attribute* is the CSS
+   `transform` property, so any rule that sets `transform` here — including
+   `transform: none` — silently discards a label's own rotate() and lays it
+   back down horizontally. `translate` composes with the attribute instead
+   of replacing it, so a rotated label keeps its rotation while it moves. */
 .js .diagram.will-arrive .dg-step {
   opacity: 0;
-  transform: translateY(6px);
+  translate: 0 6px;
 }
 
 .js .diagram.arrived .dg-step {
@@ -319,7 +326,7 @@
 }
 
 @keyframes dgStep {
-  to { opacity: 1; transform: none; }
+  to { opacity: 1; translate: none; }
 }
 
 @keyframes dgDraw {
@@ -330,6 +337,18 @@
   to { opacity: 1; }
 }
 
+/* Reduced motion: everything is simply already drawn.
+
+   NOTE — `transform: none` must never appear in here. It used to, and it was
+   a real bug on real machines: turning Windows' animation effects off makes
+   Chrome report `prefers-reduced-motion: reduce`, this block matched, and
+   because the SVG `transform` attribute *is* the CSS `transform` property,
+   every rotated label in a drawing lost its rotation and rendered
+   horizontally. On /principles that laid "Problem selection" flat across the
+   middle of the layer stack, straight through the word "Second". The page
+   was correct on every device where animations were switched on, which is
+   what made it look intermittent. Reset `translate`, which is what the
+   animation actually uses. */
 @media (prefers-reduced-motion: reduce) {
   .js .diagram.will-arrive .dg-draw,
   .js .diagram.arrived .dg-draw {
@@ -342,7 +361,7 @@
   .js .diagram.will-arrive .dg-step,
   .js .diagram.arrived .dg-step {
     opacity: 1;
-    transform: none;
+    translate: none;
     animation: none;
   }
 }

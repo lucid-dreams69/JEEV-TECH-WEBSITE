@@ -155,11 +155,34 @@
                    python _tools/trace-strands.py — tracks 2, 3, 4, 5 of that
                    run; 0 and 1 are the ribbon's own edges, not strands.
                    Re-run and re-pick after any change to the render. -->
+              <!-- Drawn twice, like the trace and for the same reason. These
+                   sit on the brightest part of the lit object, directly over
+                   the render's own grooves, so one dark line at half opacity
+                   was indistinguishable from the surface it was pointing at —
+                   the annotation read as more shading. The pass underneath is
+                   a light halo, the inverse of the trace's dark one, and it is
+                   what separates the drawing from the object. data-i pairs
+                   each halo with its line so the two are drawn on the same
+                   beat of the stagger. -->
               <svg class="exhibit__strands" id="exhibit-strands" viewBox="0 0 2000 1420">
-                <path d="M1138 885 C1290 899 1442 817 1594 739" />
-                <path d="M1265 934 C1411 921 1559 863 1705 806" />
-                <path d="M1478 954 C1580 947 1688 918 1791 897" />
-                <path d="M1610 1001 C1694 1001 1778 1008 1862 999" />
+                <defs>
+                  <path id="strand-0" d="M1138 885 C1290 899 1442 817 1594 739" />
+                  <path id="strand-1" d="M1265 934 C1411 921 1559 863 1705 806" />
+                  <path id="strand-2" d="M1478 954 C1580 947 1688 918 1791 897" />
+                  <path id="strand-3" d="M1610 1001 C1694 1001 1778 1008 1862 999" />
+                </defs>
+                <g class="strand-halo">
+                  <use href="#strand-0" data-i="0" />
+                  <use href="#strand-1" data-i="1" />
+                  <use href="#strand-2" data-i="2" />
+                  <use href="#strand-3" data-i="3" />
+                </g>
+                <g class="strand-line">
+                  <use href="#strand-0" data-i="0" />
+                  <use href="#strand-1" data-i="1" />
+                  <use href="#strand-2" data-i="2" />
+                  <use href="#strand-3" data-i="3" />
+                </g>
               </svg>
 
             </div>
@@ -172,6 +195,7 @@
 
         <!-- Opening -->
         <header class="exhibit__opening" data-chapter="opening">
+          <i class="exhibit__snap" aria-hidden="true"></i>
           <div class="exhibit__inner">
             <p class="exhibit__eyebrow">The identity</p>
             <div class="exhibit__titlebox">
@@ -185,6 +209,7 @@
 
         <!-- 00 · The form -->
         <div class="chapter" data-chapter="form">
+          <i class="exhibit__snap" aria-hidden="true"></i>
           <div class="exhibit__inner">
             <div class="chapter__body">
               <p class="chapter__index">00 — The form</p>
@@ -200,6 +225,7 @@
 
         <!-- 01 · Continuity -->
         <div class="chapter" data-chapter="continuity">
+          <i class="exhibit__snap" aria-hidden="true"></i>
           <div class="exhibit__inner">
             <div class="chapter__body">
               <p class="chapter__index">01 — Continuity</p>
@@ -216,6 +242,7 @@
 
         <!-- 02 · Emergence -->
         <div class="chapter" data-chapter="emergence">
+          <i class="exhibit__snap" aria-hidden="true"></i>
           <div class="exhibit__inner">
             <div class="chapter__body">
               <p class="chapter__index">02 — Emergence</p>
@@ -231,6 +258,7 @@
 
         <!-- 03 · Life -->
         <div class="chapter" data-chapter="life">
+          <i class="exhibit__snap" aria-hidden="true"></i>
           <div class="exhibit__inner">
             <div class="chapter__body">
               <p class="chapter__index">03 — Life</p>
@@ -246,6 +274,7 @@
 
         <!-- 04 · Engineered -->
         <div class="chapter" data-chapter="engineered">
+          <i class="exhibit__snap" aria-hidden="true"></i>
           <div class="exhibit__inner">
             <div class="chapter__body">
               <p class="chapter__index">04 — Technology</p>
