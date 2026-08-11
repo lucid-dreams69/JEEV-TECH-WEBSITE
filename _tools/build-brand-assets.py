@@ -357,12 +357,26 @@ def build_icons(mark):
     sc = min(avail / mark.size[0], avail / mark.size[1])
     dx = (box - mark.size[0] * sc) / 2
     dy = (box - mark.size[1] * sc) / 2
+    # Two belts before the braces, both for consumers that are not a browser.
+    #
+    #   width/height as well as viewBox. A browser is happy with a viewBox
+    #   alone — it scales the thing to whatever box the tab bar gives it — but
+    #   a rasterizer handed an SVG with no intrinsic size has to invent one,
+    #   and some decline to.
+    #
+    #   fill on the path as well as in the <style>. The stylesheet is what
+    #   makes this file follow the tab bar, and it stays: a CSS rule beats a
+    #   presentation attribute, so the light and dark cases are unchanged in
+    #   every browser. But the attribute is what is left if a sanitizer drops
+    #   the <style>, and SVG's default fill is black — which on a dark card
+    #   is a mark nobody can see. Ink is the better thing to fall back to.
     svg = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" '
-           'role="img" aria-label="JEEV"><style>'
+           'width="512" height="512" role="img" aria-label="JEEV"><style>'
            'path{fill:%s}'
            '@media(prefers-color-scheme:dark){path{fill:%s}}'
-           '</style><path fill-rule="evenodd" d="%s"/></svg>'
+           '</style><path fill="%s" fill-rule="evenodd" d="%s"/></svg>'
            % ("#%02X%02X%02X" % INK, "#%02X%02X%02X" % ON_INVERT,
+              "#%02X%02X%02X" % INK,
               path_d(curves, pad, sc, sc, dx, dy, precision=1)))
     open("img/icon.svg", "w", encoding="utf-8").write(svg)
     report("img/icon.svg", "%d contours, mark on transparency, follows the tab bar"
