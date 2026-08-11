@@ -70,10 +70,23 @@
   position: relative;
 }
 
+/* Pinned to the emblem's own corner rather than inset into the anchor: the
+   brand is a lockup now, so `inset: 0` would stretch the light cut across the
+   name as well. Height comes from the anchor, which is the emblem's height,
+   so this keeps following the responsive sizes without repeating them. */
 .mark-page .site-brand__emblem--light {
   position: absolute;
-  inset: 0;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: auto;
   opacity: var(--x-t);
+}
+
+/* The name is a mask taking currentColor, so unlike the emblem it needs no
+   second cut — one line of colour follows the lighting. */
+.mark-page .site-brand__wordmark {
+  color: var(--x-ink);
 }
 
 .mark-page .site-brand__emblem--dark {

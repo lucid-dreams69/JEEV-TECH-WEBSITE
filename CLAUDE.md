@@ -113,11 +113,20 @@ the per-chapter layers from a single scroll position. Things to know:
   of the type beside them), never font-size — height drives width through
   `aspect-ratio`, so any rule that grows their height grows their width off the
   screen.
-- **The header carries the emblem, not the wordmark.** `.site-brand` on every
-  page. It is a shaded render, so it cannot go below about 30px without the
-  loop closing into a smudge, and it cannot take the 44px touch minimum either
-  — height drives width. It gets its hit area from a `::after` overlay in
-  `responsive.css`, the same trick the wordmark used before it.
+- **The header carries both: emblem then wordmark, one lockup.** `.site-brand`
+  is a flex row on every page. The emblem is a shaded render, so it cannot go
+  below about 30px without the loop closing into a smudge, and it cannot take
+  the 44px touch minimum either — height drives width. It gets its hit area
+  from a `::after` overlay in `responsive.css`.
+  - **`align-items: center` is the alignment, and it is only correct because
+    JEEV TECH has no descender** — the caps run 1..633 of a 639-unit drawing,
+    so the mask's box *is* the cap box. A drawing with a descender would need
+    the box shifted; this one does not.
+  - **The name is hidden between 769 and 1024px, and nowhere else.** Eight
+    inline links leave 45px beside the emblem at 820px and nothing at 769px;
+    the name is 108px wide, so no size fits. Below 769 the nav goes behind the
+    menu button and the name comes back. If a nav link is ever added, re-measure
+    that band before anything else.
 - **The favicon is the mark's silhouette, and that is not the same asset as
   the header's.** Shading is what dies at 16px, not the mark — one flat shape
   survives where the render is grey mush. `img/icon.svg` is the one browsers
@@ -147,6 +156,19 @@ the per-chapter layers from a single scroll position. Things to know:
 - **Never delete a source image after converting it.**
 
 ## Voice
+
+**Display type takes no terminal full stop.** Headings, statements, chapter
+titles, the footer tagline and the closing lines all end without one; running
+prose, including figure captions, keeps its punctuation. Internal stops inside
+a heading stay where they are two beats ("No beginning. No end"). A period at
+the end of a heading is the single most reliable tell that copy was not set by
+someone who sets copy.
+
+**Caps are for labels, not for sentences.** Eyebrows, rail labels, statuses and
+the labels inside a drawing are uppercase and tracked. Figure captions are not:
+they run to two hundred characters, and caps strip the ascenders and descenders
+a reader uses to recognise a word. They are set in the utility face at
+`--text-body-sm`, sentence case, muted.
 
 Every sentence must be identifiable as a Present Fact, an Engineering Principle,
 a Research Direction, or a Long-Term Vision — otherwise rewrite or remove it.

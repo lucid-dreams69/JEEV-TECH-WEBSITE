@@ -62,12 +62,25 @@
   color: var(--muted);
 }
 
+/* The caption is a sentence, so it is set as one.
+
+   It used to take the caps-and-tracking treatment the labels inside the
+   drawing take, which is right for a label and wrong at length: the two
+   longest captions on /servizo run 237 and 248 characters, which on a phone
+   is seven lines of tracked capitals. Caps have no ascenders or descenders to
+   give a word its shape, so a reader has to spell them; that is a fair price
+   for three words and not for forty.
+
+   It stays in the utility face and stays muted, so it is still visibly a
+   caption and not a continuation of the prose above the drawing — the body
+   text on this site is the serif. The measure keeps it from running the whole
+   width of a wide diagram. */
 .diagram figcaption {
-  margin-top: var(--space-sm);
+  margin-top: var(--space-md);
+  max-width: var(--measure);
   font-family: var(--font-utility);
-  font-size: var(--text-eyebrow);
-  letter-spacing: var(--ls-eyebrow);
-  text-transform: uppercase;
+  font-size: var(--text-body-sm);
+  line-height: var(--lh-body);
   color: var(--muted);
 }
 

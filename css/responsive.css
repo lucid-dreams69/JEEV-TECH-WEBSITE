@@ -102,6 +102,16 @@
     height: 30px;
   }
 
+  /* The lockup scales as a unit: the name keeps its third of the emblem's
+     height, and the air between them keeps its share of the name. */
+  .site-brand__wordmark {
+    height: 10px;
+  }
+
+  .site-brand {
+    gap: 0.5rem;
+  }
+
   .site-brand::after {
     content: '';
     position: absolute;
@@ -271,6 +281,18 @@
      collision. The nav closes up before the header does. */
   .site-nav {
     gap: var(--space-md);
+  }
+
+  /* The name comes off in this band, and only in this band. Eight inline
+     links and the emblem already leave 45px between them at 820px; the name
+     is 108px wide, so there is no size at which it fits — shrinking it would
+     just make it illegible *and* collide. Below 769px the nav goes behind the
+     menu button and the whole header is free again, so the name returns.
+
+     Measured slack between brand and nav, emblem only: 190px at 1152 and
+     above, 147px at 1024, 45px at 820, nothing at 769. */
+  .site-brand__wordmark {
+    display: none;
   }
 }
 

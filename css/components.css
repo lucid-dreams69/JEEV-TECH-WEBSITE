@@ -38,8 +38,22 @@
    line-height: 0 keeps the anchor the height of the image; without it the
    inline box adds descender space and the header sits a few pixels low. */
 
+/* Emblem and name, side by side, on one optical line.
+
+   align-items: center is the whole alignment, and it is correct because of
+   what the artwork measures: JEEV's caps run from y=1 to y=633 of a 639-unit
+   drawing, so the box the mask paints into is the cap box to within 1%. There
+   is no descender in JEEV TECH to pull the box below the baseline — the J's
+   tail turns inside the cap height — so centring the boxes centres the caps.
+   Anything with a descender would need the shift; this does not.
+
+   Neither part may shrink. They are two halves of one drawing, and a flex
+   container under pressure would take the space out of whichever it reached
+   first, which is the name. */
 .site-brand {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
   line-height: 0;
 }
 
@@ -47,12 +61,27 @@
   display: block;
   height: 36px;
   width: auto;
+  flex-shrink: 0;
 }
 
 /* ---- Wordmark ----
    The lockup as type. Since the header carries the emblem, this survives
    only in the footer and the sign-off, where the drawn wordmark is masked
    over it — these rules are the fallback for browsers without mask-image. */
+
+/* The header's name, and the fallback the footer's has always had: live text
+   in the brand face, for a browser that cannot paint a mask. The @supports
+   block at the end of this file replaces it with the drawing. */
+.site-brand__wordmark {
+  font-family: var(--font-brand);
+  font-size: var(--text-eyebrow);
+  font-weight: var(--wt-wordmark);
+  letter-spacing: var(--ls-wordmark);
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--ink);
+  flex-shrink: 0;
+}
 
 /* The division name (Tech, Research, Labs…) defers to the master
    identifier through weight and tracking contrast. */
@@ -621,11 +650,17 @@ button.prominent-link {
 
 /* ---- Skip Link (Accessibility) ---- */
 
+/* Off-screen until focused, so it costs the layout nothing — which is also
+   why it can afford the full 44px target the rest of the site's standalone
+   links get on touch. It was 38px, the only control on the site under it. */
 .skip-link {
   position: absolute;
   top: -100%;
   left: var(--space-sm);
   z-index: 200;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   padding: var(--space-xs) var(--space-sm);
   background-color: var(--accent);
   color: var(--ground);
@@ -832,6 +867,7 @@ button.prominent-link {
 
 @supports (mask-image: url("../img/wordmark.svg")) or (-webkit-mask-image: url("../img/wordmark.svg")) {
 
+  .site-brand__wordmark,
   .site-footer__wordmark,
   .signature__mark {
     display: block;
@@ -843,6 +879,14 @@ button.prominent-link {
     font-size: 0;
     line-height: 0;
     letter-spacing: normal;
+  }
+
+  /* 12px of caps beside a 36px emblem. The nav is 14px Inter, whose caps
+     measure about 10.1px, so this reads as the brand rather than as a ninth
+     link — but it is the widest thing that still clears the nav at the top of
+     the tablet range. See responsive.css, where it has to give up entirely. */
+  .site-brand__wordmark {
+    height: 12px;
   }
 
   /* The footer brand column stretches its children, so this one has to opt
