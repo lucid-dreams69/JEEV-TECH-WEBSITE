@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.jeevtech.in/sitemap.xml
+Sitemap: https://jeevtech.in/sitemap.xml

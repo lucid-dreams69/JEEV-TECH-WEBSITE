@@ -1,7 +1,14 @@
 # JEEV TECH — website
 
 The public site for JEEV TECH, an engineering company in India. Pre-launch.
-Canonical host is `https://www.jeevtech.in` (the apex must 301 to www).
+Canonical host is the apex, `https://jeevtech.in`, and `www` must 301 to it.
+The two must never disagree. They did: Vercel was redirecting www → apex while
+every canonical tag, OG url, JSON-LD url and sitemap entry named www, so the
+served page pointed at a host that bounced straight back to it. Google had
+indexed the www URL, which meant `www.jeevtech.in/favicon.ico` — the icon it
+fetches for the search result — was a redirect rather than an image, and the
+result showed the placeholder globe. Changing the host means changing all of
+it: 10 pages, `sitemap.xml`, `robots.txt`, and the Vercel primary domain.
 
 Plain static HTML / CSS / vanilla JS. **No build step, no framework, no
 dependencies.** Eleven pages, all hand-written; CSS is split by concern under
