@@ -19,36 +19,49 @@
 .site-header__inner {
   max-width: var(--page-max);
   margin: 0 auto;
-  padding: var(--space-sm) var(--page-gutter);
+  /* 12px, not 16px: the emblem brand is 36px tall where the drawn wordmark
+     was 10px, and the old padding put the header at 68px — tall enough that
+     the fixed bar started competing with the page. */
+  padding: 0.75rem var(--page-gutter);
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-/* ---- Wordmark ---- */
+/* ---- Site brand ----
+   The emblem is the identifier in the header, on every page. It is a shaded
+   render rather than a silhouette, so it is sized by height and kept large
+   enough that the ribbon still closes: below roughly 30px the loop starts
+   reading as a smudge. That is also why the header is taller than it was
+   with the drawn wordmark — this element cannot be shrunk to 10px.
 
-.wordmark {
-  font-family: var(--font-brand);
-  font-size: var(--text-nav);
-  font-weight: var(--wt-wordmark);
-  letter-spacing: var(--ls-wordmark);
-  text-transform: uppercase;
-  color: var(--ink);
-  text-decoration: none;
-  line-height: 1;
+   line-height: 0 keeps the anchor the height of the image; without it the
+   inline box adds descender space and the header sits a few pixels low. */
+
+.site-brand {
+  display: block;
+  line-height: 0;
 }
+
+.site-brand__emblem {
+  display: block;
+  height: 36px;
+  width: auto;
+}
+
+/* ---- Wordmark ----
+   The lockup as type. Since the header carries the emblem, this survives
+   only in the footer and the sign-off, where the drawn wordmark is masked
+   over it — these rules are the fallback for browsers without mask-image. */
 
 /* The division name (Tech, Research, Labs…) defers to the master
    identifier through weight and tracking contrast. */
 .wordmark__descriptor {
   font-weight: var(--wt-descriptor);
+  font-size: 0.72em;
   letter-spacing: var(--ls-descriptor);
-  margin-left: 0.35em;
-}
-
-.wordmark:hover {
-  color: var(--ink);
-  text-decoration: none;
+  vertical-align: baseline;
+  margin-left: 0.25em;
 }
 
 /* ---- Desktop Navigation ---- */
@@ -203,7 +216,7 @@
   font-size: var(--text-body);
   color: var(--muted);
   transition: color var(--duration-sm) var(--ease-out),
-              transform var(--duration-sm) var(--ease-out);
+    transform var(--duration-sm) var(--ease-out);
 }
 
 .entry-link:hover .entry-link__text {
@@ -295,7 +308,8 @@ button.prominent-link {
 
 .page-figure {
   max-width: var(--measure);
-  margin-bottom: var(--space-2xl);   /* margin-left comes from .offset */
+  margin-bottom: var(--space-2xl);
+  /* margin-left comes from .offset */
 }
 
 /* Photographs sit on a plate: hairline frame, a radius small enough to
@@ -328,7 +342,9 @@ button.prominent-link {
 }
 
 /* Safari draws its own triangle without this */
-.note__summary::-webkit-details-marker { display: none; }
+.note__summary::-webkit-details-marker {
+  display: none;
+}
 
 /* Our own marker: a rule that becomes a cross when open. Rotating a plus
    would be decoration; this reads as "there is more below". */
@@ -340,12 +356,12 @@ button.prominent-link {
   color: var(--muted);
 }
 
-.note[open] > .note__summary::after {
+.note[open]>.note__summary::after {
   content: "\2212";
 }
 
 .note__summary:hover,
-.note[open] > .note__summary {
+.note[open]>.note__summary {
   color: var(--ink);
 }
 
@@ -359,7 +375,7 @@ button.prominent-link {
   padding-bottom: var(--space-md);
 }
 
-.note__body > p:last-child {
+.note__body>p:last-child {
   margin-bottom: 0;
 }
 
@@ -400,7 +416,7 @@ button.prominent-link {
   border: var(--border-rule);
   border-radius: 3px;
   box-shadow: 0 1px 2px rgba(26, 29, 31, 0.05),
-              0 10px 28px -14px rgba(26, 29, 31, 0.22);
+    0 10px 28px -14px rgba(26, 29, 31, 0.22);
 }
 
 /* ---- App Rows (Servizo) ---- */
@@ -437,7 +453,7 @@ button.prominent-link {
   height: auto;
   border-radius: 50%;
   box-shadow: 0 1px 2px rgba(26, 29, 31, 0.06),
-              0 6px 16px -8px rgba(26, 29, 31, 0.20);
+    0 6px 16px -8px rgba(26, 29, 31, 0.20);
 }
 
 .app-row__name {
@@ -470,6 +486,19 @@ button.prominent-link {
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
+}
+
+/* The loop mark is a shaded render — flattening it to a silhouette closes the
+   ribbon into a blob — so it stays a raster, and measured it stops reading
+   below about 48px. That is why it appears here and in the sign-off, and
+   nowhere in the 14px chrome at the top of the page. */
+.site-footer__logo {
+  display: block;
+  width: auto;
+  height: 44px;
+  /* The brand column stretches its children; left alone the mark is pulled to
+     the column width and distorts. The column's own gap sets the space below. */
+  align-self: start;
 }
 
 .site-footer__wordmark {
@@ -708,6 +737,16 @@ button.prominent-link {
   letter-spacing: 0.10em;
 }
 
+/* The loop mark, above the name it belongs to. On About there is no label
+   between the two, and the mark's lower lobe sits directly over the J — 24px
+   there reads as a collision rather than a lockup. */
+.signature__logo {
+  display: block;
+  width: auto;
+  height: 72px;
+  margin-bottom: var(--space-lg);
+}
+
 /* The mark is written on, left to right — the same drawing language the
    diagrams use, applied to type. A clip never changes layout width, so
    unlike animating letter-spacing it cannot overflow the grid mid-flight. */
@@ -720,7 +759,9 @@ button.prominent-link {
 }
 
 @keyframes signWrite {
-  to { clip-path: inset(0 0 0 0); }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
 }
 
 /* The block itself does not fade or rise — that generic arrival would run
@@ -732,11 +773,13 @@ button.prominent-link {
 
 /* The words around the mark land after it, not with it: the mark is the
    event, the label and the line are what it is signing. */
+.js .signature.will-arrive .signature__logo,
 .js .signature.will-arrive .signature__label,
 .js .signature.will-arrive .signature__line {
   opacity: 0;
 }
 
+.js .signature.arrived .signature__logo,
 .js .signature.arrived .signature__label {
   animation: sigFade 700ms var(--ease-out) 100ms forwards;
 }
@@ -746,12 +789,17 @@ button.prominent-link {
 }
 
 @keyframes sigFade {
-  to { opacity: 1; }
+  to {
+    opacity: 1;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .js .signature.will-arrive .signature__mark,
   .js .signature.arrived .signature__mark,
+  .js .signature.will-arrive .signature__logo,
+  .js .signature.arrived .signature__logo,
   .js .signature.will-arrive .signature__label,
   .js .signature.arrived .signature__label,
   .js .signature.will-arrive .signature__line,
@@ -759,6 +807,56 @@ button.prominent-link {
     clip-path: none;
     animation: none;
     opacity: 1;
+  }
+}
+
+
+/* ---- The drawn wordmark ----------------------------------------------
+   JEEV TECH is a drawing, not a font setting. The lockup uses two weights of
+   a licensed face, only one of which we hold a file for, and a desktop licence
+   does not cover serving the font to a reader anyway. So it is traced once —
+   eight contours, 3.6KB — and painted through a mask, which is why it is
+   background-color and not an <img>: the mask takes currentColor, so the
+   drawing is exactly var(--ink) and follows it if the ink ever moves.
+
+   Sized by height, never font-size. The drawing is 5742x639 units, cap height
+   to overshoot, so setting its height to the cap height of the type it sits
+   beside lands it on that type's optical line: 14px Inter caps measure 10.2px
+   in the header, 12px caps measure 8.7px in the footer.
+
+   Behind @supports because a browser without mask-image would paint the
+   background colour straight across the box — a solid slab where the name
+   should be. Without support the wordmark simply stays what it has been: live
+   text in the brand face. The words themselves stay in the DOM either way, so
+   the name is still selectable and still read out. */
+
+@supports (mask-image: url("../img/wordmark.svg")) or (-webkit-mask-image: url("../img/wordmark.svg")) {
+
+  .site-footer__wordmark,
+  .signature__mark {
+    display: block;
+    aspect-ratio: 5742 / 639;
+    background-color: currentColor;
+    color: var(--ink);
+    -webkit-mask: url("../img/wordmark.svg") no-repeat left center / contain;
+    mask: url("../img/wordmark.svg") no-repeat left center / contain;
+    font-size: 0;
+    line-height: 0;
+    letter-spacing: normal;
+  }
+
+  /* The footer brand column stretches its children, so this one has to opt
+     out or it fills the column and the aspect ratio never sets a width. */
+  .site-footer__wordmark {
+    height: 9px;
+    align-self: start;
+  }
+
+  /* The sign-off spans the grid exactly, edge rule to edge rule — which the
+     type version could only approximate through a divisor. */
+  .signature__mark {
+    width: 100%;
+    height: auto;
   }
 }
 

@@ -37,6 +37,20 @@
     --space-5xl: 5.5rem;    /* 160px -> 88px */
   }
 
+  /* -- Display tracking reopens as the type shrinks --
+     The desktop values are cut for 68px and 40px. Carried down to 34px and
+     24px unchanged they read as cramped, which is the one thing large type
+     and small type never share. See the note in base.css. */
+  .hero__statement {
+    letter-spacing: -0.008em;
+  }
+
+  .band__statement,
+  .chapter__title,
+  .exhibit__title {
+    letter-spacing: 0;
+  }
+
   /* -- The rail collapses: label sits above its content -- */
   :root {
     --rail-offset: 0rem;
@@ -70,11 +84,28 @@
   .site-footer__contact a,
   .founder__link,
   .contact-social__link,
-  .band__link,
-  .wordmark {
+  .band__link {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
+  }
+
+  /* The brand emblem cannot take that minimum height either. It has a fixed
+     ratio, so height drives width, and forcing it to 44px tall would grow it
+     sideways across the header. It gets the same 44px of touch through an
+     overlay, which costs the layout nothing. */
+  .site-brand {
+    position: relative;
+  }
+
+  .site-brand__emblem {
+    height: 30px;
+  }
+
+  .site-brand::after {
+    content: '';
+    position: absolute;
+    inset: -7px -10px;
   }
 
   .site-footer__nav {
@@ -233,6 +264,13 @@
   .section {
     grid-template-columns: 9.5rem minmax(0, 1fr);
     gap: var(--space-lg);
+  }
+
+  /* Eight links at the desktop gap leave 2px between the last of them and
+     the brand emblem at the bottom of this range, which reads as a
+     collision. The nav closes up before the header does. */
+  .site-nav {
+    gap: var(--space-md);
   }
 }
 

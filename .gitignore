@@ -1,0 +1,29 @@
+# The site is plain static files with no build step, so almost everything here
+# belongs in the repo. What does not is the output of _tools/, which is either
+# regenerated on demand or already pasted into the page it was cut for.
+#
+# Note this is a different list from .vercelignore, which is about what reaches
+# the deploy — the brand sources and the build scripts are committed, they just
+# are not served.
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Build intermediates. build-brand-assets.py writes the contour for pasting
+# into mark.html and re-sets TECH as a standing check on the division lockups;
+# trace-strands.py writes a proof sheet for a human to choose from. All three
+# are re-made by running the tools, and none is read by the site.
+_tools/mark-contour.path.txt
+_tools/strand-proof.png
+img/wordmark-tech.svg
+
+# Editor and OS
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Vercel
+.vercel/

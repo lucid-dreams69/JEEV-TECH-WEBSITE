@@ -5,14 +5,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Notes — JEEV TECH</title>
-  <meta name="description" content="Working notes from JEEV TECH: engineering decisions, product reasoning, research notes, and the things we got wrong.">
+  <meta name="description"
+    content="Working notes from JEEV TECH: engineering decisions, product reasoning, research notes, and the things we got wrong.">
   <!-- Canonical host is www.jeevtech.in. The apex must 301-redirect to it or these become split URLs. -->
   <link rel="canonical" href="https://www.jeevtech.in/notes">
   <meta name="theme-color" content="#F7F7F5">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/img/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="JEEV TECH">
   <meta property="og:title" content="Notes — JEEV TECH">
-  <meta property="og:description" content="Working notes from JEEV TECH: engineering decisions, product reasoning, research notes, and the things we got wrong.">
+  <meta property="og:description"
+    content="Working notes from JEEV TECH: engineering decisions, product reasoning, research notes, and the things we got wrong.">
   <meta property="og:url" content="https://www.jeevtech.in/notes">
   <meta property="og:image" content="https://www.jeevtech.in/img/og-image.png">
   <meta property="og:image:width" content="1200">
@@ -42,8 +48,12 @@
 
   <header class="site-header" role="banner">
     <div class="site-header__inner">
-      <a href="/" class="wordmark" aria-label="JEEV TECH home">JEEV <span class="wordmark__descriptor">TECH</span></a>
-      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav" id="menu-toggle">
+      <a href="/" class="site-brand" aria-label="JEEV TECH — home">
+        <img class="site-brand__emblem" src="/img/logo-mark.webp" alt=""
+          width="507" height="360" decoding="async">
+      </a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"
+        id="menu-toggle">
         <span class="menu-toggle__icon" aria-hidden="true"></span>
       </button>
       <nav class="site-nav" id="site-nav" role="navigation" aria-label="Main navigation">
@@ -53,6 +63,7 @@
         <a href="/engineering" class="site-nav__link">Engineering</a>
         <a href="/notes" class="site-nav__link site-nav__link--active" aria-current="page">Notes</a>
         <a href="/about" class="site-nav__link">About</a>
+        <a href="/mark" class="site-nav__link">The Mark</a>
         <a href="/contact" class="site-nav__link">Contact</a>
       </nav>
       <div class="nav-overlay" id="nav-overlay" aria-hidden="true"></div>
@@ -64,7 +75,15 @@
 
       <div class="page-header">
         <div class="page-header__aside">
-          <div class="page-header__mark"><svg class="page-mark" viewBox="0 0 26 26" role="img" aria-label="Dated entries"><circle cx="4" cy="7" r="1.6" /><path d="M9 7 H23" /><circle cx="4" cy="13" r="1.6" /><path d="M9 13 H19" /><circle cx="4" cy="19" r="1.6" /><path d="M9 19 H22" /></svg></div>
+          <div class="page-header__mark"><svg class="page-mark" viewBox="0 0 26 26" role="img"
+              aria-label="Dated entries">
+              <circle cx="4" cy="7" r="1.6" />
+              <path d="M9 7 H23" />
+              <circle cx="4" cy="13" r="1.6" />
+              <path d="M9 13 H19" />
+              <circle cx="4" cy="19" r="1.6" />
+              <path d="M9 19 H22" />
+            </svg></div>
           <p class="eyebrow">Working notes</p>
         </div>
         <div class="page-header__body">
@@ -100,25 +119,28 @@
           <p class="section__label"><time datetime="2026-08-07">7 August 2026</time></p>
           <div class="section__body">
             <h2 id="note-no-analytics" class="section__heading">Building this site with no analytics at all</h2>
-            <p class="note-meta"><span class="note-meta__tag">Engineering</span><span class="note-meta__tag">Privacy</span><span class="note-meta__time">1 min read</span></p>
+            <p class="note-meta"><span class="note-meta__tag">Engineering</span><span
+                class="note-meta__tag">Privacy</span><span class="note-meta__time">1 min read</span></p>
             <details class="note">
               <summary class="note__summary">Read the note</summary>
               <div class="note__body">
                 <p>
-              We argue against systems that quietly extract from the people using them. That argument is worth nothing
-              if the page making it is measuring its readers, so this site collects nothing: no third-party trackers,
-              no advertising pixels, no analytics that profile individuals, and no non-essential cookies.
-            </p>
-            <p>
-              The cost is real. We do not know how many people read a page, which pages hold attention, or where
-              readers stop. Every instinct built by modern web practice says to install something and find out.
-            </p>
-            <p>
-              We decided the information was not worth what it would cost us to be consistent. Fonts are self-hosted
-              and subsetted for the same reason — a font pulled from someone else's server tells that server who
-              visited. If we later need to know whether the site works, the answer is a privacy-preserving,
-              self-hosted count of page views, never a profile of a person.
-            </p>
+                  We argue against systems that quietly extract from the people using them. That argument is worth
+                  nothing
+                  if the page making it is measuring its readers, so this site collects nothing: no third-party
+                  trackers,
+                  no advertising pixels, no analytics that profile individuals, and no non-essential cookies.
+                </p>
+                <p>
+                  The cost is real. We do not know how many people read a page, which pages hold attention, or where
+                  readers stop. Every instinct built by modern web practice says to install something and find out.
+                </p>
+                <p>
+                  We decided the information was not worth what it would cost us to be consistent. Fonts are self-hosted
+                  and subsetted for the same reason — a font pulled from someone else's server tells that server who
+                  visited. If we later need to know whether the site works, the answer is a privacy-preserving,
+                  self-hosted count of page views, never a profile of a person.
+                </p>
               </div>
             </details>
           </div>
@@ -128,26 +150,32 @@
           <p class="section__label"><time datetime="2026-08-07">7 August 2026</time></p>
           <div class="section__body">
             <h2 id="note-no-commission" class="section__heading">Why Servizo takes no commission</h2>
-            <p class="note-meta"><span class="note-meta__tag">Decision</span><span class="note-meta__tag">Business model</span><span class="note-meta__time">1 min read</span></p>
+            <p class="note-meta"><span class="note-meta__tag">Decision</span><span class="note-meta__tag">Business
+                model</span><span class="note-meta__time">1 min read</span></p>
             <details class="note">
               <summary class="note__summary">Read the note</summary>
               <div class="note__body">
                 <p>
-              The default model for a service platform is a percentage of every transaction. It is simple to explain,
-              it scales with usage, and it is what investors expect to see.
-            </p>
-            <p>
-              We asked a narrower question: what is the platform actually being paid for? The answer is the software —
-              verification, scheduling, documentation, the record a professional builds. It is not the work itself,
-              which the professional does. Charging a share of that work would be charging for something we did not do,
-              and it would make our revenue rise as the professional's margin falls.
-            </p>
-            <p>
-              So Servizo charges a subscription for the tools and takes nothing from the job. Customers pay no platform
-              fee today; if one becomes necessary to run the infrastructure, it will be introduced for that reason and
-              stated plainly. We are paid for the software rather than a share of the work: what we earn tracks how
-              useful the tools are, not how much the professional was paid for the job.
-            </p>
+                  The default model for a service platform is a percentage of every transaction. It is simple to
+                  explain,
+                  it scales with usage, and it is what investors expect to see.
+                </p>
+                <p>
+                  We asked a narrower question: what is the platform actually being paid for? The answer is the software
+                  —
+                  verification, scheduling, documentation, the record a professional builds. It is not the work itself,
+                  which the professional does. Charging a share of that work would be charging for something we did not
+                  do,
+                  and it would make our revenue rise as the professional's margin falls.
+                </p>
+                <p>
+                  So Servizo charges a subscription for the tools and takes nothing from the job. Customers pay no
+                  platform
+                  fee today; if one becomes necessary to run the infrastructure, it will be introduced for that reason
+                  and
+                  stated plainly. We are paid for the software rather than a share of the work: what we earn tracks how
+                  useful the tools are, not how much the professional was paid for the job.
+                </p>
               </div>
             </details>
           </div>
@@ -160,6 +188,7 @@
   <footer class="site-footer" role="contentinfo">
     <div class="site-footer__inner">
       <div class="site-footer__brand">
+        <img class="site-footer__logo" src="/img/logo-mark.webp" alt="" width="62" height="44" loading="lazy" decoding="async">
         <span class="site-footer__wordmark">JEEV <span class="wordmark__descriptor">TECH</span></span>
         <span class="site-footer__tagline">Technology is the medium.<br>Human progress is the objective.</span>
       </div>
@@ -171,6 +200,7 @@
         <a href="/engineering">Engineering</a>
         <a href="/notes">Notes</a>
         <a href="/about">About</a>
+        <a href="/mark">The Mark of JEEV</a>
         <a href="/contact">Contact</a>
         <a href="/privacy">Privacy</a>
       </nav>
@@ -187,6 +217,9 @@
   </footer>
 
   <script src="js/main.js"></script>
+</body>
+
+</html>
 </body>
 
 </html>

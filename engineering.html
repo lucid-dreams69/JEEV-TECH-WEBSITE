@@ -5,14 +5,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Engineering — JEEV TECH</title>
-  <meta name="description" content="How JEEV TECH builds: first principles, systems thinking, long-term design, reliability, simplicity, documentation, and human-centred decisions.">
+  <meta name="description"
+    content="How JEEV TECH builds: first principles, systems thinking, long-term design, reliability, simplicity, documentation, and human-centred decisions.">
   <!-- Canonical host is www.jeevtech.in. The apex must 301-redirect to it or these become split URLs. -->
   <link rel="canonical" href="https://www.jeevtech.in/engineering">
   <meta name="theme-color" content="#F7F7F5">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/img/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="JEEV TECH">
   <meta property="og:title" content="Engineering — JEEV TECH">
-  <meta property="og:description" content="How JEEV TECH builds: first principles, systems thinking, long-term design, reliability, simplicity, documentation, and human-centred decisions.">
+  <meta property="og:description"
+    content="How JEEV TECH builds: first principles, systems thinking, long-term design, reliability, simplicity, documentation, and human-centred decisions.">
   <meta property="og:url" content="https://www.jeevtech.in/engineering">
   <meta property="og:image" content="https://www.jeevtech.in/img/og-image.png">
   <meta property="og:image:width" content="1200">
@@ -40,8 +46,12 @@
 
   <header class="site-header" role="banner">
     <div class="site-header__inner">
-      <a href="/" class="wordmark" aria-label="JEEV TECH home">JEEV <span class="wordmark__descriptor">TECH</span></a>
-      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav" id="menu-toggle">
+      <a href="/" class="site-brand" aria-label="JEEV TECH — home">
+        <img class="site-brand__emblem" src="/img/logo-mark.webp" alt=""
+          width="507" height="360" decoding="async">
+      </a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"
+        id="menu-toggle">
         <span class="menu-toggle__icon" aria-hidden="true"></span>
       </button>
       <nav class="site-nav" id="site-nav" role="navigation" aria-label="Main navigation">
@@ -51,6 +61,7 @@
         <a href="/engineering" class="site-nav__link site-nav__link--active" aria-current="page">Engineering</a>
         <a href="/notes" class="site-nav__link">Notes</a>
         <a href="/about" class="site-nav__link">About</a>
+        <a href="/mark" class="site-nav__link">The Mark</a>
         <a href="/contact" class="site-nav__link">Contact</a>
       </nav>
       <div class="nav-overlay" id="nav-overlay" aria-hidden="true"></div>
@@ -62,7 +73,11 @@
 
       <div class="page-header">
         <div class="page-header__aside">
-          <div class="page-header__mark"><svg class="page-mark" viewBox="0 0 26 26" role="img" aria-label="A branching gate"><path d="M8 3 V23" /><path d="M8 12 H19 V19" /></svg></div>
+          <div class="page-header__mark"><svg class="page-mark" viewBox="0 0 26 26" role="img"
+              aria-label="A branching gate">
+              <path d="M8 3 V23" />
+              <path d="M8 12 H19 V19" />
+            </svg></div>
           <p class="eyebrow">How we build</p>
         </div>
         <div class="page-header__body">
@@ -92,14 +107,16 @@
                 <svg class="dg-wide" viewBox="0 0 640 502" role="img" aria-labelledby="dg-flow-t dg-flow-d">
                   <title id="dg-flow-t">The engineering workflow</title>
                   <desc id="dg-flow-d">Nine stages in sequence: problem, understand the system, find the root cause,
-                    design, review, build, validate, document, improve. Each stage names the practice that governs it.</desc>
+                    design, review, build, validate, document, improve. Each stage names the practice that governs it.
+                  </desc>
 
                   <path class="dg-line dg-draw" d="M120 46 L120 462" />
 
                   <g class="dg-step" style="--i:0">
                     <circle class="dg-dot" cx="120" cy="46" r="4.5" />
                     <text class="dg-stage__name" x="148" y="51">Problem</text>
-                    <text class="dg-note" x="612" y="51" text-anchor="end">A real constraint, not a feature request</text>
+                    <text class="dg-note" x="612" y="51" text-anchor="end">A real constraint, not a feature
+                      request</text>
                   </g>
                   <a href="#p-systems" class="dg-stage dg-step" style="--i:1">
                     <circle class="dg-dot" cx="120" cy="98" r="4.5" />
@@ -139,10 +156,11 @@
                   <a href="#eng-process" class="dg-stage dg-step" style="--i:8">
                     <circle class="dg-dot" cx="120" cy="462" r="4.5" />
                     <text class="dg-stage__name" x="148" y="467">Improve</text>
-                    <text class="dg-note" x="612" y="467" text-anchor="end">Carrying back what the last pass proved wrong</text>
+                    <text class="dg-note" x="612" y="467" text-anchor="end">Carrying back what the last pass proved
+                      wrong</text>
                   </a>
                 </svg>
-<svg class="dg-narrow" viewBox="0 0 320 590" role="img" aria-labelledby="dg-flow-mt dg-flow-md">
+                <svg class="dg-narrow" viewBox="0 0 320 590" role="img" aria-labelledby="dg-flow-mt dg-flow-md">
                   <title id="dg-flow-mt">The engineering workflow</title>
                   <desc id="dg-flow-md">Nine stages in sequence: problem, understand the system, find the root
                     cause, design, review, build, validate, document, improve. Each stage names the practice that
@@ -228,7 +246,8 @@
                     <circle class="dg-dot" cx="128" cy="44" r="5" />
                     <text class="dg-label" x="106" y="50" text-anchor="end">1</text>
                     <text class="dg-title" x="152" y="50">Are we solving a real problem?</text>
-                    <text class="dg-note" x="152" y="74">A constraint someone actually hit, not a feature someone asked for</text>
+                    <text class="dg-note" x="152" y="74">A constraint someone actually hit, not a feature someone asked
+                      for</text>
                   </g>
 
                   <g class="dg-step" style="--i:1">
@@ -243,7 +262,8 @@
                     <text class="dg-label" x="106" y="210" text-anchor="end">3</text>
                     <text class="dg-title" x="152" y="210">Will this leave people more capable,</text>
                     <text class="dg-title" x="152" y="236">without taking away their control?</text>
-                    <text class="dg-note" x="152" y="260">They can see what it does, and they can still change course</text>
+                    <text class="dg-note" x="152" y="260">They can see what it does, and they can still change
+                      course</text>
                   </g>
 
                   <g class="dg-step" style="--i:3">
@@ -251,7 +271,7 @@
                     <text class="dg-title" x="152" y="320">Build</text>
                   </g>
                 </svg>
-<svg class="dg-narrow" viewBox="0 0 320 360" role="img" aria-labelledby="dg-egate-mt dg-egate-md">
+                <svg class="dg-narrow" viewBox="0 0 320 360" role="img" aria-labelledby="dg-egate-mt dg-egate-md">
                   <title id="dg-egate-mt">The three questions asked at review</title>
                   <desc id="dg-egate-md">Three questions in sequence before building, each with what it means in
                     practice. Work that answers yes to all three is built.</desc>
@@ -295,12 +315,13 @@
             <p class="phase-label">Understand</p>
             <ul class="areas">
               <li class="areas__item" id="p-systems">
-                <p class="areas__name">Systems thinking<span class="areas__tag">Governs: understand the system</span></p>
+                <p class="areas__name">Systems thinking<span class="areas__tag">Governs: understand the system</span>
+                </p>
                 <p class="areas__note">
                   The unit of work is the system a change lands in, not the change itself. Before altering anything we
                   establish what depends on it and what it depends on. The test: if a change requires a diagram to
                   explain its consequences, the diagram gets drawn before the change gets made.
-              </p>
+                </p>
               </li>
               <li class="areas__item" id="p-first">
                 <p class="areas__name">First principles<span class="areas__tag">Governs: find the root cause</span></p>
@@ -308,7 +329,7 @@
                   Before deciding whether to keep a system, establish why it exists and how it actually works — not how
                   it is described. Inherited designs carry assumptions that were true once. The test: state the
                   original constraint that produced the design, and check whether it still holds.
-              </p>
+                </p>
               </li>
             </ul>
 
@@ -322,7 +343,7 @@
                   holding a person&#8217;s records will still be there in ten years, and every later decision gets built
                   on top of it. The test: before committing, ask what it would take to undo this &mdash; and let the
                   answer set how much evidence you need first.
-              </p>
+                </p>
               </li>
               <li class="areas__item" id="p-simplicity">
                 <p class="areas__name">Simplicity<span class="areas__tag">Governs: design</span></p>
@@ -330,7 +351,7 @@
                   The smallest system that solves the problem is the one most likely to still be understood in five
                   years, so complexity has to be argued for rather than assumed. The test: if a new component cannot be
                   justified by a requirement that already exists, it does not get built yet.
-              </p>
+                </p>
               </li>
             </ul>
 
@@ -343,7 +364,7 @@
                   Correctness comes before new features when the two compete for the same week. The test: severity is
                   ranked by what a failure costs the person using the system, not by how loudly it is reported or how
                   awkward it is for us to reach.
-              </p>
+                </p>
               </li>
             </ul>
 
@@ -357,7 +378,7 @@
                   makes a document useful two years later. The test: if we cannot explain our reasoning clearly, we
                   probably have not understood it well enough ourselves. The <a href="/notes">notes</a> are the
                   public subset of this.
-              </p>
+                </p>
               </li>
             </ul>
 
@@ -371,7 +392,7 @@
                   not how long they stayed or how often they returned. Time spent is a diagnostic here, never a target.
                   The test: if a change improves our numbers by making someone need us more, say so out loud in review
                   and justify it on its own merits.
-              </p>
+                </p>
               </li>
             </ul>
           </div>
@@ -401,6 +422,7 @@
   <footer class="site-footer" role="contentinfo">
     <div class="site-footer__inner">
       <div class="site-footer__brand">
+        <img class="site-footer__logo" src="/img/logo-mark.webp" alt="" width="62" height="44" loading="lazy" decoding="async">
         <span class="site-footer__wordmark">JEEV <span class="wordmark__descriptor">TECH</span></span>
         <span class="site-footer__tagline">Technology is the medium.<br>Human progress is the objective.</span>
       </div>
@@ -412,6 +434,7 @@
         <a href="/engineering">Engineering</a>
         <a href="/notes">Notes</a>
         <a href="/about">About</a>
+        <a href="/mark">The Mark of JEEV</a>
         <a href="/contact">Contact</a>
         <a href="/privacy">Privacy</a>
       </nav>
@@ -428,6 +451,9 @@
   </footer>
 
   <script src="js/main.js"></script>
+</body>
+
+</html>
 </body>
 
 </html>

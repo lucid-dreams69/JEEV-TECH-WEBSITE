@@ -5,14 +5,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Privacy — JEEV TECH</title>
-  <meta name="description" content="This website sets no cookies, runs no analytics, and contacts no third party when you load a page. What that means precisely, and the one place data unavoidably exists.">
+  <meta name="description"
+    content="This website sets no cookies, runs no analytics, and contacts no third party when you load a page. What that means precisely, and the one place data unavoidably exists.">
   <!-- Canonical host is www.jeevtech.in. The apex must 301-redirect to it or these become split URLs. -->
   <link rel="canonical" href="https://www.jeevtech.in/privacy">
   <meta name="theme-color" content="#F7F7F5">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/img/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="JEEV TECH">
   <meta property="og:title" content="Privacy — JEEV TECH">
-  <meta property="og:description" content="This website sets no cookies, runs no analytics, and contacts no third party when you load a page.">
+  <meta property="og:description"
+    content="This website sets no cookies, runs no analytics, and contacts no third party when you load a page.">
   <meta property="og:url" content="https://www.jeevtech.in/privacy">
   <meta property="og:image" content="https://www.jeevtech.in/img/og-image.png">
   <meta property="og:image:width" content="1200">
@@ -40,8 +46,12 @@
 
   <header class="site-header" role="banner">
     <div class="site-header__inner">
-      <a href="/" class="wordmark" aria-label="JEEV TECH home">JEEV <span class="wordmark__descriptor">TECH</span></a>
-      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav" id="menu-toggle">
+      <a href="/" class="site-brand" aria-label="JEEV TECH — home">
+        <img class="site-brand__emblem" src="/img/logo-mark.webp" alt=""
+          width="507" height="360" decoding="async">
+      </a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"
+        id="menu-toggle">
         <span class="menu-toggle__icon" aria-hidden="true"></span>
       </button>
       <nav class="site-nav" id="site-nav" role="navigation" aria-label="Main navigation">
@@ -51,6 +61,7 @@
         <a href="/engineering" class="site-nav__link">Engineering</a>
         <a href="/notes" class="site-nav__link">Notes</a>
         <a href="/about" class="site-nav__link">About</a>
+        <a href="/mark" class="site-nav__link">The Mark</a>
         <a href="/contact" class="site-nav__link">Contact</a>
       </nav>
       <div class="nav-overlay" id="nav-overlay" aria-hidden="true"></div>
@@ -62,7 +73,11 @@
 
       <div class="page-header">
         <div class="page-header__aside">
-          <div class="page-header__mark"><svg class="page-mark" viewBox="0 0 26 26" role="img" aria-label="Nothing collected"><path d="M4 13 H22" /><circle cx="13" cy="13" r="6" /></svg></div>
+          <div class="page-header__mark"><svg class="page-mark" viewBox="0 0 26 26" role="img"
+              aria-label="Nothing collected">
+              <path d="M4 13 H22" />
+              <circle cx="13" cy="13" r="6" />
+            </svg></div>
           <p class="eyebrow">Privacy</p>
         </div>
         <div class="page-header__body">
@@ -139,9 +154,10 @@
               <div class="diagram__frame">
                 <svg class="dg-wide" viewBox="0 0 640 285.71" role="img" aria-labelledby="dg-req-t dg-req-d">
                   <title id="dg-req-t">Every request this page makes</title>
-                  <desc id="dg-req-d">Loading this page makes fifteen requests: one document, eight stylesheets, one
-                    script and five font files. All fifteen go to this domain. Nothing crosses to any third party, and
-                    the categories that are never contacted are listed on the other side of that boundary.</desc>
+                  <desc id="dg-req-d">Loading this page makes fourteen requests: one document, eight stylesheets, one
+                    script, three font files and one image. All fourteen go to this domain. Nothing crosses to any
+                    third party, and the categories that are never contacted are listed on the other side of that
+                    boundary.</desc>
 
                   <text class="dg-label dg-label--ink dg-fade" x="22.86" y="38.86">This page requests</text>
 
@@ -149,18 +165,22 @@
                     <text class="dg-note" x="22.86" y="86.86">1 document</text>
                     <text class="dg-note" x="22.86" y="114.29">8 stylesheets</text>
                     <text class="dg-note" x="22.86" y="141.71">1 script</text>
-                    <text class="dg-note" x="22.86" y="169.14">5 font files</text>
+                    <text class="dg-note" x="22.86" y="169.14">3 font files</text>
+                    <text class="dg-note" x="22.86" y="196.57">1 image</text>
                   </g>
 
-                  <!-- Four feeds gathering into one spine, then a single arrow -->
-                  <path class="dg-line dg-line--faint dg-draw" d="M134.86 82.29 L171.43 82.29 M134.86 109.71 L171.43 109.71 M134.86 137.14 L171.43 137.14 M134.86 164.57 L171.43 164.57" />
-                  <path class="dg-line dg-draw" d="M171.43 82.29 L171.43 164.57" />
-                  <path class="dg-line dg-draw" d="M171.43 123.43 L244.57 123.43 M232 116.57 L244.57 123.43 L232 130.29" />
+                  <!-- Five feeds gathering into one spine, then a single arrow.
+                       The arrow leaves at the middle feed's height by construction. -->
+                  <path class="dg-line dg-line--faint dg-draw"
+                    d="M134.86 82.29 L171.43 82.29 M134.86 109.71 L171.43 109.71 M134.86 137.14 L171.43 137.14 M134.86 164.57 L171.43 164.57 M134.86 192 L171.43 192" />
+                  <path class="dg-line dg-draw" d="M171.43 82.29 L171.43 192" />
+                  <path class="dg-line dg-draw"
+                    d="M171.43 137.14 L244.57 137.14 M232 130.29 L244.57 137.14 L232 144" />
 
                   <g class="dg-step" style="--i:1">
-                    <circle class="dg-dot" cx="260.57" cy="123.43" r="5.14" />
-                    <text class="dg-label dg-label--ink" x="260.57" y="153.14" text-anchor="middle">jeevtech.in</text>
-                    <text class="dg-note" x="260.57" y="178.29" text-anchor="middle">all fifteen</text>
+                    <circle class="dg-dot" cx="260.57" cy="137.14" r="5.14" />
+                    <text class="dg-label dg-label--ink" x="260.57" y="166.86" text-anchor="middle">jeevtech.in</text>
+                    <text class="dg-note" x="260.57" y="192" text-anchor="middle">all fourteen</text>
                   </g>
 
                   <!-- The boundary. Nothing on the page crosses it. -->
@@ -178,23 +198,24 @@
 
                   <text class="dg-note dg-note--accent dg-fade" x="418.29" y="235.43">Nothing crosses this line</text>
                 </svg>
-<svg class="dg-narrow" viewBox="0 0 320 400" role="img" aria-labelledby="dg-req-mt dg-req-md">
+                <svg class="dg-narrow" viewBox="0 0 320 400" role="img" aria-labelledby="dg-req-mt dg-req-md">
                   <title id="dg-req-mt">Every request this page makes</title>
-                  <desc id="dg-req-md">Loading this page makes fifteen requests: one document, eight stylesheets,
-                    one script and five font files. All fifteen go to this domain. Nothing crosses to any third
-                    party.</desc>
+                  <desc id="dg-req-md">Loading this page makes fourteen requests: one document, eight stylesheets,
+                    one script, three font files and one image. All fourteen go to this domain. Nothing crosses to
+                    any third party.</desc>
                   <text class="dg-label dg-label--ink dg-fade" x="16" y="20">This page requests</text>
                   <g class="dg-step" style="--i:0">
                     <text class="dg-note" x="32" y="48">1 document</text>
                     <text class="dg-note" x="32" y="70">8 stylesheets</text>
                     <text class="dg-note" x="32" y="92">1 script</text>
-                    <text class="dg-note" x="32" y="114">5 font files</text>
+                    <text class="dg-note" x="32" y="114">3 font files</text>
+                    <text class="dg-note" x="32" y="136">1 image</text>
                   </g>
-                  <path class="dg-line dg-draw" d="M20 40 L20 140 L44 140 M36 134 L45 140 L36 146" />
+                  <path class="dg-line dg-draw" d="M20 40 L20 162 L44 162 M36 156 L45 162 L36 168" />
                   <g class="dg-step" style="--i:1">
-                    <circle class="dg-dot" cx="58" cy="140" r="4.5" />
-                    <text class="dg-label dg-label--ink" x="78" y="145">jeevtech.in</text>
-                    <text class="dg-note" x="78" y="164">all fifteen</text>
+                    <circle class="dg-dot" cx="58" cy="162" r="4.5" />
+                    <text class="dg-label dg-label--ink" x="78" y="167">jeevtech.in</text>
+                    <text class="dg-note" x="78" y="186">all fourteen</text>
                   </g>
                   <path class="dg-line dg-line--dashed dg-line--accent dg-fade" d="M16 200 L304 200" />
                   <text class="dg-label dg-fade" x="16" y="230">Never contacted</text>
@@ -209,7 +230,7 @@
                 </svg>
               </div>
               <figcaption>
-                Fifteen requests, one destination. The right-hand column is a list of decisions, not an oversight.
+                Fourteen requests, one destination. The right-hand column is a list of decisions, not an oversight.
               </figcaption>
             </figure>
           </div>
@@ -299,7 +320,8 @@
             </p>
             <p class="note-meta">
               <span class="note-meta__tag">Last reviewed</span>
-              <span class="note-meta__time">August 2026 — Updated to reflect current hosting infrastructure without changing the website&#8217;s privacy principles.</span>
+              <span class="note-meta__time">August 2026 — Updated to reflect current hosting infrastructure without
+                changing the website&#8217;s privacy principles.</span>
             </p>
           </div>
         </section>
@@ -311,6 +333,7 @@
   <footer class="site-footer" role="contentinfo">
     <div class="site-footer__inner">
       <div class="site-footer__brand">
+        <img class="site-footer__logo" src="/img/logo-mark.webp" alt="" width="62" height="44" loading="lazy" decoding="async">
         <span class="site-footer__wordmark">JEEV <span class="wordmark__descriptor">TECH</span></span>
         <span class="site-footer__tagline">Technology is the medium.<br>Human progress is the objective.</span>
       </div>
@@ -322,6 +345,7 @@
         <a href="/engineering">Engineering</a>
         <a href="/notes">Notes</a>
         <a href="/about">About</a>
+        <a href="/mark">The Mark of JEEV</a>
         <a href="/contact">Contact</a>
         <a href="/privacy">Privacy</a>
       </nav>
@@ -338,6 +362,9 @@
   </footer>
 
   <script src="js/main.js"></script>
+</body>
+
+</html>
 </body>
 
 </html>

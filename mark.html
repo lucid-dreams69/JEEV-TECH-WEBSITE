@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Mark of JEEV — Why the symbol exists</title>
+  <meta name="description"
+    content="One continuous surface: continuity, emergence, life. The meaning and construction of the JEEV mark — the symbol that carries every expression of JEEV.">
+
+  <link rel="canonical" href="https://www.jeevtech.in/mark">
+  <meta name="theme-color" content="#F7F7F5">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/img/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="JEEV TECH">
+  <meta property="og:title" content="The Mark of JEEV — Why the symbol exists">
+  <meta property="og:description"
+    content="One continuous surface: continuity, emergence, life. The meaning and construction of the JEEV mark.">
+  <meta property="og:url" content="https://www.jeevtech.in/mark">
+  <meta property="og:image" content="https://www.jeevtech.in/img/og-mark.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The JEEV mark — one continuous surface, lit against a dark ground.">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Self-hosted fonts and styles — no third-party requests -->
+  <link rel="preload" href="fonts/newsreader-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/sourceserif4-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- The stage's object. Preloading a fixed file and letting the <img> pick
+       from a srcset fetches whichever the two disagree on: on a 1x desktop
+       the element chose the 1000 and the 2000 was downloaded for nothing.
+       Given the same candidates and the same sizes, the scanner resolves
+       what the element will. -->
+  <link rel="preload" as="image" type="image/webp" href="img/mark-2000.webp"
+    imagesrcset="img/mark-1000.webp 1000w, img/mark-2000.webp 2000w"
+    imagesizes="(max-width: 768px) 96vw, 56vw">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/diagram.css">
+  <link rel="stylesheet" href="css/signature.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/mark.css">
+</head>
+
+<body class="mark-page">
+
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <!-- ============================================================
+       HEADER — the emblem is the identifier on this page
+       ============================================================ -->
+  <header class="site-header" role="banner">
+    <div class="site-header__inner">
+      <!-- Two cuts of the emblem: the exhibit dims the room beneath the fixed
+           header, so the brand has to travel with it. Only this page carries
+           the second one. -->
+      <a href="/" class="site-brand" aria-label="JEEV TECH — home">
+        <img class="site-brand__emblem site-brand__emblem--dark" src="/img/logo-mark.webp" alt=""
+          width="507" height="360" decoding="async">
+        <img class="site-brand__emblem site-brand__emblem--light" src="/img/logo-mark-light.webp" alt=""
+          width="507" height="360" decoding="async">
+      </a>
+
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"
+        id="menu-toggle">
+        <span class="menu-toggle__icon" aria-hidden="true"></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" role="navigation" aria-label="Main navigation">
+        <a href="/principles" class="site-nav__link">Principles</a>
+        <a href="/servizo" class="site-nav__link">Servizo</a>
+        <a href="/research" class="site-nav__link">Research</a>
+        <a href="/engineering" class="site-nav__link">Engineering</a>
+        <a href="/notes" class="site-nav__link">Notes</a>
+        <a href="/about" class="site-nav__link">About</a>
+        <a href="/mark" class="site-nav__link site-nav__link--active" aria-current="page">The Mark</a>
+        <a href="/contact" class="site-nav__link">Contact</a>
+      </nav>
+
+      <div class="nav-overlay" id="nav-overlay" aria-hidden="true"></div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN
+       ============================================================ -->
+  <main id="main-content">
+
+    <!-- ========================================================
+         THE EXHIBIT
+         One object on a sticky stage. The chapters scroll past it;
+         js/mark.js drives a camera over the same render. The stage
+         is decorative repetition of what the chapters say, so it is
+         hidden from assistive tech — the text carries the meaning.
+         ======================================================== -->
+    <section class="exhibit" id="exhibit" aria-label="The mark of JEEV, examined">
+
+      <div class="exhibit__stage" aria-hidden="true">
+        <div class="exhibit__frame">
+          <div class="exhibit__rule"></div>
+        </div>
+        <!-- The object's half of the split, and its clip. Without it a deep
+             zoom simply runs the render out under the text; with it the rule
+             is an edge the object genuinely stops at. -->
+        <div class="exhibit__viewport">
+        <div class="exhibit__camera" id="exhibit-camera">
+          <div class="exhibit__object" id="exhibit-object">
+            <div class="exhibit__float" id="exhibit-float">
+              <!-- The same object under two lightings. The dark cut is the
+                   render as it is; the light cut is its inversion, which is
+                   what lets the surface read once the room goes dark. They
+                   crossfade on the same value that dims the room. -->
+              <img class="exhibit__img exhibit__img--dark" src="/img/mark-2000.webp"
+                srcset="/img/mark-1000.webp 1000w, /img/mark-2000.webp 2000w"
+                sizes="(max-width: 768px) 96vw, 56vw" alt="" width="2000" height="1420" decoding="async"
+                fetchpriority="high">
+              <img class="exhibit__img exhibit__img--light" src="/img/mark-light-2000.webp"
+                srcset="/img/mark-light-1000.webp 1000w, /img/mark-light-2000.webp 2000w"
+                sizes="(max-width: 768px) 96vw, 56vw" alt="" width="2000" height="1420" decoding="async">
+
+              <!-- Light drifting across the surface while the object idles -->
+              <div class="exhibit__sheen" id="exhibit-sheen"></div>
+
+              <!-- Lighting: continuity turns the object down so the drawn
+                   line is the subject; the other two are spotlights, keeping
+                   one region at full contrast while the rest recedes. -->
+              <div class="exhibit__veil exhibit__veil--continuity" id="veil-continuity"></div>
+              <div class="exhibit__veil exhibit__veil--emergence" id="veil-emergence"></div>
+              <div class="exhibit__veil exhibit__veil--life" id="veil-life"></div>
+
+              <!-- The continuous path, traced in the site's drafting voice.
+                   The geometry is generated: it is potrace's contour of the
+                   render's own alpha channel, which is why it is a single
+                   closed line with no beginning and no end. Do not edit by
+                   hand. Drawn twice — a dark halo under the pine line — so
+                   it reads crossing both the lit object and the dark room. -->
+              <svg class="exhibit__trace" id="exhibit-trace" viewBox="0 0 2000 1420">
+                <defs>
+                <path id="trace-path" d="M1540.5 1417.1C1535.3 1416.8 1527 1416 1522.1 1415.4C1495.4 1412 1489.8 1411.2 1483.4 1409.7C1479.5 1408.7 1473.3 1407.5 1469.7 1406.8C1466 1406.2 1460.8 1405.1 1458 1404.3C1455.2 1403.6 1448.8 1401.9 1443.7 1400.6C1419.7 1394.3 1401.1 1387.9 1375 1376.6C1369.5 1374.2 1360.7 1370.4 1355.4 1368.2C1350 1365.9 1343.2 1362.7 1340.1 1361C1337.1 1359.2 1330.3 1355.7 1325.1 1353C1319.8 1350.4 1314.2 1347.3 1312.5 1346.2C1310.9 1345.1 1305.5 1341.9 1300.5 1339.1C1282.6 1329.1 1249.4 1306.4 1228 1289.3C1225 1287 1220.9 1283.8 1218.8 1282.2C1211.3 1276.5 1197.8 1265.2 1193 1260.7C1190.2 1258.1 1185 1253.5 1181.3 1250.4C1171 1241.6 1143.5 1214.7 1129.2 1199.3C1118.8 1188.1 1102.3 1169.5 1098.2 1164.3C1097 1162.8 1092.8 1157.8 1088.9 1153.2C1078.6 1141.1 1072.3 1133.2 1061.5 1119C1059.8 1116.8 1056.1 1112 1053.2 1108.3C1050.2 1104.5 1045.1 1097.7 1041.8 1093.1C1038.5 1088.5 1033.3 1081.8 1030.2 1078.1C1027.1 1074.4 1022.6 1068.3 1020.1 1064.6C1015.9 1058.1 1013.6 1054.8 1004.1 1042C1001.9 1038.9 996.7 1031.5 992.5 1025.5C985.1 1014.9 982.4 1011.2 966.6 990.1C962.7 984.8 957.2 977.3 954.4 973.3C951.6 969.4 945.7 961.4 941.2 955.6C936.7 949.9 932.1 943.7 930.8 941.9C927.8 937.5 904 913.1 902.1 912.5C900.3 911.9 885.8 919.1 878.2 924.2C875.3 926.2 868.8 930.5 863.9 933.8C859 937.1 850.9 943.1 846 947.2C841.1 951.3 835.9 955.5 834.5 956.6C828.7 960.8 821 967.2 816.6 971.3C814 973.6 805.8 980.8 798.3 987.3C775 1007.2 771.9 1009.8 759.9 1020.5C753.5 1026.2 745.5 1033.1 742.2 1035.8C738.9 1038.5 733.5 1043.1 730.2 1046.1C726.9 1049.1 721.3 1053.9 717.7 1056.7C714.2 1059.6 708 1064.7 703.9 1068.1C699.9 1071.5 693.1 1076.8 689 1079.8C684.9 1082.8 677.1 1088.7 671.7 1092.8C660.2 1101.4 638.7 1115.8 626.1 1123.2C621.2 1126.1 615.3 1129.6 613 1131C608 1134.1 582 1147.5 574.7 1150.7C552.2 1160.7 528.8 1169.6 513.8 1173.8C511.5 1174.5 508.8 1175.3 507.8 1175.7C503.7 1177.2 473.4 1184.4 464.6 1185.9C442.5 1189.8 430.7 1190.7 402.6 1190.8C375.4 1190.8 368.2 1190.3 343.8 1186.9C319.1 1183.5 286.5 1174.5 254.2 1162.3C244.4 1158.6 214.7 1144.4 207.5 1139.8C206.1 1139 202.7 1137.1 200 1135.8C191.9 1131.7 166.3 1115 154.7 1106.3C127.3 1085.6 92.6 1051.2 75.1 1027.2C73.4 1024.9 70.5 1021.4 68.7 1019.4C67 1017.4 63.9 1013.1 62 1009.8C60.1 1006.6 56.1 1000.2 53.2 995.8C45.9 984.5 39.9 973.5 34 961C31.3 955.1 29 950.2 29 950C29 949.9 26.8 944.4 24.1 937.9C17.7 922.2 9.3 893.9 6.7 879.2C0.5 843.5 0.7 804.4 7.5 770.2C11.4 750.2 12.8 743.9 16.2 730.9C18.2 723.3 21 713.4 22.5 708.9C30.1 686.8 33.5 677.6 37.1 670.1C39.2 665.5 42.1 658.8 43.5 655.1C45.9 649.1 50.9 639 60.2 621.5C65 612.6 79.2 590.2 89.2 575.8C97.8 563.6 102.8 557.4 119.6 538.3C129.4 527.1 151.9 506 169 491.8C183.2 480.1 208.8 462.7 222.8 455.4C228.2 452.5 233.9 449.4 235.5 448.4C242.9 443.8 275.3 430.2 289.3 425.9C321.8 415.9 342.3 411.9 372.5 409.6C412.1 406.7 457 410.7 495.4 420.6C499.7 421.7 505.7 423.2 508.9 423.8C512 424.5 517.2 425.9 520.5 426.9L526.6 428.8L550.6 428.7C574.2 428.5 580.9 428.1 603 425.3C615.6 423.7 626.7 421.6 635.3 419.3C639.8 418.1 648.9 415.7 655.5 414C669.9 410.3 683.9 406 693.7 402.2C697.6 400.8 705.2 397.9 710.7 395.8C716.1 393.8 723.3 390.8 726.6 389.2C729.9 387.5 735.5 385 739 383.5C747.7 380 780.6 362.8 787 358.5C789.8 356.6 794.1 354 796.4 352.7C803.9 348.6 840.7 323.7 851.3 315.5C862.3 307.1 867.5 303.2 876.4 296.5C885.6 289.6 898.7 279 903.3 274.7C905.7 272.5 909.2 269.6 911.1 268.1C916.3 264.2 926.9 255.5 935.5 248.2C939.6 244.7 945.9 239.4 949.4 236.6C952.9 233.7 958.9 228.4 962.8 224.8C972.4 216 974.5 214.2 981.9 208.6C985.4 205.9 990.5 201.8 993.3 199.4C1000.2 193.3 1013.7 182.4 1028.3 171.1C1035.1 165.8 1042.2 160.4 1043.9 159C1056.6 149.2 1080.1 132.1 1091.2 124.8C1096.4 121.4 1103.3 116.7 1106.5 114.4C1109.6 112.1 1116.4 107.7 1121.4 104.6C1126.4 101.6 1132.8 97.5 1135.6 95.7C1138.3 93.8 1142.7 91.1 1145.2 89.8C1147.7 88.4 1152.5 85.7 1155.8 83.8C1159.1 81.8 1164.1 79 1166.8 77.4C1173.5 73.6 1198.9 60.2 1199.5 60.2C1199.7 60.2 1207 56.9 1215.6 52.8C1237.6 42.5 1250.7 37.1 1269.1 30.9C1292.5 23.1 1310.1 17.9 1319.8 15.9C1322.9 15.2 1329.2 13.8 1333.9 12.6C1338.6 11.4 1344.3 10.2 1346.7 9.8C1349 9.5 1354.6 8.6 1359.1 7.8C1389.7 2.7 1429.3 0.8 1460 3.1C1492.8 5.6 1501.7 6.9 1525.8 13.1C1548.7 18.9 1559.7 22.4 1573.7 28.2C1579.7 30.7 1586.7 33.5 1589.2 34.4C1593.5 36.1 1597.1 38.2 1614 49.2C1632.6 61.3 1648.3 78.1 1662.8 101.2C1676.5 123 1684.7 144 1689.8 169.9C1693.3 188 1694.4 195.7 1695.6 210C1696.8 224.6 1696.8 266.3 1695.6 280.5C1695.1 286.5 1694.4 296.1 1694 301.7C1693.6 307.3 1692.8 317.2 1692.2 323.7C1691.7 330.1 1690.9 340.3 1690.5 346.3C1690.1 352.4 1689.5 361.3 1689.1 366.1C1687.1 391.6 1687.6 432.9 1690.1 457.1C1692.3 477.2 1696.7 500.3 1702.2 520.2C1707.8 540.3 1720.3 572.5 1727.3 585C1729.2 588.3 1732.7 594.8 1735.1 599.4C1742.2 613.1 1758.5 638.4 1765.8 647C1767.4 649 1771.8 654.5 1775.5 659.4C1779.2 664.2 1784.6 670.7 1787.5 673.9C1790.5 677 1796.4 683.6 1800.8 688.4C1805.1 693.3 1825 713.7 1845 733.7C1865 753.8 1883.4 772.8 1886 775.9C1888.5 778.9 1893.9 785 1898.1 789.3C1902.2 793.6 1907.4 799.6 1909.7 802.7C1924.8 822.7 1928.6 828 1937.6 841.6C1942.7 849.3 1948.3 858.7 1950.2 862.5C1952 866.3 1955.4 872.8 1957.9 877.1C1960.3 881.4 1964.1 889.2 1966.2 894.5C1968.4 899.7 1970.8 905.4 1971.6 907C1972.9 909.6 1979.8 929.9 1983.2 940.9C1986.1 950.4 1991.6 973.8 1992.9 982.6C1993.8 988.1 1994.9 995.6 1995.5 999.3C1997.5 1012.2 1998 1024.2 1997.6 1046.7C1997.3 1066.8 1997 1070.5 1995.1 1083.9C1988 1131.6 1976.3 1166.3 1952.8 1208.6C1946 1220.6 1930.1 1245.4 1925.9 1250C1924.7 1251.4 1921.4 1255.7 1918.4 1259.6C1915.5 1263.5 1910.7 1269.2 1907.8 1272.3C1896 1284.9 1876.8 1303.8 1871.5 1308.1C1868.3 1310.6 1863.6 1314.6 1860.8 1317C1854.6 1322.4 1838.7 1334.1 1830.4 1339.5C1817.2 1347.9 1813.2 1350.5 1806.3 1354.8C1797.1 1360.6 1770 1374.1 1757.4 1379.2C1752 1381.4 1745.8 1384 1743.6 1384.9C1741.5 1385.9 1735.9 1388 1731.2 1389.6C1726.6 1391.2 1720.3 1393.4 1717.4 1394.5C1711.4 1396.7 1680.3 1405 1669.6 1407.2C1665.7 1408 1658.9 1409.5 1654.4 1410.4C1646.8 1412 1636.2 1413.5 1613.3 1416.1C1602.1 1417.4 1555.5 1418.1 1540.5 1417.1ZM619 986.9C628.5 985.5 638.9 983.7 642 982.9C645.1 982.1 651.4 980.7 656 979.8C669.3 977.1 687.5 971.6 699.7 966.7C703.4 965.2 710.3 962.6 714.9 960.8C725.5 956.8 750.1 945.3 756.7 941.2C759.5 939.5 766.3 935.6 772 932.5C777.6 929.4 784.8 925 787.9 922.8C791 920.6 795.3 917.6 797.5 916.3C801.4 913.8 812.9 905.1 822.9 897.1C831.1 890.5 840.6 881.7 848.2 873.5L855 866L845.9 856.8C840.9 851.8 834.4 845.7 831.4 843.3C828.5 840.9 822.5 835.4 818 831.1C813.5 826.7 806.5 820.5 802.4 817.2C798.3 814 791.8 808.4 787.9 804.9C780.7 798.4 774 792.9 765.5 786.5C762.9 784.5 758.3 780.8 755.2 778.1C749.3 772.9 731.5 759.4 716.4 748.6C711.3 745 705 740.3 702.3 738.2C699.7 736 693.5 731.8 688.6 728.6C683.7 725.5 677 721 673.6 718.5C666.2 713.1 655.9 706.7 633.5 693.4C624.2 687.8 614.5 681.8 612 680.1C607.3 676.8 596.5 671.2 591.8 669.5C590.3 669 587.3 667.5 585.1 666.2C582.9 664.9 575 660.7 567.6 656.9C560.2 653.1 553.2 649.4 552.1 648.7C550.9 648 545.3 645.6 539.7 643.4C534 641.2 524.2 637.1 517.9 634.4C498.2 626 468 615.5 454.7 612.3C450.2 611.2 442.5 609.1 437.7 607.6C428.7 604.9 392.3 597.2 379.2 595.3C360.7 592.6 335.2 590 326.8 590C322.6 589.9 322.5 590 310.9 597.6C283.8 615.5 263.3 639.9 248.5 671.9C235.2 700.6 232.1 736 239.8 770.3C244.4 790.9 250.6 806.3 264.4 831.4C269 839.9 278.4 852.9 289.4 866.2C295.6 873.7 321.9 899.2 330 905.8C354.1 924.9 368.4 934 398.7 949.6C405.2 952.9 412.2 956.5 414.3 957.6C416.4 958.7 422.2 961 427.1 962.7C431.9 964.5 438.6 966.9 441.9 968.1C455.3 973.1 470.5 977.7 482.2 980.2C487.5 981.4 494.6 983 497.9 983.7C506.3 985.7 527.9 988.8 537.2 989.4C541.5 989.7 557.7 989.8 573.3 989.7C601.6 989.5 601.6 989.5 619 986.9ZM1200.1 875.3C1221 874.2 1252.3 869.2 1278.3 862.9C1284 861.5 1291.3 859.7 1294.6 858.9C1297.8 858.1 1307.1 855.3 1315.1 852.7C1323.1 850.1 1334 846.6 1339.2 845C1344.5 843.3 1351.5 840.9 1354.8 839.6C1358.1 838.3 1363.7 836.1 1367.2 834.7C1387 827 1393.9 824.2 1398.4 822.1C1401.1 820.7 1406.4 818.4 1410.1 817C1413.8 815.5 1419.5 812.9 1422.8 811.2C1426.1 809.5 1438.1 803.6 1449.4 798.1C1460.7 792.6 1473.4 786.1 1477.7 783.6C1482 781.2 1490 776.8 1495.4 773.7C1500.9 770.7 1509.4 765.7 1514.3 762.7C1519.3 759.6 1523.5 757.1 1523.7 757.1C1524.2 757.1 1544.6 744.1 1550.3 740.1C1552.9 738.3 1557.5 735.1 1560.5 733C1575.8 722.3 1597 704.1 1597 701.6C1597 701.2 1595.5 699.1 1593.6 696.9C1591.8 694.8 1587.6 689.8 1584.3 685.9C1581 682 1576.9 677.2 1575.1 675.3C1573.3 673.3 1568.4 667.6 1564.1 662.6C1559.8 657.5 1552.8 649.7 1548.5 645.2C1544.1 640.7 1536.5 632.4 1531.4 626.8C1526.3 621.1 1521.3 615.7 1520.2 614.7C1518 612.7 1507.5 600.7 1503.2 595.3C1501.7 593.3 1498.1 589.3 1495.4 586.4C1490.4 581.1 1487.7 577.8 1479.8 566.9C1477.5 563.8 1474.3 559.8 1472.7 558.1C1466.3 551 1446 520 1439.6 507.4C1438.2 504.7 1435.3 499.5 1433.1 495.8C1431 492.1 1427.9 485.7 1426.3 481.6C1424.6 477.5 1422.4 472.1 1421.2 469.6C1418.4 463.4 1410.1 442.1 1404.2 426C1400.9 417 1398.6 409.9 1394.8 396.6C1393.5 392.1 1391.5 385.7 1390.4 382.4C1389.2 379.1 1386.1 370 1383.6 362.1C1381 354.2 1377.4 344.1 1375.6 339.8C1373.8 335.4 1370 326 1367.2 319C1361.2 304 1359.9 301.4 1353.6 291.3C1345.8 278.6 1338.9 269.6 1331.5 262.6C1324.6 256.1 1313.5 248.6 1310.8 248.6C1309.8 248.6 1308.6 250.4 1306.3 255.1C1304.6 258.7 1302.1 263.8 1300.7 266.3C1295.3 276.4 1283 302.5 1280.3 309.5C1278.8 313.6 1276.2 319.5 1274.7 322.6C1273.1 325.7 1270.2 332.2 1268.3 337.1C1266.3 342 1263.4 348.7 1261.9 352C1259.3 357.4 1247.5 386.3 1236 415.4C1233.6 421.2 1230.7 428.5 1229.5 431.7C1219.8 455.7 1213.5 472.3 1208 487.6C1207 490.3 1205.2 494.8 1204 497.5C1202.7 500.2 1200.8 505 1199.6 508.1C1194.4 522.4 1190.2 534.4 1187.5 542.5C1186 547.4 1184.1 552.5 1183.4 553.9C1182.7 555.2 1180.5 561.3 1178.5 567.3C1176.4 573.3 1173.3 582.2 1171.4 587.1C1168 595.9 1152.5 642.8 1149.1 654.4C1148.2 657.7 1145.6 665.7 1143.5 672.2C1141.3 678.7 1138.2 689.1 1136.7 695.2C1130.7 718.6 1129.5 722.9 1127.4 728.9C1126.3 732.3 1124.5 738.8 1123.6 743.4C1122.6 748 1121.2 754 1120.5 756.7C1118.8 762.8 1114.3 784 1110.9 801.7C1107.7 818.1 1105.9 831 1104.5 847.4C1103.9 854.4 1103.2 860.8 1103 861.7C1102.6 863.5 1103.5 864.4 1108.3 867.5C1111 869.3 1113.8 870.2 1120.2 871.5C1127.8 873 1144.4 875 1153.3 875.6C1161.9 876.1 1188.4 876 1200.1 875.3Z" />
+                </defs>
+                <use href="#trace-path" class="trace-halo" />
+                <use href="#trace-path" class="trace-line" />
+              </svg>
+
+              <!-- The internal strands. Measured, not drawn by eye: these are
+                   the grooves themselves, found by walking the render for the
+                   dark troughs across the fan. Generated by
+                   python _tools/trace-strands.py — tracks 2, 3, 4, 5 of that
+                   run; 0 and 1 are the ribbon's own edges, not strands.
+                   Re-run and re-pick after any change to the render. -->
+              <svg class="exhibit__strands" id="exhibit-strands" viewBox="0 0 2000 1420">
+                <path d="M1138 885 C1290 899 1442 817 1594 739" />
+                <path d="M1265 934 C1411 921 1559 863 1705 806" />
+                <path d="M1478 954 C1580 947 1688 918 1791 897" />
+                <path d="M1610 1001 C1694 1001 1778 1008 1862 999" />
+              </svg>
+
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <div class="exhibit__flow">
+
+        <!-- Opening -->
+        <header class="exhibit__opening" data-chapter="opening">
+          <div class="exhibit__inner">
+            <p class="exhibit__eyebrow">The identity</p>
+            <div class="exhibit__titlebox">
+              <h1 class="exhibit__title">The Mark of JEEV</h1>
+              <p class="exhibit__lede">Life is not static. It transforms, adapts,
+                and&nbsp;emerges.</p>
+              <p class="exhibit__cue">Examine the object</p>
+            </div>
+          </div>
+        </header>
+
+        <!-- 00 · The form -->
+        <div class="chapter" data-chapter="form">
+          <div class="exhibit__inner">
+            <div class="chapter__body">
+              <p class="chapter__index">00 — The form</p>
+              <h2 class="chapter__title">One continuous surface.</h2>
+              <p class="chapter__text">
+                The JEEV mark is a single ribbon, folded in three dimensions until it supports itself.
+                Nothing is joined to it and nothing hangs from it: every part of the form is the same
+                surface, seen at a different point in its turn.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 01 · Continuity -->
+        <div class="chapter" data-chapter="continuity">
+          <div class="exhibit__inner">
+            <div class="chapter__body">
+              <p class="chapter__index">01 — Continuity</p>
+              <h2 class="chapter__title">No beginning. No end.</h2>
+              <p class="chapter__text">
+                The form is drawn from the Möbius band — a surface with no conventional start and no
+                conventional finish. Follow the ribbon from any point and it returns to that point,
+                reoriented but unbroken. That is the mark's first principle: transformation does not
+                require an ending.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 02 · Emergence -->
+        <div class="chapter" data-chapter="emergence">
+          <div class="exhibit__inner">
+            <div class="chapter__body">
+              <p class="chapter__index">02 — Emergence</p>
+              <h2 class="chapter__title">New, from what exists.</h2>
+              <p class="chapter__text">
+                At the upper right, the surface climbs out of its own loop. Nothing is added at that
+                point — the ribbon that rises is the ribbon that circulates. The second principle:
+                the new is generated from the existing, not attached to it.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 03 · Life -->
+        <div class="chapter" data-chapter="life">
+          <div class="exhibit__inner">
+            <div class="chapter__body">
+              <p class="chapter__index">03 — Life</p>
+              <h2 class="chapter__title">The strands inside.</h2>
+              <p class="chapter__text">
+                Within the folds run parallel strands, invisible at a distance. They refer to the way
+                life carries what it knows: structure holding information, passed forward, transformed.
+                The mark does not depict a molecule. It borrows the principle.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 04 · Engineered -->
+        <div class="chapter" data-chapter="engineered">
+          <div class="exhibit__inner">
+            <div class="chapter__body">
+              <p class="chapter__index">04 — Technology</p>
+              <h2 class="chapter__title">Drawn from life. Built by engineering.</h2>
+              <p class="chapter__text">
+                Seen whole again, the mark is neither organic nor mechanical. The geometry comes from
+                life; the execution — one surface, resolved until it could be machined — comes from
+                engineering. JEEV works in the space between the two.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================
+         THE ARCHITECTURE — the last movement of the dark act, so it
+         carries straight on from the theatre with no seam.
+
+         Each row is real lockup artwork painted through a mask, not the
+         name set in a UI face. TECH is the original drawing; the four
+         futures are generated beside it from the same measurements —
+         see build_division_wordmarks() in _tools/build-brand-assets.py.
+         ======================================================== -->
+    <section class="band band--mark" aria-labelledby="architecture-heading">
+      <div class="rail">
+        <p class="rail__label">The architecture</p>
+        <div class="rail__body">
+          <h2 id="architecture-heading" class="band__statement">One mark. Many expressions.</h2>
+          <p class="band__note">
+            TECH is the first expression of JEEV, not the whole of it. The mark belongs to the idea —
+            to life — and it stays constant as the work extends. Only the word beside it changes.
+          </p>
+          <ul class="expressions">
+            <li class="expression">
+              <span class="expression__lockup" role="img" aria-label="JEEV TECH"
+                style="--wm:5742;--wm-src:url(/img/wordmark.svg)"></span>
+              <span class="expression__status">Present — building</span>
+            </li>
+            <li class="expression expression--future">
+              <span class="expression__lockup" role="img" aria-label="JEEV ENERGY"
+                style="--wm:6953;--wm-src:url(/img/wordmark-energy.svg)"></span>
+              <span class="expression__status">Long-term vision</span>
+            </li>
+            <li class="expression expression--future">
+              <span class="expression__lockup" role="img" aria-label="JEEV LABS"
+                style="--wm:5673;--wm-src:url(/img/wordmark-labs.svg)"></span>
+              <span class="expression__status">Long-term vision</span>
+            </li>
+            <li class="expression expression--future">
+              <span class="expression__lockup" role="img" aria-label="JEEV RESEARCH"
+                style="--wm:8038;--wm-src:url(/img/wordmark-research.svg)"></span>
+              <span class="expression__status">Long-term vision</span>
+            </li>
+            <li class="expression expression--future">
+              <span class="expression__lockup" role="img" aria-label="JEEV HEALTH"
+                style="--wm:6874;--wm-src:url(/img/wordmark-health.svg)"></span>
+              <span class="expression__status">Long-term vision</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         THE MARK WITHOUT THE WORD — the last movement of the dark act.
+
+         The one place on the site that shows the real brushed-metal render.
+         Everything else silver here is a luminance inversion of the black
+         master, which is right in value and invented in everything else; a
+         negative of a matte surface is not a metal one. This is shown large,
+         still and alone, because that is what the render can carry.
+
+         Its ground is already --ink-invert — see build_silver_plate() — so
+         the rectangle disappears into the section. data-dark-end holds the
+         house lights down until this plate has passed the header.
+         ======================================================== -->
+    <section class="alone" data-dark-end aria-label="The mark alone">
+      <p class="alone__eyebrow">The mark without the word</p>
+      <img class="alone__mark" src="/img/mark-silver-2000.webp"
+        srcset="/img/mark-silver-1200.webp 1200w, /img/mark-silver-2000.webp 2000w"
+        sizes="(max-width: 768px) 100vw, min(88vw, 1080px)" alt="The JEEV mark in brushed metal"
+        width="2000" height="1394" loading="lazy" decoding="async">
+      <p class="alone__line">In time, the mark will not need the name.</p>
+    </section>
+
+    <!-- ========================================================
+         FINAL STATEMENT — the lights are back up.
+
+         Mark, name, rule, words: one lockup on one axis, not four objects
+         that happen to follow each other. The proportion is measured off the
+         artwork rather than chosen — the name is set to the width of the
+         mark (the render agrees to within 2%), and the air between them is
+         one cap height of the name.
+         ======================================================== -->
+    <section class="finale" aria-label="JEEV">
+      <div class="finale__lockup">
+        <img class="finale__mark" src="/img/mark-2000.webp"
+          srcset="/img/mark-1000.webp 1000w, /img/mark-2000.webp 2000w"
+          sizes="(max-width: 768px) calc(100vw - 3rem), 34rem" alt="" width="2000" height="1420"
+          loading="lazy" decoding="async">
+        <span class="finale__name" role="img" aria-label="JEEV"></span>
+        <span class="finale__rule" aria-hidden="true"></span>
+        <p class="finale__line">Life in continuous emergence.</p>
+        <p class="finale__close">Engineering for civilization</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__brand">
+        <img class="site-footer__logo" src="/img/logo-mark.webp" alt="" width="62" height="44" loading="lazy"
+          decoding="async">
+        <span class="site-footer__wordmark">JEEV <span class="wordmark__descriptor">TECH</span></span>
+        <span class="site-footer__tagline">Technology is the medium.<br>Human progress is the objective.</span>
+      </div>
+
+      <nav class="site-footer__nav" aria-label="Footer navigation">
+        <a href="/principles">Principles</a>
+        <a href="/servizo">Servizo</a>
+        <a href="/research">Research directions</a>
+        <a href="/engineering">Engineering</a>
+        <a href="/notes">Notes</a>
+        <a href="/about">About</a>
+        <a href="/mark">The Mark of JEEV</a>
+        <a href="/contact">Contact</a>
+        <a href="/privacy">Privacy</a>
+      </nav>
+
+      <div class="site-footer__contact">
+        <a href="mailto:contact@jeevtech.in">contact@jeevtech.in</a>
+        <a href="https://www.instagram.com/jeev.tech/" target="_blank" rel="noopener noreferrer">Instagram</a>
+      </div>
+
+      <p class="site-footer__meta">
+        &copy; 2025 JEEV TECH &middot; Incorporated in India
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/mark.js"></script>
+</body>
+
+</html>

@@ -80,6 +80,11 @@ h4 {
   line-height: var(--lh-heading);
   letter-spacing: var(--ls-tight);
   color: var(--ink);
+  /* Even out the rag rather than filling each line before breaking. On a
+     three-line statement the difference between a full line and a two-word
+     one is the difference between typeset and typed. Ignored by browsers
+     that do not have it, which simply get the old greedy break. */
+  text-wrap: balance;
 }
 
 h1 {
@@ -100,6 +105,10 @@ h3 {
 p {
   max-width: var(--measure);
   margin-bottom: var(--space-md);
+  /* Running prose gets the weaker of the two: balance would even every
+     paragraph into a block and cost the rag its life. This only prevents the
+     last line from being a single word. */
+  text-wrap: pretty;
 }
 
 p:last-child {
@@ -162,11 +171,18 @@ blockquote p {
 
 /* ---- Hero ---- */
 
+/* ---- Display tracking ----
+   Tracking is a function of size, not a constant. -0.02em closes the gaps
+   that open at 68px; at the 34px mobile cut the same value is simply tight,
+   and the eye reads it as cramped rather than considered. The responsive
+   sheet reopens both of these. */
+
 .hero__statement {
   font-size: var(--text-hero);
   font-weight: 400;
   letter-spacing: -0.02em;
   max-width: 100%;
+  text-wrap: balance;
 }
 
 /* ---- Eyebrow Label ---- */

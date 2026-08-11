@@ -4,8 +4,8 @@
     {
       "name": "jeevtech-site",
       "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "8734"],
-      "port": 8734
+      "runtimeArgs": ["_tools/serve.py", "8737"],
+      "port": 8737
     }
   ]
 }

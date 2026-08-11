@@ -1,20 +1,34 @@
 # Files that live in the repo but must never be served.
-# Anything in the project root is public by default on a static host — the
-# brand constitution and the build brief would both have been downloadable
-# at the domain without this.
+# Anything in the project root is public by default on a static host, so this
+# list is what stands between an internal document and a downloadable one.
+# It is not the same list as .gitignore: everything here is committed on
+# purpose, it just has no business being on the domain.
 
-JEEV_TECH_Brand_Constitution_v5.docx
-JEEV_TECH_Website_Build_Brief.md
+# Internal notes and local tooling config.
+CLAUDE.md
 .claude/
-_backup/
-
-# Raw generation originals kept for reference, not for serving.
-img/flow/
-
-# Unreferenced since the Servizo hero became an SVG diagram. Kept locally in
-# case it is wanted again; not worth 125KB on the deploy.
-img/servizo-doors.jpg
 
 # The full TTFs are the source for regenerating img/og-image.png. The site
 # itself only loads the subset woff2 files.
 fonts/*.ttf
+fonts/*.otf
+
+# Licensed for artwork, not for serving: the face the division lockups are set
+# in. The site ships the traced outlines (img/wordmark-*.svg), never the font.
+fonts/brandon-grotesque-light.ttf
+
+# Brand originals, 4MB between them. _tools/build-brand-assets.py turns these
+# into everything the site actually loads; none is referenced by a page.
+# "Silver logo.png" is the brushed-metal render — the source of the /mark
+# plate and the share card, kept because the outputs are cut from it.
+img/Logo.png
+img/Text logo.png
+img/Silver logo.png
+
+# Build scripts, and the render spec, which is an internal brief.
+_tools/
+
+# Generated as the standing check on the division lockups — the site uses the
+# real img/wordmark.svg for TECH, never this re-set copy of it. Git ignores it
+# too; this entry is for the case where a build has just run.
+img/wordmark-tech.svg

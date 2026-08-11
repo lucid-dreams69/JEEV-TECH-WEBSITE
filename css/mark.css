@@ -1,0 +1,837 @@
+/* ==========================================================================
+   JEEV TECH — /mark
+   The brand-philosophy page. One object on a sticky stage, examined by a
+   scroll-driven camera; the chapters scroll past it in their own column.
+
+   The page is lit in three acts. It opens on the site's ground with the mark
+   as a dark solid, the lights go down for the examination — near-black, the
+   object now silver and lit, so its surface, folds and internal strands
+   actually read — and they come back up for the close. A black object on a
+   white ground goes flat at close range; that is a property of the object,
+   not of the screen, and turning the lights down is the fix.
+
+   js/mark.js drives all of it from one scroll position: the camera, the
+   crossfade between the two renders, and the ground and ink colours through
+   the variables below. Loaded after responsive.css, on this page only.
+   ========================================================================== */
+
+.mark-page {
+  /* Written by js/mark.js every frame: 0 = house lights, 1 = theatre.
+     Everything that has to survive the transition reads these rather than
+     the page tokens, so nothing is ever dark ink on a dark ground. */
+  --x-ink: var(--ink);
+  --x-muted: var(--muted);
+  --x-rule: var(--rule);
+  --x-ground: var(--ground);
+  --x-t: 0;
+
+  /* The theatre. Deliberately --ink-invert and not a deeper black: the
+     architecture section below the exhibit is the site's dark band, so the
+     act ends without a seam between them. */
+  --theatre: var(--ink-invert);
+
+  /* The text column, and the hairline that divides it from the object. */
+  --mark-col: 21rem;
+  --mark-split: calc(var(--page-gutter) + var(--mark-col) + var(--space-2xl) / 2);
+
+  /* The object's half of the split, in px. js/mark.js measures it off the
+     rule and overwrites this every resize; the expression is the value
+     before the script runs and without it. The two agree to within the
+     scrollbar, which is why the object is sized at a fraction of it rather
+     than to its edge. */
+  --zone-w: calc(min(100vw, var(--page-max)) - var(--mark-split));
+}
+
+/* The header travels with the lighting, or it stays a bright bar across the
+   top of a dark theatre. Colours come from the same variables. */
+.mark-page .site-header {
+  background-color: var(--x-ground);
+  border-bottom-color: var(--x-rule);
+  /* The colour here is already a function of scroll position, rewritten
+     every frame. The site's 400ms transition on top of that makes the header
+     lag the page it is sitting on — through the change of act it would be a
+     whole flick behind, which is the one place it must not be. */
+  transition: none;
+}
+
+.mark-page .site-nav__link {
+  color: var(--x-muted);
+}
+
+.mark-page .site-nav__link:hover,
+.mark-page .site-nav__link--active {
+  color: var(--x-ink);
+}
+
+/* The emblem crossfades to its inverted cut rather than being filtered:
+   filter: invert() at a partial value passes through grey and reads as a
+   fault. Two cuts, opposite opacities, is the same trick the stage uses. */
+.mark-page .site-brand {
+  position: relative;
+}
+
+.mark-page .site-brand__emblem--light {
+  position: absolute;
+  inset: 0;
+  opacity: var(--x-t);
+}
+
+.mark-page .site-brand__emblem--dark {
+  opacity: calc(1 - var(--x-t));
+}
+
+/* Mobile drawer sits on the ground colour, which is now variable. */
+@media (max-width: 768px) {
+  .mark-page .site-nav {
+    background-color: var(--x-ground);
+    border-left-color: var(--x-rule);
+  }
+}
+
+/* The exhibit is full-bleed and supplies its own vertical rhythm. */
+.mark-page main {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* ==========================================================================
+   The exhibit — sticky stage, scrolling chapters
+   ========================================================================== */
+
+.exhibit {
+  position: relative;
+  background-color: var(--x-ground);
+}
+
+.exhibit__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+/* The split. A single hairline on the page grid, running the full height of
+   the stage: object on one side, notes on the other. It is what replaces
+   putting the text on a plate over the object — nothing has to be veiled
+   for the type to be legible, because the two never share space. */
+.exhibit__frame {
+  position: absolute;
+  inset: 0;
+  max-width: var(--page-max);
+  margin: 0 auto;
+}
+
+.exhibit__rule {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: var(--mark-split);
+  width: 1px;
+  background-color: var(--x-rule);
+  opacity: 0.9;
+}
+
+/* The camera. JS writes one transform per frame; everything it sees lives
+   inside and moves as one object. */
+/* The object's half of the split, and its clip. It starts at the stage's own
+   left edge — the object is meant to run off that edge — so the camera's
+   coordinates are still the stage's; only the right edge is brought in.
+
+   That edge has to land on the rule, and the rule is on the page grid, not
+   on the viewport: past --page-max the grid stops widening and the stage
+   does not. The first term is the margin between the two. */
+.exhibit__viewport {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: calc(max(0px, (100% - var(--page-max)) / 2) + var(--mark-split));
+  overflow: hidden;
+}
+
+/* Origin at the corner, not the centre: the camera maths places a named
+   point of the render at a named point of the stage, and a centred origin
+   puts the stage's own size into every one of those terms. */
+.exhibit__camera {
+  position: absolute;
+  inset: 0;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+/* Sized from the zone, not from the viewport. The camera places the object
+   by fractions of the zone, so a width measured against the viewport has no
+   relationship to the space it has to sit in: past about 0.87 of the zone the
+   whole-object chapters push it through the rule and it is cut off, which
+   reads as the mark sliding behind the notes. 0.86 is the largest fraction
+   that keeps every whole-object keyframe clear of the line — the detail
+   zooms still overrun it, which is what a magnification looks like.
+
+   The second term is the same limit vertically: 0.87 of the stage height is
+   what the tallest keyframe can hold without running off the top and bottom
+   at once. */
+.exhibit__object {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: min(calc(var(--zone-w) * 0.86), 87svh);
+  aspect-ratio: 2000 / 1420;
+}
+
+/* Ambient breathing while the object idles under the title. Its own layer,
+   so this transform and the camera's never fight. */
+.exhibit__float {
+  position: absolute;
+  inset: 0;
+  animation: exhibitFloat 9s ease-in-out infinite alternate;
+}
+
+@keyframes exhibitFloat {
+  from { transform: translateY(-0.4%); }
+  to   { transform: translateY(0.5%); }
+}
+
+/* The two cuts of the same render, stacked. Opacity is driven by the same
+   lighting value as the ground, so the object turns from solid to lit at
+   exactly the moment the room does. */
+.exhibit__img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.exhibit__img--dark {
+  opacity: calc(1 - var(--x-t));
+}
+
+.exhibit__img--light {
+  opacity: var(--x-t);
+}
+
+.exhibit__sheen,
+.exhibit__veil,
+.exhibit__trace,
+.exhibit__strands {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Light moving across the surface — masked by the render's own alpha, so
+   the sweep exists only on the object, never on the page. */
+.exhibit__sheen {
+  background: linear-gradient(115deg,
+      transparent 32%,
+      rgba(255, 255, 255, 0.16) 46%,
+      rgba(255, 255, 255, 0.05) 53%,
+      transparent 68%);
+  background-size: 300% 100%;
+  -webkit-mask-image: url("../img/mark-2000.webp");
+  -webkit-mask-size: 100% 100%;
+  mask-image: url("../img/mark-2000.webp");
+  mask-size: 100% 100%;
+  animation: sheenDrift 13s ease-in-out infinite alternate;
+  opacity: 0;
+}
+
+@keyframes sheenDrift {
+  from { background-position: 10% 0; }
+  to   { background-position: 88% 0; }
+}
+
+/* Spotlights: the region under study keeps full contrast while the rest of
+   the object sinks back into the room. Positions are fractions of the
+   render — the emerging lobe at (0.72, 0.27), the strand fan at (0.71, 0.69). */
+.exhibit__veil {
+  opacity: 0;
+}
+
+/* Continuity dims the whole object instead of a region of it. The chapter's
+   subject is the line, not a part of the form, and a bright silver surface
+   under a drafting line reduces that line to an edge highlight. Turning the
+   object down is what turns the drawing up. */
+.exhibit__veil--continuity {
+  background-color: rgba(20, 23, 26, 0.66);
+}
+
+.exhibit__veil--emergence {
+  background: radial-gradient(ellipse 38% 36% at 72% 27%,
+      rgba(20, 23, 26, 0) 42%,
+      rgba(20, 23, 26, 0.9) 88%);
+}
+
+.exhibit__veil--life {
+  background: radial-gradient(ellipse 36% 34% at 71% 69%,
+      rgba(20, 23, 26, 0) 42%,
+      rgba(20, 23, 26, 0.88) 88%);
+}
+
+/* The continuity trace: a drafting line following the object's own contour,
+   drawn twice so it survives crossing both the lit surface and the dark
+   room — a dark halo beneath a pine line. */
+.exhibit__trace use {
+  fill: none;
+  stroke-linecap: round;
+}
+
+/* Stroke widths are in the render's 2000-unit space, which lands on screen
+   at roughly a quarter of their value — a 4-unit line is a hairline nobody
+   sees. These are sized so the drawing reads at the size it is shown. */
+.exhibit__trace .trace-halo {
+  stroke: var(--theatre);
+  stroke-width: 26;
+  opacity: 0.75;
+}
+
+.exhibit__trace .trace-line {
+  stroke: #A9D0BA;
+  stroke-width: 9;
+}
+
+/* The strand annotations sit on bright silver, so they run dark. */
+.exhibit__strands path {
+  fill: none;
+  stroke: rgba(20, 23, 26, 0.5);
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+
+.exhibit__trace,
+.exhibit__strands {
+  opacity: 0;
+}
+
+/* ---- The chapters ---- */
+
+.exhibit__flow {
+  position: relative;
+  z-index: 2;
+  /* The sticky stage owns the exhibit's first viewport of layout; pulling
+     the flow up by the same amount lets the opening title share that
+     viewport with the object instead of arriving a screen late. */
+  margin-top: -100vh;
+  margin-top: -100svh;
+  pointer-events: none;
+}
+
+.exhibit__flow a,
+.exhibit__flow p {
+  pointer-events: auto;
+}
+
+.exhibit__inner {
+  width: 100%;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--page-gutter);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--mark-col);
+  gap: var(--space-2xl);
+}
+
+/* Opening: the title takes the text column too, so the composition is set
+   from the first frame and nothing jumps when the chapters begin. */
+.exhibit__opening {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-start;
+}
+
+.exhibit__opening .exhibit__inner {
+  padding-top: calc(var(--space-4xl) + var(--space-lg));
+}
+
+.exhibit__eyebrow {
+  grid-column: 2;
+  font-family: var(--font-utility);
+  font-size: var(--text-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--x-muted);
+  border-top: 1px solid var(--x-rule);
+  padding-top: 0.6rem;
+  margin-bottom: var(--space-md);
+}
+
+.exhibit__titlebox {
+  grid-column: 2;
+}
+
+.exhibit__title {
+  font-size: var(--text-h2);
+  line-height: var(--lh-heading);
+  color: var(--x-ink);
+  margin-bottom: var(--space-sm);
+}
+
+.exhibit__lede {
+  font-family: var(--font-display);
+  font-size: var(--text-body);
+  line-height: var(--lh-body);
+  color: var(--x-muted);
+  margin-bottom: 0;
+}
+
+.exhibit__cue {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-2xl);
+  font-family: var(--font-utility);
+  font-size: var(--text-eyebrow);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--x-muted);
+}
+
+.exhibit__cue::before {
+  content: '';
+  width: 1px;
+  height: 2.2rem;
+  background-color: var(--x-rule);
+}
+
+/* Each chapter fills more than a viewport, so the camera has room to move
+   between one thought and the next. */
+.chapter {
+  min-height: 125vh;
+  display: flex;
+  align-items: center;
+}
+
+.chapter__body {
+  grid-column: 2;
+}
+
+.chapter__index {
+  font-family: var(--font-utility);
+  font-size: var(--text-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--x-muted);
+  border-top: 1px solid var(--x-rule);
+  padding-top: 0.6rem;
+  margin-bottom: var(--space-md);
+}
+
+.chapter__title {
+  font-size: var(--text-h2);
+  line-height: var(--lh-heading);
+  color: var(--x-ink);
+  margin-bottom: var(--space-md);
+}
+
+.chapter__text {
+  font-size: var(--text-body-sm);
+  line-height: var(--lh-body);
+  color: var(--x-muted);
+  margin-bottom: 0;
+  max-width: none;
+}
+
+/* ==========================================================================
+   The architecture — the last movement of the dark act
+   ========================================================================== */
+
+.band--mark {
+  margin: 0;
+}
+
+.expressions {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-xl) 0 0;
+  max-width: 34rem;
+}
+
+.expression {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-lg);
+  border-top: 1px solid var(--rule-invert);
+  padding: var(--space-md) 0;
+}
+
+.expression:last-child {
+  border-bottom: 1px solid var(--rule-invert);
+}
+
+/* Each lockup is the real drawing, painted through a mask so it takes
+   currentColor — the same mechanism as the sitewide wordmark. The width
+   comes from each file's own viewBox, passed in as --wm. */
+.expression__lockup {
+  display: block;
+  height: 22px;
+  aspect-ratio: var(--wm) / 639;
+  background-color: currentColor;
+  color: var(--on-invert);
+  -webkit-mask: var(--wm-src) no-repeat left center / contain;
+  mask: var(--wm-src) no-repeat left center / contain;
+  flex-shrink: 0;
+}
+
+/* The four that do not exist yet defer, so the row that is real reads first. */
+.expression--future .expression__lockup {
+  color: var(--muted-invert);
+  opacity: 0.75;
+}
+
+.expression__status {
+  font-family: var(--font-utility);
+  font-size: var(--text-eyebrow);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted-invert);
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   The mark without the word — the plate that closes the dark act
+
+   Full-bleed dark, and the image's own ground is the same token, so what the
+   reader sees is the object floating in the room rather than a photograph of
+   it. Nothing here is a page token that the lighting is still moving: this
+   section is past the exhibit, so it owns its colours outright.
+   ========================================================================== */
+
+.alone {
+  padding: var(--space-4xl) var(--page-gutter) var(--space-5xl);
+  background-color: var(--ink-invert);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.alone__eyebrow {
+  font-family: var(--font-utility);
+  font-size: var(--text-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted-invert);
+  margin-bottom: var(--space-2xl);
+}
+
+/* Slightly wider than the black render was: this one carries a margin of
+   transparency around the object, so the object inside lands the same size. */
+.alone__mark {
+  width: min(88vw, 98vh, 1080px);
+  height: auto;
+}
+
+.alone__line {
+  margin-top: var(--space-xl);
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  color: var(--muted-invert);
+}
+
+.js .alone.will-arrive .alone__eyebrow,
+.js .alone.will-arrive .alone__line {
+  opacity: 0;
+}
+
+.js .alone.will-arrive .alone__mark {
+  opacity: 0;
+  transform: translateY(26px);
+}
+
+.js .alone.arrived .alone__mark {
+  opacity: 1;
+  transform: none;
+  transition: opacity 1600ms var(--ease-out), transform 1600ms var(--ease-out);
+}
+
+.js .alone.arrived .alone__eyebrow {
+  opacity: 1;
+  transition: opacity 900ms var(--ease-out) 200ms;
+}
+
+.js .alone.arrived .alone__line {
+  opacity: 1;
+  transition: opacity 900ms var(--ease-out) 1300ms;
+}
+
+/* ==========================================================================
+   Final statement — one lockup, one axis
+
+   The mark, the name, the rule and the words are a single composition, not
+   four things stacked. Two of the numbers below are measurements, not
+   choices: the name is set to the width of the mark, and the air between
+   them is one cap height of the name. Both were read off the artwork where
+   the two appear together, and both are expressed as percentages of the
+   lockup's own width, so the composition is the same at any size.
+
+   The name's cap height is its width / 5.1906 — that ratio is the viewBox of
+   img/wordmark-jeev.svg, which is tight to the ink. 0.976 of it is the gap,
+   so 100 / 5.1906 * 0.976 = 18.8%.
+   ========================================================================== */
+
+/* No rules of its own, in either direction. The section above is the dark
+   plate, so the top of this one is already the hardest edge on the page and
+   a hairline sitting on it reads as a mistake; below, the lockup's own rule
+   is the one this composition closes on. */
+.finale {
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--page-gutter);
+  padding-block: var(--space-4xl);
+}
+
+.finale__lockup {
+  width: min(100%, 34rem);
+  margin-inline: auto;
+  text-align: center;
+}
+
+.finale__mark {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* The name is the drawing, not type set to look like it. */
+.finale__name {
+  display: block;
+  width: 100%;
+  margin-top: 18.8%;
+  aspect-ratio: 3296 / 635;
+  background-color: currentColor;
+  color: var(--ink);
+  -webkit-mask: url("../img/wordmark-jeev.svg") no-repeat center / contain;
+  mask: url("../img/wordmark-jeev.svg") no-repeat center / contain;
+}
+
+.finale__rule {
+  display: block;
+  width: 100%;
+  height: 1px;
+  margin-top: 9.4%;
+  background-color: var(--rule);
+  transform-origin: 50% 50%;
+}
+
+/* Both lines drop the site's 38em measure. A paragraph inherits it, and at
+   12px that is 456px — narrower than the lockup, aligned to its left edge,
+   so a centred line inside it is centred on the wrong axis. This is what put
+   the descriptor 44px left of the mark it belongs under. */
+.finale__line,
+.finale__close {
+  max-width: none;
+}
+
+.finale__line {
+  margin-top: var(--space-lg);
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  color: var(--muted);
+}
+
+/* Tracking is added after every letter including the last, so a centred line
+   sits half a tracking unit left of true centre. Taking that back off the
+   left of the content box puts the glyphs exactly on the axis the mark and
+   the name are on — which is the whole point of the composition. */
+.finale__close {
+  margin-top: var(--space-sm);
+  padding-left: var(--ls-descriptor);
+  font-family: var(--font-utility);
+  font-size: var(--text-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--ls-descriptor);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* The lockup assembles: the mark settles, the name is written on the way the
+   site signs off, the rule opens from the centre, then the words. */
+.js .finale.will-arrive .finale__mark {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.js .finale.arrived .finale__mark {
+  opacity: 1;
+  transform: none;
+  transition: opacity 1200ms var(--ease-out), transform 1200ms var(--ease-out);
+}
+
+.js .finale.will-arrive .finale__name {
+  clip-path: inset(0 100% 0 0);
+}
+
+.js .finale.arrived .finale__name {
+  animation: signWrite 1000ms var(--ease-out) 500ms forwards;
+}
+
+.js .finale.will-arrive .finale__rule {
+  transform: scaleX(0);
+}
+
+.js .finale.arrived .finale__rule {
+  transform: none;
+  transition: transform 700ms var(--ease-out) 1400ms;
+}
+
+.js .finale.will-arrive .finale__line,
+.js .finale.will-arrive .finale__close {
+  opacity: 0;
+}
+
+.js .finale.arrived .finale__line {
+  animation: sigFade 700ms var(--ease-out) 1750ms forwards;
+}
+
+.js .finale.arrived .finale__close {
+  animation: sigFade 700ms var(--ease-out) 2000ms forwards;
+}
+
+/* ==========================================================================
+   Responsive — the composition is rebuilt for the phone, not shrunk.
+   The split turns from a vertical division into a horizontal one: object in
+   the upper half of the stage, notes in the lower.
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .mark-page {
+    --mark-col: 17rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .mark-page {
+    --mark-col: 0rem;
+    --mark-split: 0px;
+  }
+
+  .exhibit__object {
+    width: min(96vw, calc(52svh * 1.408));
+  }
+
+  /* Stacked, the object is clipped at the rule from below rather than the side. */
+  .exhibit__viewport {
+    right: 0;
+    bottom: 42svh;
+  }
+
+  /* The divider now runs across the stage: object above it, notes below. */
+  .exhibit__rule {
+    top: auto;
+    right: var(--page-gutter);
+    left: var(--page-gutter);
+    bottom: 42svh;
+    width: auto;
+    height: 1px;
+  }
+
+  .exhibit__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-sm);
+  }
+
+  .exhibit__eyebrow,
+  .exhibit__titlebox,
+  .chapter__body {
+    grid-column: 1;
+  }
+
+  /* A chapter is centred on the viewport when it is the active one, so its
+     text is pushed into the lower band by shifting it off that centre — not
+     by aligning it to the chapter box, whose edges are a screen away. The
+     opening is top-aligned instead, so it is measured from the viewport top. */
+  .chapter .exhibit__inner {
+    transform: translateY(25svh);
+  }
+
+  .chapter {
+    min-height: 115svh;
+  }
+
+  .exhibit__opening .exhibit__inner {
+    padding-top: 0;
+    transform: translateY(60svh);
+  }
+
+  .exhibit__cue {
+    margin-top: var(--space-lg);
+  }
+
+  .exhibit__cue::before {
+    height: 1.6rem;
+  }
+
+  .expression__lockup {
+    height: 18px;
+  }
+
+  .expression {
+    gap: var(--space-md);
+  }
+
+  /* The plate carries its own margin, so on a phone it runs to the edges —
+     the section's gutter would otherwise be padding around padding. */
+  .alone {
+    padding-inline: 0;
+  }
+
+  .alone__mark {
+    width: 100%;
+  }
+
+  .alone__eyebrow,
+  .alone__line {
+    padding-inline: var(--page-gutter);
+  }
+
+  /* Twenty-eight characters at 0.38em is wider than the lockup on a phone,
+     and a descriptor set over two lines stops reading as a descriptor. The
+     tracking closes instead of the line breaking. The compensation has to
+     move with it — it is the same value, taken off the left. */
+  .finale__close {
+    letter-spacing: 0.18em;
+    padding-left: 0.18em;
+  }
+}
+
+/* ==========================================================================
+   Reduced motion — the page holds still. The lighting still changes, because
+   it is a change of state rather than motion, but nothing moves or scrubs.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .exhibit__float,
+  .exhibit__sheen {
+    animation: none;
+  }
+
+  .js .alone.will-arrive .alone__eyebrow,
+  .js .alone.will-arrive .alone__mark,
+  .js .alone.will-arrive .alone__line,
+  .js .finale.will-arrive .finale__mark,
+  .js .finale.will-arrive .finale__rule {
+    opacity: 1;
+    transform: none;
+  }
+
+  .js .finale.will-arrive .finale__name,
+  .js .finale.arrived .finale__name {
+    clip-path: none;
+    animation: none;
+  }
+
+  .js .finale.will-arrive .finale__line,
+  .js .finale.will-arrive .finale__close,
+  .js .finale.arrived .finale__line,
+  .js .finale.arrived .finale__close {
+    opacity: 1;
+    animation: none;
+  }
+}
