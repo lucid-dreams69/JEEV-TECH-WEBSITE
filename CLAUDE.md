@@ -164,6 +164,12 @@ Two consequences worth knowing:
   of the type beside them), never font-size — height drives width through
   `aspect-ratio`, so any rule that grows their height grows their width off the
   screen.
+- **The emblem appears once per page, in the header, and nowhere else.** It
+  used to close the footer and the sign-off as well, which put three of them on
+  the home page and About. Both were removed on 26 August 2026; the footer and
+  the sign-off keep the wordmark, which is a mask and costs nothing. `/mark` is
+  the exception at two, and both are in its header — the light and dark cuts it
+  crossfades through the three acts.
 - **The header carries both: emblem then wordmark, one lockup.** `.site-brand`
   is a flex row on every page. The emblem is a shaded render, so it cannot go
   below about 30px without the loop closing into a smudge, and it cannot take

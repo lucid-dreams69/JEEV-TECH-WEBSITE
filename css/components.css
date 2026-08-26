@@ -559,19 +559,6 @@ button.prominent-link {
   gap: var(--space-xs);
 }
 
-/* The loop mark is a shaded render — flattening it to a silhouette closes the
-   ribbon into a blob — so it stays a raster, and measured it stops reading
-   below about 48px. That is why it appears here and in the sign-off, and
-   nowhere in the 14px chrome at the top of the page. */
-.site-footer__logo {
-  display: block;
-  width: auto;
-  height: 44px;
-  /* The brand column stretches its children; left alone the mark is pulled to
-     the column width and distorts. The column's own gap sets the space below. */
-  align-self: start;
-}
-
 .site-footer__wordmark {
   font-family: var(--font-brand);
   font-size: var(--text-eyebrow);
@@ -814,16 +801,6 @@ button.prominent-link {
   letter-spacing: 0.10em;
 }
 
-/* The loop mark, above the name it belongs to. On About there is no label
-   between the two, and the mark's lower lobe sits directly over the J — 24px
-   there reads as a collision rather than a lockup. */
-.signature__logo {
-  display: block;
-  width: auto;
-  height: 72px;
-  margin-bottom: var(--space-lg);
-}
-
 /* The mark is written on, left to right — the same drawing language the
    diagrams use, applied to type. A clip never changes layout width, so
    unlike animating letter-spacing it cannot overflow the grid mid-flight. */
@@ -850,13 +827,11 @@ button.prominent-link {
 
 /* The words around the mark land after it, not with it: the mark is the
    event, the label and the line are what it is signing. */
-.js .signature.will-arrive .signature__logo,
 .js .signature.will-arrive .signature__label,
 .js .signature.will-arrive .signature__line {
   opacity: 0;
 }
 
-.js .signature.arrived .signature__logo,
 .js .signature.arrived .signature__label {
   animation: sigFade 700ms var(--ease-out) 100ms forwards;
 }
@@ -875,8 +850,6 @@ button.prominent-link {
 
   .js .signature.will-arrive .signature__mark,
   .js .signature.arrived .signature__mark,
-  .js .signature.will-arrive .signature__logo,
-  .js .signature.arrived .signature__logo,
   .js .signature.will-arrive .signature__label,
   .js .signature.arrived .signature__label,
   .js .signature.will-arrive .signature__line,
