@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Engineering — JEEV TECH</title>
   <meta name="description"
-    content="How JEEV TECH builds: first principles, systems thinking, long-term design, reliability, simplicity, documentation, and human-centred decisions.">
+    content="How JEEV TECH builds: first principles, systems thinking, long-term design, reliability, simplicity, documentation, and honest measurement.">
   <!-- Canonical host is the apex, jeevtech.in. www must 301-redirect to it or these become split URLs. -->
   <link rel="canonical" href="https://jeevtech.in/engineering">
   <meta name="theme-color" content="#F7F7F5">
@@ -18,7 +18,7 @@
   <meta property="og:site_name" content="JEEV TECH">
   <meta property="og:title" content="Engineering — JEEV TECH">
   <meta property="og:description"
-    content="How JEEV TECH builds: first principles, systems thinking, long-term design, reliability, simplicity, documentation, and human-centred decisions.">
+    content="How JEEV TECH builds: first principles, systems thinking, long-term design, reliability, simplicity, documentation, and honest measurement.">
   <meta property="og:url" content="https://jeevtech.in/engineering">
   <meta property="og:image" content="https://jeevtech.in/img/og-image.png">
   <meta property="og:image:width" content="1200">
@@ -143,10 +143,10 @@
                     <text class="dg-stage__name" x="148" y="311">Build</text>
                     <text class="dg-note" x="612" y="311" text-anchor="end">Reliability</text>
                   </a>
-                  <a href="#p-human" class="dg-stage dg-step" style="--i:6">
+                  <a href="#p-measure" class="dg-stage dg-step" style="--i:6">
                     <circle class="dg-dot" cx="120" cy="358" r="4.5" />
                     <text class="dg-stage__name" x="148" y="363">Validate</text>
-                    <text class="dg-note" x="612" y="363" text-anchor="end">Human-centred decisions</text>
+                    <text class="dg-note" x="612" y="363" text-anchor="end">Honest measurement</text>
                   </a>
                   <a href="#p-docs" class="dg-stage dg-step" style="--i:7">
                     <circle class="dg-dot" cx="120" cy="410" r="4.5" />
@@ -196,10 +196,10 @@
                     <text class="dg-stage__name" x="48" y="364">Build</text>
                     <text class="dg-note" x="48" y="384">Reliability</text>
                   </a>
-                  <a href="#p-human" class="dg-stage dg-step" style="--i:6">
+                  <a href="#p-measure" class="dg-stage dg-step" style="--i:6">
                     <circle class="dg-dot" cx="28" cy="424" r="4.5" />
                     <text class="dg-stage__name" x="48" y="430">Validate</text>
-                    <text class="dg-note" x="48" y="450">Human-centred decisions</text>
+                    <text class="dg-note" x="48" y="450">Honest measurement</text>
                   </a>
                   <a href="#p-docs" class="dg-stage dg-step" style="--i:7">
                     <circle class="dg-dot" cx="28" cy="490" r="4.5" />
@@ -340,8 +340,9 @@
                 <p class="areas__name">Long-term design<span class="areas__tag">Governs: design</span></p>
                 <p class="areas__note">
                   Some decisions are cheap to change later and some are not, and the two deserve different amounts of
-                  argument. A feature can be withdrawn next quarter. A data model, a public interface, or anything
-                  holding a person&#8217;s records will still be there in ten years, and every later decision gets built
+                  argument. A feature can be withdrawn next quarter. A data model, a public interface, anything
+                  holding a person&#8217;s records, or anything released into a living system will still be there in
+                  ten years, and every later decision gets built
                   on top of it. The test: before committing, ask what it would take to undo this &mdash; and let the
                   answer set how much evidence you need first.
                 </p>
@@ -384,14 +385,18 @@
 
             <p class="phase-label">Evaluate</p>
             <ul class="areas">
-              <li class="areas__item" id="p-human">
-                <p class="areas__name">Human-centred decisions<span class="areas__tag">Governs: validate</span></p>
+              <li class="areas__item" id="p-measure">
+                <p class="areas__name">Honest measurement<span class="areas__tag">Governs: validate</span></p>
                 <p class="areas__note">
                   What gets measured determines what gets built, so the choice of number is a design decision and gets
                   argued like one. The number we optimise is whether the person finished what they came to do &mdash;
-                  not how long they stayed or how often they returned. Time spent is a diagnostic here, never a target.
-                  The test: if a change improves our numbers by making someone need us more, say so out loud in review
-                  and justify it on its own merits.
+                  not how long they stayed or how often they returned; time spent is a diagnostic here, never a target.
+                  The harder half is what no number will show. A cost that lands on something which cannot report it
+                  produces no complaint and no movement in any metric, so waiting for the data is the same as deciding
+                  it does not matter. The test: if a change improves our numbers by making someone need us more, say so
+                  out loud and justify it on its own merits &mdash; and if the honest answer to who would notice this
+                  going wrong is no one who can tell us, that case gets argued in words at review rather than waited
+                  for in the numbers.
                 </p>
               </li>
             </ul>
