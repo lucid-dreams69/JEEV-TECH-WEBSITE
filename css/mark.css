@@ -676,6 +676,20 @@ html:has(body.mark-page) {
   color: var(--muted-invert);
 }
 
+/* The section is full-bleed and owns its own ground, so it must never be the
+   thing that moves or fades. The generic arrival treatment starts an element
+   at opacity 0 and 10px low; applied here that opened a 10px strip of the
+   light page between this section and the dark band above it, and showed the
+   page through the section itself until the animation finished — a white line
+   sliding up behind the mark. .alone keeps will-arrive as the state hook its
+   three children animate from, and stays exactly where it is.
+   transform: none is safe in this selector because it cannot match anything
+   inside an SVG; the rule elsewhere against writing transform is about that. */
+.js .alone.will-arrive {
+  opacity: 1;
+  transform: none;
+}
+
 .js .alone.will-arrive .alone__eyebrow,
 .js .alone.will-arrive .alone__line {
   opacity: 0;
