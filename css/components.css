@@ -526,12 +526,23 @@ button.prominent-link {
     0 6px 16px -8px rgba(26, 29, 31, 0.20);
 }
 
+/* The name sits under its icon, not under the column's left edge: Servizo is
+   narrower than the 96px circle and Servizo Pro is wider, so left-aligning
+   both leaves each one off its own axis in opposite directions. Centring the
+   item centres whichever of the two is narrower against the other. */
+.app-lockup__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .app-lockup__name {
   font-family: var(--font-display);
   font-size: var(--text-h3);
   font-weight: 500;
   margin-top: var(--space-md);
   margin-bottom: 0;
+  text-align: center;
 }
 
 /* ---- Site Footer ---- */
