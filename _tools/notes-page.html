@@ -1,3 +1,28 @@
+<!--
+  ARCHIVE — the /notes page, taken off the site on 26 August 2026. Not because
+  the note in it was wrong, but because the page advertised "engineering
+  decisions, product reasoning, research notes, and the things we got wrong"
+  and held one entry. A page that promises a body of work it does not have is
+  the same failure as a claim that cannot be checked.
+
+  Nothing here is served: _tools/ is in .vercelignore.
+
+  To put it back: copy this file to notes.html, delete this comment, and
+  restore the three things that were unpicked when it came down.
+    1. The nav link, in the header and the footer of all eleven pages:
+         <a href="/notes" class="site-nav__link">Notes</a>      (header, after Engineering)
+         <a href="/notes">Notes</a>                             (footer, after Engineering)
+       On notes.html itself the header link carries
+         class="site-nav__link site-nav__link--active" aria-current="page"
+    2. The sitemap entry, priority 0.8.
+    3. engineering.html, end of the Documentation practice, which read:
+         ...well enough ourselves. The <a href="/notes">notes</a> are the
+         public subset of this.
+       The last sentence was dropped when it had nothing to point at.
+
+  The second entry, "Why Servizo takes no commission", is archived separately
+  as notes-no-commission.html and is not in this file.
+-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,7 +48,7 @@
   <meta property="og:image" content="https://jeevtech.in/img/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="JEEV TECH — Engineering human-centric technologies that advance civilization.">
+  <meta property="og:image:alt" content="JEEV TECH — Engineering life-centric technologies that advance civilization.">
   <meta name="twitter:card" content="summary_large_image">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@graph":[
@@ -62,7 +87,6 @@
         <a href="/servizo" class="site-nav__link">Servizo</a>
         <a href="/research" class="site-nav__link">Research</a>
         <a href="/engineering" class="site-nav__link">Engineering</a>
-        <a href="/notes" class="site-nav__link site-nav__link--active" aria-current="page">Notes</a>
         <a href="/about" class="site-nav__link">About</a>
         <a href="/mark" class="site-nav__link">The Mark</a>
         <a href="/contact" class="site-nav__link">Contact</a>
@@ -147,41 +171,6 @@
           </div>
         </section>
 
-        <section class="section" aria-labelledby="note-no-commission">
-          <p class="section__label"><time datetime="2026-08-07">7 August 2026</time></p>
-          <div class="section__body">
-            <h2 id="note-no-commission" class="section__heading">Why Servizo takes no commission</h2>
-            <p class="note-meta"><span class="note-meta__tag">Decision</span><span class="note-meta__tag">Business
-                model</span><span class="note-meta__time">1 min read</span></p>
-            <details class="note">
-              <summary class="note__summary">Read the note</summary>
-              <div class="note__body">
-                <p>
-                  The default model for a service platform is a percentage of every transaction. It is simple to
-                  explain,
-                  it scales with usage, and it is what investors expect to see.
-                </p>
-                <p>
-                  We asked a narrower question: what is the platform actually being paid for? The answer is the software
-                  —
-                  verification, scheduling, documentation, the record a professional builds. It is not the work itself,
-                  which the professional does. Charging a share of that work would be charging for something we did not
-                  do,
-                  and it would make our revenue rise as the professional's margin falls.
-                </p>
-                <p>
-                  So Servizo charges a subscription for the tools and takes nothing from the job. Customers pay no
-                  platform
-                  fee today; if one becomes necessary to run the infrastructure, it will be introduced for that reason
-                  and
-                  stated plainly. We are paid for the software rather than a share of the work: what we earn tracks how
-                  useful the tools are, not how much the professional was paid for the job.
-                </p>
-              </div>
-            </details>
-          </div>
-        </section>
-
       </div>
     </div>
   </main>
@@ -199,7 +188,6 @@
         <a href="/servizo">Servizo</a>
         <a href="/research">Research directions</a>
         <a href="/engineering">Engineering</a>
-        <a href="/notes">Notes</a>
         <a href="/about">About</a>
         <a href="/mark">The Mark of JEEV</a>
         <a href="/contact">Contact</a>
@@ -212,7 +200,7 @@
       </div>
 
       <p class="site-footer__meta">
-        &copy; 2025 JEEV TECH &middot; Incorporated in India
+        &copy; 2026 JEEV TECH &middot; Incorporated in India
       </p>
     </div>
   </footer>

@@ -8,10 +8,10 @@ served page pointed at a host that bounced straight back to it. Google had
 indexed the www URL, which meant `www.jeevtech.in/favicon.ico` — the icon it
 fetches for the search result — was a redirect rather than an image, and the
 result showed the placeholder globe. Changing the host means changing all of
-it: 10 pages, `sitemap.xml`, `robots.txt`, and the Vercel primary domain.
+it: 9 pages, `sitemap.xml`, `robots.txt`, and the Vercel primary domain.
 
 Plain static HTML / CSS / vanilla JS. **No build step, no framework, no
-dependencies.** Eleven pages, all hand-written; CSS is split by concern under
+dependencies.** Ten pages, all hand-written; CSS is split by concern under
 `css/` and loaded in order (tokens → reset → base → layout → components →
 diagram → signature → responsive), so later files win on equal specificity.
 `/mark` adds `css/mark.css` and `js/mark.js` after those, and nothing else
@@ -173,11 +173,14 @@ Two consequences worth knowing:
     JEEV TECH has no descender** — the caps run 1..633 of a 639-unit drawing,
     so the mask's box *is* the cap box. A drawing with a descender would need
     the box shifted; this one does not.
-  - **The name is hidden between 769 and 1024px, and nowhere else.** Eight
-    inline links leave 45px beside the emblem at 820px and nothing at 769px;
-    the name is 108px wide, so no size fits. Below 769 the nav goes behind the
-    menu button and the name comes back. If a nav link is ever added, re-measure
-    that band before anything else.
+  - **The name is hidden between 769 and 1024px, and nowhere else.** That was
+    measured with eight inline links, which left 45px beside the emblem at
+    820px and nothing at 769px against a name 108px wide. Notes came out of the
+    nav on 26 August 2026 and seven links now leave 200px at 820 and 149px at
+    769, so the rule is no longer earning its keep — the name would fit. It is
+    still in force; removing it is a live decision, not an oversight. Below 769
+    the nav goes behind the menu button and the name comes back. Re-measure
+    that band whenever a nav link is added or removed.
 - **The favicon is the mark's silhouette, and that is not the same asset as
   the header's.** Shading is what dies at 16px, not the mark — one flat shape
   survives where the render is grey mush. `img/icon.svg` is the one browsers
@@ -216,6 +219,16 @@ Two consequences worth knowing:
   the left of it, and `text-align: center` then centres the line on the
   paragraph, not on the block. Any centred composition needs `max-width: none`
   on its prose.
+- **`/notes` is archived, not deleted.** The page came off the nav, the footer
+  and the sitemap on 26 August 2026 because it promised "engineering decisions,
+  product reasoning, research notes, and the things we got wrong" and held one
+  entry; `/notes` now 404s. Both it and its second entry sit in `_tools/`, each
+  with a header saying exactly what to restore. `engineering.html` lost its
+  closing sentence about the notes being the public subset of the documentation
+  practice, because it had nothing to point at.
+- **`css/components.css` is the one file in the repo with CRLF line endings.**
+  Rewriting it with LF turns a three-line edit into a 1,900-line diff. Check
+  before committing.
 - **`privacy.html` claims no cookies, no analytics, no third-party requests.**
   Re-verify it against the code before adding any script, embed or hosted asset.
 - **Never delete a source image after converting it.**

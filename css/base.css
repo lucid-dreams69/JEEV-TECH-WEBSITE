@@ -244,3 +244,10 @@ em {
   white-space: nowrap;
   border: 0;
 }
+
+/* A hyphenated compound is one word to a reader, and a hero that breaks it
+   across two lines reads as two. Narrow enough at every size that holding it
+   together costs nothing. */
+.nowrap {
+  white-space: nowrap;
+}

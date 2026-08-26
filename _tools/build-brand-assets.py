@@ -551,8 +551,8 @@ def build_og(mark, word):
         font.set_variation_by_axes([400])
     except Exception:
         pass
-    for i, line in enumerate(["Engineering human-centric",
-                              "technologies that advance civilization."]):
+    for i, line in enumerate(["Engineering life-centric",
+                              "technologies that advance civilization"]):
         d.text((M, 196 + i * 82), line, font=font, fill=INK)
 
     d.line([(M, 404), (M + 584, 404)], fill=INK, width=2)
