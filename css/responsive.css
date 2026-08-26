@@ -143,6 +143,16 @@
     min-height: 44px;
   }
 
+  /* The two app icons sit side by side at every width — 80px each leaves
+     room for both names on a 320 screen. */
+  .app-lockup {
+    gap: var(--space-xl);
+  }
+
+  .app-lockup__icon {
+    width: 80px;
+  }
+
   .band {
     padding: var(--space-3xl) 0;
   }
