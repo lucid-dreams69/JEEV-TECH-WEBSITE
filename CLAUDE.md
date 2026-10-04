@@ -239,6 +239,17 @@ Two consequences worth knowing:
   before committing.
 - **`privacy.html` claims no cookies, no analytics, no third-party requests.**
   Re-verify it against the code before adding any script, embed or hosted asset.
+- **JEEV TECH is a sole proprietorship, and the site must not say otherwise.**
+  Every page said "Incorporated in India" until 4 October 2026 — the footer on
+  all eleven, the About prose and both cuts of its timeline, two meta
+  descriptions and the home page register, about twenty claims. It was wrong:
+  a sole proprietorship is not incorporated, and the readers this site is aimed
+  at — government buyers and investors — are the ones who check first. The
+  footer now reads "A sole proprietorship in India" and the timeline milestone
+  is "Founded". The JSON-LD `Organization` type is fine and stays; a
+  proprietorship is an organization. If the legal form changes, change the site
+  the same day, and change `Identity/Identity Index.md` in the vault with it —
+  the two disagreed for long enough to ship.
 - **Never delete a source image after converting it.**
 
 ## Voice

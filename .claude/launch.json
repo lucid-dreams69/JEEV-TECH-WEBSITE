@@ -4,8 +4,23 @@
     {
       "name": "jeevtech-site",
       "runtimeExecutable": "python",
-      "runtimeArgs": ["_tools/serve.py", "8737"],
+      "runtimeArgs": [
+        "_tools/serve.py",
+        "8737"
+      ],
       "port": 8737
+    },
+    {
+      "name": "brochure-preview",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8765",
+        "--directory",
+        "C:/Users/sanje/AppData/Local/Temp/claude/C--Users-sanje-Downloads-JEEV-TECH-web-site/2a53e0b7-d4e9-4d20-b1cb-a2df9d3ca58b/scratchpad/brochure"
+      ],
+      "port": 8765
     }
   ]
 }
