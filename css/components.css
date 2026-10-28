@@ -515,6 +515,10 @@ button.prominent-link {
   flex-wrap: wrap;
   gap: var(--space-2xl);
   margin-top: var(--space-2xl);
+  /* The names sit directly under the marks, so prose following the lockup
+     needs the same air above it that the lockup has, or it reads as a caption
+     belonging to the second icon. */
+  margin-bottom: var(--space-2xl);
 }
 
 .app-lockup__icon {

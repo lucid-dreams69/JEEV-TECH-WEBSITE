@@ -310,8 +310,7 @@
           <div class="section__body">
             <h2 id="eng-practices" class="section__heading">Seven practices, in five phases</h2>
             <p>
-              Each practice governs a stage of the process above. Each is written as a test — something that can be
-              checked against a specific decision, and that can be failed.
+              Each practice governs a stage of the process above.
             </p>
 
             <p class="phase-label">Understand</p>
@@ -320,18 +319,16 @@
                 <p class="areas__name">Systems thinking<span class="areas__tag">Governs: understand the system</span>
                 </p>
                 <p class="areas__note">
-                  The unit of work is the system a change lands in, not the change itself. Before altering anything we
-                  establish what depends on it and what it depends on &mdash; a list that runs past the software to the
-                  people doing the work, and past them to the physical world underneath. The test: if a change requires
-                  a diagram to explain its consequences, the diagram gets drawn before the change gets made.
+                  The unit of work is the system a change lands in, not the change itself. Before altering
+                  anything we establish what depends on it and what it depends on &mdash; a list that runs past
+                  the software to the people doing the work, and past them to the physical world underneath.
                 </p>
               </li>
               <li class="areas__item" id="p-first">
                 <p class="areas__name">First principles<span class="areas__tag">Governs: find the root cause</span></p>
                 <p class="areas__note">
-                  Before deciding whether to keep a system, establish why it exists and how it actually works — not how
-                  it is described. Inherited designs carry assumptions that were true once. The test: state the
-                  original constraint that produced the design, and check whether it still holds.
+                  Before deciding whether to keep a system, establish why it exists and how it actually works —
+                  not how it is described. Inherited designs carry assumptions that were true once.
                 </p>
               </li>
             </ul>
@@ -341,20 +338,17 @@
               <li class="areas__item" id="p-longterm">
                 <p class="areas__name">Long-term design<span class="areas__tag">Governs: design</span></p>
                 <p class="areas__note">
-                  Some decisions are cheap to change later and some are not, and the two deserve different amounts of
-                  argument. A feature can be withdrawn next quarter. A data model, a public interface, anything
-                  holding a person&#8217;s records, or anything released into a living system will still be there in
-                  ten years, and every later decision gets built
-                  on top of it. The test: before committing, ask what it would take to undo this &mdash; and let the
-                  answer set how much evidence you need first.
+                  Some decisions are cheap to change later and some are not, and the two deserve different
+                  amounts of argument. A feature can be withdrawn next quarter. A data model, a public
+                  interface, anything holding a person&#8217;s records, or anything released into a living
+                  system will still be there in ten years, and every later decision gets built on top of it.
                 </p>
               </li>
               <li class="areas__item" id="p-simplicity">
                 <p class="areas__name">Simplicity<span class="areas__tag">Governs: design</span></p>
                 <p class="areas__note">
-                  The smallest system that solves the problem is the one most likely to still be understood in five
-                  years, so complexity has to be argued for rather than assumed. The test: if a new component cannot be
-                  justified by a requirement that already exists, it does not get built yet.
+                  The smallest system that solves the problem is the one most likely to still be understood in
+                  five years, so complexity has to be argued for rather than assumed.
                 </p>
               </li>
             </ul>
@@ -365,9 +359,7 @@
                 <p class="areas__name">Reliability<span class="areas__tag">Governs: build</span></p>
                 <p class="areas__note">
                   People use this software to earn a living, so a failure costs them more than it costs us.
-                  Correctness comes before new features when the two compete for the same week. The test: severity is
-                  ranked by what a failure costs the person using the system, not by how loudly it is reported or how
-                  awkward it is for us to reach.
+                  Correctness comes before new features when the two compete for the same week.
                 </p>
               </li>
             </ul>
@@ -378,10 +370,8 @@
                 <p class="areas__name">Documentation<span class="areas__tag">Governs: document</span></p>
                 <p class="areas__note">
                   Good engineering leaves a record. We write down what changed, why it changed, the alternatives
-                  considered, the evidence used, and what would make us reverse the decision. That last part is what
-                  makes a document useful two years later. The test: if we cannot explain our reasoning clearly, we
-                  probably have not understood it well enough ourselves. The <a href="/notes">notes</a> are the
-                  public subset of this.
+                  considered, the evidence used, and what would make us reverse the decision. That last part is
+                  what makes a document useful two years later. The notes are the public subset of this.
                 </p>
               </li>
             </ul>
@@ -391,15 +381,14 @@
               <li class="areas__item" id="p-measure">
                 <p class="areas__name">Honest measurement<span class="areas__tag">Governs: validate</span></p>
                 <p class="areas__note">
-                  What gets measured determines what gets built, so the choice of number is a design decision and gets
-                  argued like one. The number we optimise is whether the person finished what they came to do &mdash;
-                  not how long they stayed or how often they returned; time spent is a diagnostic here, never a target.
-                  The harder half is what no number will show. A cost that lands on something which cannot report it
-                  produces no complaint and no movement in any metric, so waiting for the data is the same as deciding
-                  it does not matter. The test: if a change improves our numbers by making someone need us more, say so
-                  out loud and justify it on its own merits &mdash; and if the honest answer to who would notice this
-                  going wrong is no one who can tell us, that case gets argued in words at review rather than waited
-                  for in the numbers.
+                  What gets measured determines what gets built, so the choice of number is a design decision
+                  and gets argued like one. The number we optimise is whether the person finished what they came
+                  to do &mdash; not how long they stayed or how often they returned; time spent is a diagnostic
+                  here, never a target. The harder half is what no number will show. A cost that lands on
+                  something which cannot report it produces no complaint and no movement in any metric, so
+                  waiting for the data is the same as deciding it does not matter. If the honest answer to who
+                  would notice this going wrong is no one who can tell us, that case gets argued in words at
+                  review rather than waited for in the numbers.
                 </p>
               </li>
             </ul>
@@ -417,12 +406,9 @@
               outside service is told who visited.
             </p>
             <p>
-              It is also plain HTML and CSS with no build step, and nine kilobytes of JavaScript on every page but
-              /mark, which needs eighteen more to drive its camera. A text page costs about a hundred and forty
-              kilobytes on a first visit — three quarters of that the three fonts and the logo — and two to seven
-              afterwards, once those are cached. Pages carrying pictures cost what the pictures cost; /mark, which is
-              about a rendered object, is the heaviest at roughly seven hundred. That is a small thing, but it is
-              checkable, which is the point.
+              It is also plain HTML and CSS with a few kilobytes of JavaScript, and no build step. Most of what a
+              first visit costs is the three fonts and the logo, and they are cached from then on. That is a small
+              thing, but it is checkable, which is the point.
             </p>
           </div>
         </section>
@@ -435,7 +421,7 @@
     <div class="site-footer__inner">
       <div class="site-footer__brand">
         <span class="site-footer__wordmark">JEEV <span class="wordmark__descriptor">TECH</span></span>
-        <span class="site-footer__tagline">Technology is the medium<br>Human progress is the objective</span>
+        <span class="site-footer__tagline">Technology is the medium<br>Life is the objective</span>
       </div>
 
       <nav class="site-footer__nav" aria-label="Footer navigation">
@@ -456,7 +442,7 @@
       </div>
 
       <p class="site-footer__meta">
-        &copy; 2026 JEEV TECH &middot; A sole proprietorship in India
+        &copy; 2026 JEEV TECH &middot; India
       </p>
     </div>
   </footer>
